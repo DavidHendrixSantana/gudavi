@@ -5,9 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Schedule extends Model
+class Day extends Model
 {
     use HasFactory;
-    protected $table = 'schedules_teachers';
+    protected $table = 'days';
     protected $guarded = [];
+
+    public function teacher(){
+        return $this->belongsToMany(Teacher::class);
+    }
 }

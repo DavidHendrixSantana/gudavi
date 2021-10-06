@@ -18,6 +18,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::resource('schedule', App\Http\Controllers\SchedulesController::class)->only(['index','store','show','update','destroy']);;
-Route::resource('person', App\Http\Controllers\PersonController::class)->only(['index','store','show','update','destroy']);;
+Route::resource('schedule', App\Http\Controllers\SchedulesController::class)->only(['index','create','store','show','update','destroy']);;
+
+//Routes person
+Route::resource('person', App\Http\Controllers\PersonController::class)->only(['index','create','store','show','update','destroy']);;
+
 Route::resource('teacher', App\Http\Controllers\TeacherController::class)->only(['index','create','store','show','update','destroy']);;

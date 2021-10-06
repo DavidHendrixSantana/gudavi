@@ -28,7 +28,7 @@ class CreatePersonsTable extends Migration
             $table->date('fecha_inicio');
             $table->string('enfermedad');
             $table->string('nivel');
-
+            $table->integer('clases_semanales');
             $table->timestamps();
         });
         

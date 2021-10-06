@@ -29,7 +29,7 @@
                                     <label>Horario </label>
 
                                     <select v-model="teacher.schedule_id" name="teacher_id" id="teacher_id">
-                                        <option v-for="schedule in schedules" :value="schedule.id" :key="schedule.id"> {{schedule.Hora_inicio}}</option>
+                                        <option v-for="schedule in schedules" :value="schedule.id" :key="schedule.id">{{schedule.Dias}} {{schedule.Hora_inicio}}</option>
                                     </select>
                                     
                                 

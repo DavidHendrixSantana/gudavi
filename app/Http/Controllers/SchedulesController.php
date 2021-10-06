@@ -38,11 +38,12 @@ class SchedulesController extends Controller
     public function store(Request $request)
     {
         try {
-            $horario = $request['Hora_inicio'].'  '.$request['Hora_inicio'];
-            $schedule= Schedule::create([
-               
-                'Hora_inicio' => $horario,
-            ]);
+            $horario = $request['Hora_inicio'].'-'.$request['Hora_inicio'];
+        
+
+            $dias = $request['Dia_inicio'].'-'.$request['Dia_final'];
+            
+            $schedule= Schedule::create($request->all());
     
             return response()->json([
                 'schedule' => $schedule,

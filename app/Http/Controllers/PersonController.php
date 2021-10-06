@@ -4,6 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Person;
+use App\Models\Teacher;
+use App\Models\Day;
+use App\Models\Clase;
+use App\Models\Day_clase;
+use Illuminate\Support\Facades\DB;
 
 class PersonController extends Controller
 {
@@ -26,7 +31,10 @@ class PersonController extends Controller
      */
     public function create()
     {
-        //
+        $teachers = Teacher::all();
+        return response()->json([
+            'teachers'=> $teachers
+        ]);
     }
 
     /**
@@ -93,6 +101,20 @@ class PersonController extends Controller
 
             'mensaje' =>'Eliminado'
         ]);
+
+    }
+
+    public function ShowDays(Request $request, $id){
+        $days =Day::where('teacher_id', $id)->get();
+
+        return response()->json(['days' => $days]);
+
+    }
+
+    public function ShowClasses(Request $request, $id){
+        $clases = DB::select('select * from classes where id not in (select id from days_classes)');
+
+        return response()->json(['clases' => $clases]);
 
     }
 }

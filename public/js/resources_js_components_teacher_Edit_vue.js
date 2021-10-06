@@ -1155,7 +1155,14 @@ var render = function() {
                             key: schedule.id,
                             domProps: { value: schedule.id }
                           },
-                          [_vm._v(" " + _vm._s(schedule.Hora_inicio))]
+                          [
+                            _vm._v(
+                              " " +
+                                _vm._s(schedule.Dias) +
+                                " " +
+                                _vm._s(schedule.Hora_inicio)
+                            )
+                          ]
                         )
                       }),
                       0

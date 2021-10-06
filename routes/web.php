@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PersonController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('person/ShowDays/{id}', [PersonController::class, 'ShowDays'])->name('ShowDays');
+Route::get('person/ShowClasses/{id}', [PersonController::class, 'ShowClasses'])->name('ShowClasses');
 
 
 Route::get('{any}', function () {

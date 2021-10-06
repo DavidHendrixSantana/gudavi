@@ -1,23 +1,79 @@
-
 <template>
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-header"><h4>Editar Horario</h4></div>
                 <div class="card-body">
-                    <form @submit.prevent="actualizar">
-                         <div class="row">
+                    <form @submit.prevent="Actualizar">
+                        <div class="row">
                             <div class="col-12 mb-2">
                                 <div class="form-group">
                                     <label>Hora Inicio</label>
-                                    <input type="time" class="form-control" v-model="schedule.Hora_inicio">
+                                    <input
+                                        type="time"
+                                        class="form-control"
+                                        v-model="schedule.Hora_inicio"
+                                    />
                                 </div>
                             </div>
-                          
-                            <div class="col-12">
-                                <button type="submit" class="btn btn-primary">Guardar</button>
+                            <div class="col-12 mb-2">
+                                <div class="form-group">
+                                    <label>Hora final</label>
+                                    <input
+                                        type="time"
+                                        class="form-control"
+                                        v-model="schedule.Hora_final"
+                                    />
+                                </div>
                             </div>
-                        </div>                         
+                            <div class="col-12 mb-2">
+                                <div class="form-group">
+                                    <label>Día inicio</label>
+                                    <select
+                                        class="form-control"
+                                        name="Dia_inicio"
+                                        id="Dia_inicio"
+                                        v-model="schedule.Dia_inicio"
+                                    >
+                                        <option value="Lunes">Lunes</option>
+                                        <option value="Martes">Martes</option>
+                                        <option value="Miercoles"
+                                            >Miercoles</option
+                                        >
+                                        <option value="Jueves">Jueves</option>
+                                        <option value="Viernes">Viernes</option>
+                                        <option value="Sabado">Sabado</option>
+                                        <option value="Domingo">Domingo</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12 mb-2">
+                                <div class="form-group">
+                                    <label>Día Final</label>
+                                    <select
+                                        class="form-control"
+                                        name="Dia_final"
+                                        id="Dia_final"
+                                        v-model="schedule.Dia_final"
+                                    >
+                                        <option value="Lunes">Lunes</option>
+                                        <option value="Martes">Martes</option>
+                                        <option value="Miercoles"
+                                            >Miercoles</option
+                                        >
+                                        <option value="Jueves">Jueves</option>
+                                        <option value="Viernes">Viernes</option>
+                                        <option value="Sabado">Sabado</option>
+                                        <option value="Domingo">Domingo</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary">
+                                    Guardar
+                                </button>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -27,35 +83,50 @@
 
 <script>
 export default {
-    name:"editar-schedule",
-    data(){
+    name: "editar-schedule",
+    data() {
         return {
-            schedule:{
-                Hora_inicio:"",
-           
+            schedule: {
+                Hora_inicio: "",
+                Hora_final: "",
+                Dia_inicio: "",
+                Dia_final: ""
             }
-        }
+        };
     },
-    mounted(){
-        this.mostrarschedule()
+    mounted() {
+        this.mostrarschedule();
     },
-    methods:{
-        async mostrarschedule(){
-            await this.axios.get(`/api/schedule/${this.$route.params.id}`).then(response=>{
-                const { Hora_inicio} = response.data
-                this.schedule.Hora_inicio = Hora_inicio
-                
-            }).catch(error=>{
-                console.log(error)
-            })
+    methods: {
+        async mostrarschedule() {
+            await this.axios
+                .get(`/api/schedule/${this.$route.params.id}`)
+                .then(response => {
+                    const {
+                        Hora_inicio,
+                        Hora_final,
+                        Dia_inicio,
+                        Dia_final
+                    } = response.data;
+                    this.schedule.Hora_inicio = Hora_inicio;
+                    this.schedule.Hora_final = Hora_final;
+                    this.schedule.Dia_inicio = Dia_inicio;
+                    this.schedule.Dia_final = Dia_final;
+                })
+                .catch(error => {
+                    console.log(error);
+                });
         },
-        async actualizar(){
-            await this.axios.put(`/api/schedule/${this.$route.params.id}`,this.schedule).then(response=>{
-                this.$router.push({name:"indexSchedule"})
-            }).catch(error=>{
-                console.log(error)
-            })
+        async actualizar() {
+            await this.axios
+                .put(`/api/schedule/${this.$route.params.id}`, this.schedule)
+                .then(response => {
+                    this.$router.push({ name: "indexSchedule" });
+                })
+                .catch(error => {
+                    console.log(error);
+                });
         }
     }
-}
+};
 </script>

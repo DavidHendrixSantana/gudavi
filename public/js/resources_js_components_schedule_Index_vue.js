@@ -50,6 +50,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "schedules",
   data: function data() {
@@ -64,7 +74,7 @@ __webpack_require__.r(__webpack_exports__);
     mostrarSchedules: function mostrarSchedules() {
       var _this = this;
 
-      this.axios.get('/api/schedule').then(function (response) {
+      this.axios.get("/api/schedule").then(function (response) {
         _this.schedules = response.data;
       })["catch"](function (error) {
         console.log(error);
@@ -170,7 +180,7 @@ var render = function() {
             staticClass: "btn btn-sucess",
             attrs: { to: { name: "createSchedule" } }
           },
-          [_c("i", { staticClass: "fas fa-plus-circle" }), _vm._v("  Nuevo")]
+          [_c("i", { staticClass: "fas fa-plus-circle" }), _vm._v(" Nuevo")]
         )
       ],
       1
@@ -187,7 +197,25 @@ var render = function() {
               return _c("tr", { key: schedule.id }, [
                 _c("td", [_vm._v(_vm._s(schedule.id))]),
                 _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(schedule.Hora_inicio))]),
+                _c("td", [
+                  _vm._v(
+                    "\n                            " +
+                      _vm._s(schedule.Dia_inicio) +
+                      "-\n                            " +
+                      _vm._s(schedule.Dia_final) +
+                      "\n                        "
+                  )
+                ]),
+                _vm._v(" "),
+                _c("td", [
+                  _vm._v(
+                    "\n                            " +
+                      _vm._s(schedule.Hora_inicio) +
+                      "-\n                            " +
+                      _vm._s(schedule.Hora_final) +
+                      "\n                        "
+                  )
+                ]),
                 _vm._v(" "),
                 _c(
                   "td",
@@ -226,7 +254,9 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", [_vm._v("Id")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Hora Inicio")])
+        _c("th", [_vm._v("Dias")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Horario")])
       ])
     ])
   }

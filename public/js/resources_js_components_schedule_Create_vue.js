@@ -64,13 +64,40 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "create-schedule",
   data: function data() {
     return {
       schedule: {
         Hora_inicio: "",
-        Hora_final: ""
+        Hora_final: "",
+        Dia_inicio: "",
+        Dia_final: ""
       }
     };
   },
@@ -88,9 +115,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   _this.$router.push({
                     name: "indexSchedule"
                   });
-                })["catch"](function (response) {
-                  console.log(response.error);
-                });
+                })["catch"](function (response) {});
 
               case 2:
               case "end":
@@ -1036,6 +1061,146 @@ var render = function() {
                         }
                       }
                     })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-12 mb-2" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v("Día inicio")]),
+                    _vm._v(" "),
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.schedule.Dia_inicio,
+                            expression: "schedule.Dia_inicio"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { name: "Dia_inicio", id: "Dia_inicio" },
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.$set(
+                              _vm.schedule,
+                              "Dia_inicio",
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
+                          }
+                        }
+                      },
+                      [
+                        _c("option", { attrs: { value: "Lunes" } }, [
+                          _vm._v("Lunes")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "Martes" } }, [
+                          _vm._v("Martes")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "Miercoles" } }, [
+                          _vm._v("Miercoles")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "Jueves" } }, [
+                          _vm._v("Jueves")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "Viernes" } }, [
+                          _vm._v("Viernes")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "Sabado" } }, [
+                          _vm._v("Sabado")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "Domingo" } }, [
+                          _vm._v("Domingo")
+                        ])
+                      ]
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-12 mb-2" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v("Día Final")]),
+                    _vm._v(" "),
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.schedule.Dia_final,
+                            expression: "schedule.Dia_final"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { name: "Dia_final", id: "Dia_final" },
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.$set(
+                              _vm.schedule,
+                              "Dia_final",
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
+                          }
+                        }
+                      },
+                      [
+                        _c("option", { attrs: { value: "Lunes" } }, [
+                          _vm._v("Lunes")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "Martes" } }, [
+                          _vm._v("Martes")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "Miercoles" } }, [
+                          _vm._v("Miercoles")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "Jueves" } }, [
+                          _vm._v("Jueves")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "Viernes" } }, [
+                          _vm._v("Viernes")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "Sabado" } }, [
+                          _vm._v("Sabado")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "Domingo" } }, [
+                          _vm._v("Domingo")
+                        ])
+                      ]
+                    )
                   ])
                 ]),
                 _vm._v(" "),
