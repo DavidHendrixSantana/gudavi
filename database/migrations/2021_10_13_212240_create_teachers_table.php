@@ -18,7 +18,9 @@ class CreateTeachersTable extends Migration
             $table->string('nombre');
             $table->string('turno');
             $table->string('telefono');
-            $table->foreing('schedule_id')->reference('id')->on('schedules');
+            $table->integer('schedule_id')->unsigned();
+            $table->foreign('schedule_id')->references('id')->on('schedules_teachers');
+        
             $table->timestamps();
         });
     }

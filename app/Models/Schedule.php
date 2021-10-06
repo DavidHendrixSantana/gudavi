@@ -5,9 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Person extends Model
+class Schedule extends Model
 {
     use HasFactory;
-    protected $table = 'persons';
-    protected $guarded = [];
+    protected $table = 'schedules_teachers';
+    protected $fillable = ['Hora_inicio'];
 }
