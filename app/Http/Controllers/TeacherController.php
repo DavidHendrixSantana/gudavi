@@ -27,7 +27,7 @@ class TeacherController extends Controller
      */
     public function create()
     {
-        $schedules = Schedule::all(['id','Hora_inicio','Dias']);
+        $schedules = Schedule::all();
         return response()->json([
             
             'schedules' => $schedules,]);

@@ -165,7 +165,7 @@
                                         class="form-control"
                                     >
                                         <option value="1">1</option>
-                                        <option value="2 ">2</option>
+                                        <option value="2">2</option>
                                         <option value="3">3</option>
                                         <option
                                             v-if="person.nivel === 'Grupales'"
@@ -188,6 +188,7 @@
                                         <label>Profesor </label>
 
                                         <select
+                                        v-model="person.teacher_id"
                                             class="form-control"
                                             @change="mostrarDias($event)"
                                             name="teacher_id"
@@ -206,45 +207,226 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label>Días </label>
+                            <div  >
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>Días </label>
 
-                                        <select
-                                            class="form-control"
-                                            @change="mostrarClases($event)"
-                                        >
-                                            <option value="" selected
-                                                >Seleccione el Día</option
+                                            <select
+                                            v-model="person.day_id_1"
+                                                class="form-control"
+                                                @change="mostrarClases($event)"
                                             >
-                                            <option
-                                                v-for="day in days"
-                                                :value="day.id"
-                                                :key="day.id"
-                                                >{{ day.Dia }}
-                                            </option>
-                                        </select>
+                                                <option value="" selected
+                                                    >Seleccione el Día</option
+                                                >
+                                                <option
+                                                    v-for="day in days"
+                                                    :value="day.id"
+                                                    :key="day.id"
+                                                    >{{ day.Dia }}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>Hora de clase: </label>
+
+                                            <select class="form-control"
+                                            v-model="person.clase_id_1"
+                                            >
+                                                <option value="" selected
+                                                    >Seleccione la clase</option
+                                                >
+                                                <option
+                                                    v-for="clase in clases"
+                                                    :value="clase.id"
+                                                    :key="clase.id"
+                                                    >{{ clase.Clase }}
+                                                </option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label>Hora de clase: </label>
+                           </div>
+                           <div id="show1" v-if="person.clases_semanales >= 2 "  >
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>Días </label>
 
-                                        <select class="form-control">
-                                            <option value="" selected
-                                                >Seleccione la clase</option
+                                            <select
+                                            v-model="person.day_id_2"
+                                                class="form-control"
+                                                @change="mostrarClases($event)"
                                             >
-                                            <option
-                                                v-for="clase in clases"
-                                                :value="clase.id"
-                                                :key="clase.id"
-                                                >{{ clase.Clase }}
-                                            </option>
-                                        </select>
+                                                <option value="" selected
+                                                    >Seleccione el Día</option
+                                                >
+                                                <option
+                                                    v-for="day in days"
+                                                    :value="day.id"
+                                                    :key="day.id"
+                                                    >{{ day.Dia }}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>Hora de clase: </label>
+
+                                            <select class="form-control"
+                                            v-model="person.clase_id_2"
+                                            >
+                                                <option value="" selected
+                                                    >Seleccione la clase</option
+                                                >
+                                                <option
+                                                    v-for="clase in clases"
+                                                    :value="clase.id"
+                                                    :key="clase.id"
+                                                    >{{ clase.Clase }}
+                                                </option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                           </div>
+                           <div id="show2" v-if="person.clases_semanales >= 3"  >
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>Días </label>
+
+                                            <select
+                                            v-model="person.day_id_3"
+                                                class="form-control"
+                                                @change="mostrarClases($event)"
+                                            >
+                                                <option value="" selected
+                                                    >Seleccione el Día</option
+                                                >
+                                                <option
+                                                    v-for="day in days"
+                                                    :value="day.id"
+                                                    :key="day.id"
+                                                    >{{ day.Dia }}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>Hora de clase: </label>
+
+                                            <select class="form-control"
+                                            v-model="person.clase_id_3"
+                                            >
+                                                <option value="" selected
+                                                    >Seleccione la clase</option
+                                                >
+                                                <option
+                                                    v-for="clase in clases"
+                                                    :value="clase.id"
+                                                    :key="clase.id"
+                                                    >{{ clase.Clase }}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                           </div>
+                           <div id="show2" v-if="person.clases_semanales >= 4"  >
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>Días </label>
+
+                                            <select
+                                            v-model="person.day_id_4"
+                                                class="form-control"
+                                                @change="mostrarClases($event)"
+                                            >
+                                                <option value="" selected
+                                                    >Seleccione el Día</option
+                                                >
+                                                <option
+                                                    v-for="day in days"
+                                                    :value="day.id"
+                                                    :key="day.id"
+                                                    >{{ day.Dia }}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>Hora de clase: </label>
+
+                                            <select class="form-control"
+                                            v-model="person.clase_id_4"
+                                            >
+                                                <option value="" selected
+                                                    >Seleccione la clase</option
+                                                >
+                                                <option
+                                                    v-for="clase in clases"
+                                                    :value="clase.id"
+                                                    :key="clase.id"
+                                                    >{{ clase.Clase }}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                           </div>
+                           <div id="show2" v-if="person.clases_semanales == 5"  >
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>Días </label>
+
+                                            <select
+                                            v-model="person.day_id_5"
+                                                class="form-control"
+                                                @change="mostrarClases($event)"
+                                            >
+                                                <option value="" selected
+                                                    >Seleccione el Día</option
+                                                >
+                                                <option
+                                                    v-for="day in days"
+                                                    :value="day.id"
+                                                    :key="day.id"
+                                                    >{{ day.Dia }}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>Hora de clase: </label>
+
+                                            <select class="form-control"
+                                            v-model="person.clase_id_5"
+                                            >
+                                                <option value="" selected
+                                                    >Seleccione la clase</option
+                                                >
+                                                <option
+                                                    v-for="clase in clases"
+                                                    :value="clase.id"
+                                                    :key="clase.id"
+                                                    >{{ clase.Clase }}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                           </div>
                         </div>
                     </form>
                 </div>
@@ -268,11 +450,24 @@ export default {
                 telefono_mama: "",
                 correo_electronico: "",
                 nombre_emergencia: "",
+                clases_semanales:"",
                 telefono_emergencia: "",
                 fecha_inicio: "",
                 enfermedad: "",
-                nivel: ""
+                nivel: "",
+                day_id_1: "",
+                day_id_2: "",
+                day_id_3: "",
+                day_id_4: "",
+                day_id_5: "",
+                clase_id_1: "",
+                clase_id_2: "",
+                clase_id_3: "",
+                clase_id_4: "",
+                clase_id_5: "",
+                teacher_id: "",
             },
+          
             teachers: [],
             days: [],
             clases: []
@@ -296,6 +491,8 @@ export default {
         },
 
         async mostrarDias(event) {
+           
+
             console.log(event.target.value);
             await this.axios
                 .get(`/person/ShowDays/${event.target.value}`)
@@ -323,15 +520,16 @@ export default {
         },
 
         async crear() {
-            await this.axios
+            console.log(this.person.clases_semanales)
+
+                await this.axios
                 .post("/api/person", this.person)
-                .then(response => {
-                    this.$router.push({ name: "indexPerson" });
-                })
+               
                 .catch(error => {
                     console.log(error);
-                });
+                });    
         }
+
     }
 };
 </script>

@@ -45,7 +45,46 @@ class PersonController extends Controller
      */
     public function store(Request $request)
     {
-        $Person= Person::create($request->all());
+        $numero_clases=$request['clases_semanales'];
+        $teacher_id=$request['teacher_id'];
+        
+      
+        $Person= Person::create([
+            'nombre' =>$request['nombre'],
+            'fecha_nacimiento' =>$request['fecha_nacimiento'],
+            'nombre_papa' =>$request['nombre_papa'],
+            'edad' =>$request['edad'],
+            'telefono_papa' =>$request['telefono_papa'],
+            'nombre_mama' =>$request['nombre_mama'],
+            'telefono_mama' =>$request['telefono_mama'],
+            'correo_electronico' =>$request['correo_electronico'],
+            'nombre_emergencia' =>$request['nombre_emergencia'],
+            'telefono_emergencia' =>$request['telefono_emergencia'],
+            'fecha_inicio' =>$request['fecha_inicio'],
+            'enfermedad' =>$request['enfermedad'],
+            'nivel' =>$request['nivel'],
+            'clases_semanales' =>$request['clases_semanales'],
+        ]);
+
+        for($x=1; $x<=$numero_clases; $x++){
+
+            $clase_id=$request['clase_id_'.$x];
+            $day_id=$request['day_id_'.$x];
+
+
+            Day_clase::create([
+                'day_id' => $day_id,
+                'class_id' =>  $clase_id,
+                'person_id' => $Person->id,
+            ]);
+           
+           
+        }
+        
+
+
+        //Creamos la persona
+        //Creamos la asignación de clases
 
         return response()->json([
             'Person' => $Person,
@@ -112,7 +151,7 @@ class PersonController extends Controller
     }
 
     public function ShowClasses(Request $request, $id){
-        $clases = DB::select('select * from classes where id not in (select id from days_classes)');
+        $clases = DB::select('select * from classes where id not in (select class_id from days_classes) ');
 
         return response()->json(['clases' => $clases]);
 

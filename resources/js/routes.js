@@ -1,4 +1,5 @@
 const Home = () => import('./components/Home.vue')
+const Listado = () => import('./components/Listado.vue')
 
 //importamos los componentes para el  schedule
 const Index_schedule = () => import('./components/schedule/Index.vue')
@@ -19,6 +20,11 @@ export const routes = [
         name: 'home',
         path: '/',
         component: Home
+    },
+    {
+        name: 'listado',
+        path: '/listado',
+        component: Listado
     },
     {
         name: 'indexSchedule',

@@ -14,15 +14,19 @@
                     <li class="nav-item">
                         <router-link exact-active-class="active" to="/" class="nav-link active" aria-current="page">Inicio</router-link>
                     </li>
+                     <li class="nav-item">
+                        <router-link exact-active-class="active" to="/listado" class="nav-link">Clases</router-link>
+                    </li>   
+                     <li class="nav-item">
+                        <router-link exact-active-class="active" to="/persons" class="nav-link">Personas</router-link>
+                    </li>   
                     <li class="nav-item">
                         <router-link exact-active-class="active" to="/schedules" class="nav-link">Horarios</router-link>
                     </li>   
                     <li class="nav-item">
                         <router-link exact-active-class="active" to="/teachers" class="nav-link">Profesores</router-link>
                     </li>   
-                    <li class="nav-item">
-                        <router-link exact-active-class="active" to="/persons" class="nav-link">Personas</router-link>
-                    </li>   
+                   
                            
                 </ul>
                 <form class="d-flex">

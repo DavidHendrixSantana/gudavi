@@ -285,6 +285,188 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "create-schedule",
   data: function data() {
@@ -299,10 +481,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         telefono_mama: "",
         correo_electronico: "",
         nombre_emergencia: "",
+        clases_semanales: "",
         telefono_emergencia: "",
         fecha_inicio: "",
         enfermedad: "",
-        nivel: ""
+        nivel: "",
+        day_id_1: "",
+        day_id_2: "",
+        day_id_3: "",
+        day_id_4: "",
+        day_id_5: "",
+        clase_id_1: "",
+        clase_id_2: "",
+        clase_id_3: "",
+        clase_id_4: "",
+        clase_id_5: "",
+        teacher_id: ""
       },
       teachers: [],
       days: [],
@@ -398,16 +592,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context4.prev = _context4.next) {
               case 0:
-                _context4.next = 2;
-                return _this4.axios.post("/api/person", _this4.person).then(function (response) {
-                  _this4.$router.push({
-                    name: "indexPerson"
-                  });
-                })["catch"](function (error) {
+                console.log(_this4.person.clases_semanales);
+                _context4.next = 3;
+                return _this4.axios.post("/api/person", _this4.person)["catch"](function (error) {
                   console.log(error);
                 });
 
-              case 2:
+              case 3:
               case "end":
                 return _context4.stop();
             }
@@ -1768,7 +1959,7 @@ var render = function() {
                       [
                         _c("option", { attrs: { value: "1" } }, [_vm._v("1")]),
                         _vm._v(" "),
-                        _c("option", { attrs: { value: "2 " } }, [_vm._v("2")]),
+                        _c("option", { attrs: { value: "2" } }, [_vm._v("2")]),
                         _vm._v(" "),
                         _c("option", { attrs: { value: "3" } }, [_vm._v("3")]),
                         _vm._v(" "),
@@ -1792,12 +1983,39 @@ var render = function() {
                       _c(
                         "select",
                         {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.person.teacher_id,
+                              expression: "person.teacher_id"
+                            }
+                          ],
                           staticClass: "form-control",
                           attrs: { name: "teacher_id", id: "teacher_id" },
                           on: {
-                            change: function($event) {
-                              return _vm.mostrarDias($event)
-                            }
+                            change: [
+                              function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  _vm.person,
+                                  "teacher_id",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
+                              },
+                              function($event) {
+                                return _vm.mostrarDias($event)
+                              }
+                            ]
                           }
                         },
                         [
@@ -1827,74 +2045,712 @@ var render = function() {
                   ])
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col-6" }, [
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("label", [_vm._v("Días ")]),
-                      _vm._v(" "),
-                      _c(
-                        "select",
-                        {
-                          staticClass: "form-control",
-                          on: {
-                            change: function($event) {
-                              return _vm.mostrarClases($event)
+                _c("div", [
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col-6" }, [
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", [_vm._v("Días ")]),
+                        _vm._v(" "),
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.person.day_id_1,
+                                expression: "person.day_id_1"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            on: {
+                              change: [
+                                function($event) {
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function(o) {
+                                      return o.selected
+                                    })
+                                    .map(function(o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
+                                  _vm.$set(
+                                    _vm.person,
+                                    "day_id_1",
+                                    $event.target.multiple
+                                      ? $$selectedVal
+                                      : $$selectedVal[0]
+                                  )
+                                },
+                                function($event) {
+                                  return _vm.mostrarClases($event)
+                                }
+                              ]
                             }
-                          }
-                        },
-                        [
-                          _c("option", { attrs: { value: "", selected: "" } }, [
-                            _vm._v("Seleccione el Día")
-                          ]),
-                          _vm._v(" "),
-                          _vm._l(_vm.days, function(day) {
-                            return _c(
+                          },
+                          [
+                            _c(
                               "option",
-                              { key: day.id, domProps: { value: day.id } },
-                              [
-                                _vm._v(
-                                  _vm._s(day.Dia) +
-                                    "\n                                        "
+                              { attrs: { value: "", selected: "" } },
+                              [_vm._v("Seleccione el Día")]
+                            ),
+                            _vm._v(" "),
+                            _vm._l(_vm.days, function(day) {
+                              return _c(
+                                "option",
+                                { key: day.id, domProps: { value: day.id } },
+                                [
+                                  _vm._v(
+                                    _vm._s(day.Dia) +
+                                      "\n                                            "
+                                  )
+                                ]
+                              )
+                            })
+                          ],
+                          2
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-6" }, [
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", [_vm._v("Hora de clase: ")]),
+                        _vm._v(" "),
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.person.clase_id_1,
+                                expression: "person.clase_id_1"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  _vm.person,
+                                  "clase_id_1",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
                                 )
-                              ]
-                            )
-                          })
-                        ],
-                        2
-                      )
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-6" }, [
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("label", [_vm._v("Hora de clase: ")]),
-                      _vm._v(" "),
-                      _c(
-                        "select",
-                        { staticClass: "form-control" },
-                        [
-                          _c("option", { attrs: { value: "", selected: "" } }, [
-                            _vm._v("Seleccione la clase")
-                          ]),
-                          _vm._v(" "),
-                          _vm._l(_vm.clases, function(clase) {
-                            return _c(
+                              }
+                            }
+                          },
+                          [
+                            _c(
                               "option",
-                              { key: clase.id, domProps: { value: clase.id } },
-                              [
-                                _vm._v(
-                                  _vm._s(clase.Clase) +
-                                    "\n                                        "
-                                )
-                              ]
-                            )
-                          })
-                        ],
-                        2
-                      )
+                              { attrs: { value: "", selected: "" } },
+                              [_vm._v("Seleccione la clase")]
+                            ),
+                            _vm._v(" "),
+                            _vm._l(_vm.clases, function(clase) {
+                              return _c(
+                                "option",
+                                {
+                                  key: clase.id,
+                                  domProps: { value: clase.id }
+                                },
+                                [
+                                  _vm._v(
+                                    _vm._s(clase.Clase) +
+                                      "\n                                            "
+                                  )
+                                ]
+                              )
+                            })
+                          ],
+                          2
+                        )
+                      ])
                     ])
                   ])
-                ])
+                ]),
+                _vm._v(" "),
+                _vm.person.clases_semanales >= 2
+                  ? _c("div", { attrs: { id: "show1" } }, [
+                      _c("div", { staticClass: "row" }, [
+                        _c("div", { staticClass: "col-6" }, [
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("label", [_vm._v("Días ")]),
+                            _vm._v(" "),
+                            _c(
+                              "select",
+                              {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.person.day_id_2,
+                                    expression: "person.day_id_2"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                on: {
+                                  change: [
+                                    function($event) {
+                                      var $$selectedVal = Array.prototype.filter
+                                        .call($event.target.options, function(
+                                          o
+                                        ) {
+                                          return o.selected
+                                        })
+                                        .map(function(o) {
+                                          var val =
+                                            "_value" in o ? o._value : o.value
+                                          return val
+                                        })
+                                      _vm.$set(
+                                        _vm.person,
+                                        "day_id_2",
+                                        $event.target.multiple
+                                          ? $$selectedVal
+                                          : $$selectedVal[0]
+                                      )
+                                    },
+                                    function($event) {
+                                      return _vm.mostrarClases($event)
+                                    }
+                                  ]
+                                }
+                              },
+                              [
+                                _c(
+                                  "option",
+                                  { attrs: { value: "", selected: "" } },
+                                  [_vm._v("Seleccione el Día")]
+                                ),
+                                _vm._v(" "),
+                                _vm._l(_vm.days, function(day) {
+                                  return _c(
+                                    "option",
+                                    {
+                                      key: day.id,
+                                      domProps: { value: day.id }
+                                    },
+                                    [
+                                      _vm._v(
+                                        _vm._s(day.Dia) +
+                                          "\n                                            "
+                                      )
+                                    ]
+                                  )
+                                })
+                              ],
+                              2
+                            )
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-6" }, [
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("label", [_vm._v("Hora de clase: ")]),
+                            _vm._v(" "),
+                            _c(
+                              "select",
+                              {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.person.clase_id_2,
+                                    expression: "person.clase_id_2"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                on: {
+                                  change: function($event) {
+                                    var $$selectedVal = Array.prototype.filter
+                                      .call($event.target.options, function(o) {
+                                        return o.selected
+                                      })
+                                      .map(function(o) {
+                                        var val =
+                                          "_value" in o ? o._value : o.value
+                                        return val
+                                      })
+                                    _vm.$set(
+                                      _vm.person,
+                                      "clase_id_2",
+                                      $event.target.multiple
+                                        ? $$selectedVal
+                                        : $$selectedVal[0]
+                                    )
+                                  }
+                                }
+                              },
+                              [
+                                _c(
+                                  "option",
+                                  { attrs: { value: "", selected: "" } },
+                                  [_vm._v("Seleccione la clase")]
+                                ),
+                                _vm._v(" "),
+                                _vm._l(_vm.clases, function(clase) {
+                                  return _c(
+                                    "option",
+                                    {
+                                      key: clase.id,
+                                      domProps: { value: clase.id }
+                                    },
+                                    [
+                                      _vm._v(
+                                        _vm._s(clase.Clase) +
+                                          "\n                                            "
+                                      )
+                                    ]
+                                  )
+                                })
+                              ],
+                              2
+                            )
+                          ])
+                        ])
+                      ])
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.person.clases_semanales >= 3
+                  ? _c("div", { attrs: { id: "show2" } }, [
+                      _c("div", { staticClass: "row" }, [
+                        _c("div", { staticClass: "col-6" }, [
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("label", [_vm._v("Días ")]),
+                            _vm._v(" "),
+                            _c(
+                              "select",
+                              {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.person.day_id_3,
+                                    expression: "person.day_id_3"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                on: {
+                                  change: [
+                                    function($event) {
+                                      var $$selectedVal = Array.prototype.filter
+                                        .call($event.target.options, function(
+                                          o
+                                        ) {
+                                          return o.selected
+                                        })
+                                        .map(function(o) {
+                                          var val =
+                                            "_value" in o ? o._value : o.value
+                                          return val
+                                        })
+                                      _vm.$set(
+                                        _vm.person,
+                                        "day_id_3",
+                                        $event.target.multiple
+                                          ? $$selectedVal
+                                          : $$selectedVal[0]
+                                      )
+                                    },
+                                    function($event) {
+                                      return _vm.mostrarClases($event)
+                                    }
+                                  ]
+                                }
+                              },
+                              [
+                                _c(
+                                  "option",
+                                  { attrs: { value: "", selected: "" } },
+                                  [_vm._v("Seleccione el Día")]
+                                ),
+                                _vm._v(" "),
+                                _vm._l(_vm.days, function(day) {
+                                  return _c(
+                                    "option",
+                                    {
+                                      key: day.id,
+                                      domProps: { value: day.id }
+                                    },
+                                    [
+                                      _vm._v(
+                                        _vm._s(day.Dia) +
+                                          "\n                                            "
+                                      )
+                                    ]
+                                  )
+                                })
+                              ],
+                              2
+                            )
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-6" }, [
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("label", [_vm._v("Hora de clase: ")]),
+                            _vm._v(" "),
+                            _c(
+                              "select",
+                              {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.person.clase_id_3,
+                                    expression: "person.clase_id_3"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                on: {
+                                  change: function($event) {
+                                    var $$selectedVal = Array.prototype.filter
+                                      .call($event.target.options, function(o) {
+                                        return o.selected
+                                      })
+                                      .map(function(o) {
+                                        var val =
+                                          "_value" in o ? o._value : o.value
+                                        return val
+                                      })
+                                    _vm.$set(
+                                      _vm.person,
+                                      "clase_id_3",
+                                      $event.target.multiple
+                                        ? $$selectedVal
+                                        : $$selectedVal[0]
+                                    )
+                                  }
+                                }
+                              },
+                              [
+                                _c(
+                                  "option",
+                                  { attrs: { value: "", selected: "" } },
+                                  [_vm._v("Seleccione la clase")]
+                                ),
+                                _vm._v(" "),
+                                _vm._l(_vm.clases, function(clase) {
+                                  return _c(
+                                    "option",
+                                    {
+                                      key: clase.id,
+                                      domProps: { value: clase.id }
+                                    },
+                                    [
+                                      _vm._v(
+                                        _vm._s(clase.Clase) +
+                                          "\n                                            "
+                                      )
+                                    ]
+                                  )
+                                })
+                              ],
+                              2
+                            )
+                          ])
+                        ])
+                      ])
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.person.clases_semanales >= 4
+                  ? _c("div", { attrs: { id: "show2" } }, [
+                      _c("div", { staticClass: "row" }, [
+                        _c("div", { staticClass: "col-6" }, [
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("label", [_vm._v("Días ")]),
+                            _vm._v(" "),
+                            _c(
+                              "select",
+                              {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.person.day_id_4,
+                                    expression: "person.day_id_4"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                on: {
+                                  change: [
+                                    function($event) {
+                                      var $$selectedVal = Array.prototype.filter
+                                        .call($event.target.options, function(
+                                          o
+                                        ) {
+                                          return o.selected
+                                        })
+                                        .map(function(o) {
+                                          var val =
+                                            "_value" in o ? o._value : o.value
+                                          return val
+                                        })
+                                      _vm.$set(
+                                        _vm.person,
+                                        "day_id_4",
+                                        $event.target.multiple
+                                          ? $$selectedVal
+                                          : $$selectedVal[0]
+                                      )
+                                    },
+                                    function($event) {
+                                      return _vm.mostrarClases($event)
+                                    }
+                                  ]
+                                }
+                              },
+                              [
+                                _c(
+                                  "option",
+                                  { attrs: { value: "", selected: "" } },
+                                  [_vm._v("Seleccione el Día")]
+                                ),
+                                _vm._v(" "),
+                                _vm._l(_vm.days, function(day) {
+                                  return _c(
+                                    "option",
+                                    {
+                                      key: day.id,
+                                      domProps: { value: day.id }
+                                    },
+                                    [
+                                      _vm._v(
+                                        _vm._s(day.Dia) +
+                                          "\n                                            "
+                                      )
+                                    ]
+                                  )
+                                })
+                              ],
+                              2
+                            )
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-6" }, [
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("label", [_vm._v("Hora de clase: ")]),
+                            _vm._v(" "),
+                            _c(
+                              "select",
+                              {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.person.clase_id_4,
+                                    expression: "person.clase_id_4"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                on: {
+                                  change: function($event) {
+                                    var $$selectedVal = Array.prototype.filter
+                                      .call($event.target.options, function(o) {
+                                        return o.selected
+                                      })
+                                      .map(function(o) {
+                                        var val =
+                                          "_value" in o ? o._value : o.value
+                                        return val
+                                      })
+                                    _vm.$set(
+                                      _vm.person,
+                                      "clase_id_4",
+                                      $event.target.multiple
+                                        ? $$selectedVal
+                                        : $$selectedVal[0]
+                                    )
+                                  }
+                                }
+                              },
+                              [
+                                _c(
+                                  "option",
+                                  { attrs: { value: "", selected: "" } },
+                                  [_vm._v("Seleccione la clase")]
+                                ),
+                                _vm._v(" "),
+                                _vm._l(_vm.clases, function(clase) {
+                                  return _c(
+                                    "option",
+                                    {
+                                      key: clase.id,
+                                      domProps: { value: clase.id }
+                                    },
+                                    [
+                                      _vm._v(
+                                        _vm._s(clase.Clase) +
+                                          "\n                                            "
+                                      )
+                                    ]
+                                  )
+                                })
+                              ],
+                              2
+                            )
+                          ])
+                        ])
+                      ])
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.person.clases_semanales == 5
+                  ? _c("div", { attrs: { id: "show2" } }, [
+                      _c("div", { staticClass: "row" }, [
+                        _c("div", { staticClass: "col-6" }, [
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("label", [_vm._v("Días ")]),
+                            _vm._v(" "),
+                            _c(
+                              "select",
+                              {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.person.day_id_5,
+                                    expression: "person.day_id_5"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                on: {
+                                  change: [
+                                    function($event) {
+                                      var $$selectedVal = Array.prototype.filter
+                                        .call($event.target.options, function(
+                                          o
+                                        ) {
+                                          return o.selected
+                                        })
+                                        .map(function(o) {
+                                          var val =
+                                            "_value" in o ? o._value : o.value
+                                          return val
+                                        })
+                                      _vm.$set(
+                                        _vm.person,
+                                        "day_id_5",
+                                        $event.target.multiple
+                                          ? $$selectedVal
+                                          : $$selectedVal[0]
+                                      )
+                                    },
+                                    function($event) {
+                                      return _vm.mostrarClases($event)
+                                    }
+                                  ]
+                                }
+                              },
+                              [
+                                _c(
+                                  "option",
+                                  { attrs: { value: "", selected: "" } },
+                                  [_vm._v("Seleccione el Día")]
+                                ),
+                                _vm._v(" "),
+                                _vm._l(_vm.days, function(day) {
+                                  return _c(
+                                    "option",
+                                    {
+                                      key: day.id,
+                                      domProps: { value: day.id }
+                                    },
+                                    [
+                                      _vm._v(
+                                        _vm._s(day.Dia) +
+                                          "\n                                            "
+                                      )
+                                    ]
+                                  )
+                                })
+                              ],
+                              2
+                            )
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-6" }, [
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("label", [_vm._v("Hora de clase: ")]),
+                            _vm._v(" "),
+                            _c(
+                              "select",
+                              {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.person.clase_id_5,
+                                    expression: "person.clase_id_5"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                on: {
+                                  change: function($event) {
+                                    var $$selectedVal = Array.prototype.filter
+                                      .call($event.target.options, function(o) {
+                                        return o.selected
+                                      })
+                                      .map(function(o) {
+                                        var val =
+                                          "_value" in o ? o._value : o.value
+                                        return val
+                                      })
+                                    _vm.$set(
+                                      _vm.person,
+                                      "clase_id_5",
+                                      $event.target.multiple
+                                        ? $$selectedVal
+                                        : $$selectedVal[0]
+                                    )
+                                  }
+                                }
+                              },
+                              [
+                                _c(
+                                  "option",
+                                  { attrs: { value: "", selected: "" } },
+                                  [_vm._v("Seleccione la clase")]
+                                ),
+                                _vm._v(" "),
+                                _vm._l(_vm.clases, function(clase) {
+                                  return _c(
+                                    "option",
+                                    {
+                                      key: clase.id,
+                                      domProps: { value: clase.id }
+                                    },
+                                    [
+                                      _vm._v(
+                                        _vm._s(clase.Clase) +
+                                          "\n                                            "
+                                      )
+                                    ]
+                                  )
+                                })
+                              ],
+                              2
+                            )
+                          ])
+                        ])
+                      ])
+                    ])
+                  : _vm._e()
               ])
             ]
           )
