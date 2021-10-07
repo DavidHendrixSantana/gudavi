@@ -8,6 +8,7 @@ use App\Models\Teacher;
 use App\Models\Day;
 use App\Models\Clase;
 use App\Models\Day_clase;
+use App\Models\Days_teachers;
 use Illuminate\Support\Facades\DB;
 
 class PersonController extends Controller
@@ -71,9 +72,15 @@ class PersonController extends Controller
             $clase_id=$request['clase_id_'.$x];
             $day_id=$request['day_id_'.$x];
 
-
-            Day_clase::create([
+            $days_teachers = Days_teachers::create([
                 'day_id' => $day_id,
+                'teacher_id' => $teacher_id
+            ]);
+
+            $valor_id = $days_teachers->id;
+          
+            Day_clase::create([
+                'day_teacher_id' => $valor_id,
                 'class_id' =>  $clase_id,
                 'person_id' => $Person->id,
             ]);
@@ -144,7 +151,7 @@ class PersonController extends Controller
     }
 
     public function ShowDays(Request $request, $id){
-        $days =Day::where('teacher_id', $id)->get();
+        $days =Day::all();
 
         return response()->json(['days' => $days]);
 

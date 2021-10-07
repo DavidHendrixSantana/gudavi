@@ -5,9 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Day_clase extends Model
+class Days_teachers extends Model
 {
     use HasFactory;
-    protected $table = 'days_classes';
-    protected $fillable = ['day_teacher_id', 'class_id', 'person_id'];
+       protected $table = 'days_teachers';
+    protected $guarded = [];
 }

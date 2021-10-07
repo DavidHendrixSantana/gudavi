@@ -15,8 +15,8 @@ class CreateDaysClassesTable extends Migration
     {
         Schema::create('days_classes', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('day_id')->unsigned();
-            $table->foreign('day_id')->references('id')->on('days');
+            $table->integer('day_teacher_id')->unsigned();
+            $table->foreign('day_teacher_id')->references('id')->on('days_teachers');
             $table->integer('class_id')->unsigned();
             $table->foreign('class_id')->references('id')->on('classes');
             $table->integer('person_id')->unsigned();
