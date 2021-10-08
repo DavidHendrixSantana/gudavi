@@ -15,7 +15,7 @@ use App\Http\Controllers\PersonController;
 */
 
 Route::get('person/ShowDays/{id}', [PersonController::class, 'ShowDays'])->name('ShowDays');
-Route::get('person/ShowClasses/{id}', [PersonController::class, 'ShowClasses'])->name('ShowClasses');
+Route::get('person/ShowClasses/{dia_id}/{teacher_id}', [PersonController::class, 'ShowClasses'])->name('ShowClasses');
 
 
 Route::get('{any}', function () {

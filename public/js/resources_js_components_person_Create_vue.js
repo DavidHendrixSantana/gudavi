@@ -562,13 +562,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this3 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+        var dia_id, teacher_id;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
                 console.log(event.target.value);
-                _context3.next = 3;
-                return _this3.axios.get("/person/ShowClasses/".concat(event.target.value)).then(function (response) {
+                console.log(_this3.person.teacher_id);
+                dia_id = event.target.value;
+                teacher_id = _this3.person.teacher_id;
+                _context3.next = 6;
+                return _this3.axios.get("/person/ShowClasses/".concat(dia_id, "/").concat(teacher_id)).then(function (response) {
                   var clases = response.data.clases;
                   _this3.clases = clases;
                   console.log(clases);
@@ -576,7 +580,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   console.log(error);
                 });
 
-              case 3:
+              case 6:
               case "end":
                 return _context3.stop();
             }

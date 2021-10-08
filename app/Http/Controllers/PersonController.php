@@ -72,15 +72,10 @@ class PersonController extends Controller
             $clase_id=$request['clase_id_'.$x];
             $day_id=$request['day_id_'.$x];
 
-            $days_teachers = Days_teachers::create([
-                'day_id' => $day_id,
-                'teacher_id' => $teacher_id
-            ]);
-
-            $valor_id = $days_teachers->id;
+         
           
             Day_clase::create([
-                'day_teacher_id' => $valor_id,
+                'day_teacher_id' => $day_id,
                 'class_id' =>  $clase_id,
                 'person_id' => $Person->id,
             ]);
@@ -150,15 +145,17 @@ class PersonController extends Controller
 
     }
 
-    public function ShowDays(Request $request, $id){
-        $days =Day::all();
-
+    public function ShowDays($id){
+        // $days =Days_teachers::where('teacher_id', $id)->get();
+        $days = DB::select('select days.id as id, days.dia as Dia from days inner join days_teachers on days.id = days_teachers.day_id WHERE days_teachers.teacher_id=?', [$id]);
         return response()->json(['days' => $days]);
 
     }
 
-    public function ShowClasses(Request $request, $id){
-        $clases = DB::select('select * from classes where id not in (select class_id from days_classes) ');
+    public function ShowClasses($id_day,$id_teacher){
+      
+        $clases = DB::select('select id, Clase from  classes where id not in(SELECT classes.id FROM classes inner JOIN
+        days_classes  on classes.id = days_classes.class_id INNER JOIN days_teachers on days_classes.day_teacher_id= ? where days_teachers.teacher_id =?)', [$id_day, $id_teacher]);
 
         return response()->json(['clases' => $clases]);
 

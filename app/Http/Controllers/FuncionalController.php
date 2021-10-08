@@ -8,14 +8,21 @@ use App\Models\Teacher;
 use App\Models\Day;
 use App\Models\Clase;
 use App\Models\Day_clase;
+use App\Models\Days_teachers;
+use Illuminate\Support\Facades\DB;
 
 
 class FuncionalController extends Controller
 {
     
     public function listado_clases(){
-        $Teachers = Teacher::all();
-        $Days = Day::all();
+        $get_last_teacher = DB::select('select Min(id) as id from teachers');
+        $last_teacher=  $get_last_teacher[0]->id;
+        $Teachers =Teacher::all();
+        $Days= DB::select('select Dia from days inner join days_teachers on days.id = days_teachers.day_id where days_teachers.teacher_id=?',[$last_teacher]);
+        
+
+
         $Clases = Clase::all();
         $Day_clase = Day_clase::all();
 

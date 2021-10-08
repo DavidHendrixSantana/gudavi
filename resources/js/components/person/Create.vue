@@ -506,9 +506,13 @@ export default {
                 });
         },
         async mostrarClases(event) {
-            console.log(event.target.value);
+            console.log(event.target.value)
+            console.log(this.person.teacher_id)
+            var dia_id = event.target.value
+            var teacher_id = this.person.teacher_id
+            
             await this.axios
-                .get(`/person/ShowClasses/${event.target.value}`)
+                .get(`/person/ShowClasses/${dia_id}/${teacher_id}`)
                 .then(response => {
                     const { clases } = response.data;
                     this.clases = clases;
