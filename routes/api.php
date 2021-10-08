@@ -19,6 +19,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::get('listado', [FuncionalController::class, 'listado_clases'])->name('listado_clases');
+Route::get('listado_teacher/{id}', [FuncionalController::class, 'listado_teacher'])->name('listado_teacher');
 
 
 Route::resource('schedule', App\Http\Controllers\SchedulesController::class)->only(['index','create','store','show','update','destroy']);;

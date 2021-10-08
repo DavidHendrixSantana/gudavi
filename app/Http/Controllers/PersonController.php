@@ -147,7 +147,7 @@ class PersonController extends Controller
 
     public function ShowDays($id){
         // $days =Days_teachers::where('teacher_id', $id)->get();
-        $days = DB::select('select days.id as id, days.dia as Dia from days inner join days_teachers on days.id = days_teachers.day_id WHERE days_teachers.teacher_id=?', [$id]);
+        $days = DB::select('select days_teachers.id as id, days.dia as Dia from days inner join days_teachers on days.id = days_teachers.day_id WHERE days_teachers.teacher_id=?', [$id]);
         return response()->json(['days' => $days]);
 
     }

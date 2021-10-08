@@ -56,15 +56,27 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Listado",
   data: function data() {
     return {
       teacher_id: "",
       Days: [],
-      Teachers: [],
-      Clases: [],
-      Day_clase: []
+      Teachers: []
     };
   },
   mounted: function mounted() {
@@ -83,13 +95,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return _this.axios.get("/api/listado").then(function (response) {
                   var _response$data = response.data,
                       Days = _response$data.Days,
-                      Teachers = _response$data.Teachers,
-                      Clases = _response$data.Clases,
-                      Day_clase = _response$data.Day_clase;
+                      Teachers = _response$data.Teachers;
                   _this.Days = Days;
                   _this.Teachers = Teachers;
-                  _this.Clases = Clases;
-                  _this.Day_clase = Day_clase;
                 })["catch"](function (error) {
                   console.log(error);
                 });
@@ -100,6 +108,33 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             }
           }
         }, _callee);
+      }))();
+    },
+    cargar_clases: function cargar_clases(event) {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+        var id;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                console.log(event.target.value);
+                id = event.target.value;
+                _context2.next = 4;
+                return _this2.axios.get("/api/listado_teacher/".concat(event.target.value)).then(function (response) {
+                  var Days = response.data.Days;
+                  _this2.Days = Days;
+                })["catch"](function (error) {
+                  console.log(error);
+                });
+
+              case 4:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
       }))();
     }
   }
@@ -959,85 +994,80 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "main",
-    [
+  return _c("main", [
+    _c(
+      "div",
+      { staticClass: "row" },
       _vm._l(_vm.Teachers, function(teacher) {
-        return _c(
-          "div",
-          {
-            key: teacher.id,
-            staticClass: "btn-group",
-            attrs: {
-              role: "group",
-              "aria-label": "Basic radio toggle button group"
-            }
-          },
-          [
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.teacher_id,
-                  expression: "teacher_id"
-                }
-              ],
-              staticClass: "btn-check",
-              attrs: {
-                type: "radio",
-                name: "btnradio",
-                id: teacher.id,
-                autocomplete: "off"
-              },
-              domProps: { checked: _vm._q(_vm.teacher_id, null) },
-              on: {
-                change: function($event) {
-                  _vm.teacher_id = null
-                }
-              }
-            }),
-            _vm._v(" "),
+        return _c("div", { key: teacher.id, staticClass: "col-4" }, [
+          _c("div", { staticClass: "row" }, [
             _c(
-              "label",
+              "button",
               {
-                staticClass: "btn btn-outline-primary",
-                attrs: { for: teacher.id }
+                staticClass: "btn btn-primary",
+                attrs: {
+                  type: "button",
+                  value: teacher.id,
+                  id: teacher.id,
+                  "data-toggle": "button",
+                  "aria-pressed": "false",
+                  autocomplete: "off"
+                },
+                on: {
+                  click: function($event) {
+                    return _vm.cargar_clases($event)
+                  }
+                }
               },
-              [_vm._v(_vm._s(teacher.nombre))]
+              [
+                _vm._v(
+                  "\r\n                " +
+                    _vm._s(teacher.nombre) +
+                    "\r\n                "
+                )
+              ]
             )
-          ]
-        )
+          ])
+        ])
       }),
-      _vm._v(" "),
-      _c("div", [
-        _c("table", { staticClass: "table" }, [
-          _c("thead", [
-            _c(
-              "tr",
-              _vm._l(_vm.Days, function(day) {
-                return _c("th", { key: day.id, attrs: { scope: "col" } }, [
-                  _vm._v(_vm._s(day.Dia))
-                ])
-              }),
-              0
-            )
-          ]),
-          _vm._v(" "),
+      0
+    ),
+    _vm._v(" "),
+    _c("div", [
+      _c("table", { staticClass: "table" }, [
+        _c("thead", [
           _c(
-            "tbody",
-            _vm._l(_vm.Clases, function(clase) {
-              return _c("tr", { key: clase.id }, [
-                _c("td", [_vm._v(_vm._s(clase.Clase))])
+            "tr",
+            _vm._l(_vm.Days, function(day) {
+              return _c("th", { key: day.id, attrs: { scope: "col" } }, [
+                _vm._v(_vm._s(day.Dia))
               ])
+            }),
+            0
+          )
+        ]),
+        _vm._v(" "),
+        _c("tbody", [
+          _c(
+            "tr",
+            _vm._l(_vm.Days, function(day) {
+              return _c(
+                "td",
+                { key: day.id },
+                _vm._l(day.Clases, function(clase) {
+                  return _c("div", { key: clase.id }, [
+                    _c("td", [_vm._v(_vm._s(clase.Clase))])
+                  ])
+                }),
+                0
+              )
             }),
             0
           )
         ])
       ])
-    ],
-    2
-  )
+    ])
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
