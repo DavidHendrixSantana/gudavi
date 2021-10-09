@@ -467,6 +467,36 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "create-schedule",
   data: function data() {
@@ -486,6 +516,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         fecha_inicio: "",
         enfermedad: "",
         nivel: "",
+        clases_precio: "",
         day_id_1: "",
         day_id_2: "",
         day_id_3: "",
@@ -498,6 +529,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         clase_id_5: "",
         teacher_id: ""
       },
+      nivel_nado: "",
       teachers: [],
       days: [],
       clases: []
@@ -598,17 +630,63 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 console.log(_this4.person.clases_semanales);
                 _context4.next = 3;
-                return _this4.axios.post("/api/person", _this4.person)["catch"](function (error) {
+                return _this4.axios.post("/api/person", _this4.person);
+
+              case 3:
+                _this4.$router.push({
+                  name: "indexTeacher"
+                })["catch"](function (error) {
                   console.log(error);
                 });
 
-              case 3:
+              case 4:
               case "end":
                 return _context4.stop();
             }
           }
         }, _callee4);
       }))();
+    },
+    nivel_precio: function nivel_precio(event) {
+      this.nivel_nado = event.target.value;
+    },
+    clase_precio: function clase_precio(event) {
+      var dias = event.target.value;
+
+      if (this.nivel_nado === "Bebes") {
+        if (dias === 1) {
+          this.person.clases_precio = 650;
+        } else if (dias === 2) {
+          this.person.clases_precio = 1150;
+        } else if (dias === 3) {
+          this.person.clases_precio = 1550;
+        }
+      }
+
+      if (this.nivel_nado === "Mayor2") {
+        if (dias === 1) {
+          this.person.clases_precio = 550;
+        } else if (dias === 2) {
+          this.person.clases_precio = 850;
+        } else if (dias === 3) {
+          this.person.clases_precio = 1150;
+        }
+      }
+
+      if (this.nivel_nado === "Grupales") {
+        if (dias === 1) {
+          this.person.clases_precio = 600;
+        } else if (dias === 2) {
+          this.person.clases_precio = 750;
+        } else if (dias === 3) {
+          this.person.clases_precio = 850;
+        } else if (dias === 5) {
+          this.person.clases_precio = 1200;
+        }
+      }
+
+      console.log(this.nivel_nado);
+      console.log(this.person.clases_precio);
     }
   }
 });
@@ -1887,31 +1965,40 @@ var render = function() {
                         staticClass: "form-control",
                         attrs: { name: "nivel", id: "nivel" },
                         on: {
-                          change: function($event) {
-                            var $$selectedVal = Array.prototype.filter
-                              .call($event.target.options, function(o) {
-                                return o.selected
-                              })
-                              .map(function(o) {
-                                var val = "_value" in o ? o._value : o.value
-                                return val
-                              })
-                            _vm.$set(
-                              _vm.person,
-                              "nivel",
-                              $event.target.multiple
-                                ? $$selectedVal
-                                : $$selectedVal[0]
-                            )
-                          }
+                          change: [
+                            function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.$set(
+                                _vm.person,
+                                "nivel",
+                                $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              )
+                            },
+                            function($event) {
+                              return _vm.nivel_precio($event)
+                            }
+                          ]
                         }
                       },
                       [
+                        _c("option", { attrs: { value: "" } }, [
+                          _vm._v("Seleccione el nivel")
+                        ]),
+                        _vm._v(" "),
                         _c("option", { attrs: { value: "Bebes" } }, [
                           _vm._v("Bebes")
                         ]),
                         _vm._v(" "),
-                        _c("option", { attrs: { value: "Mayor de 2 anos" } }, [
+                        _c("option", { attrs: { value: "Mayor2" } }, [
                           _vm._v("Mayor de 2 años")
                         ]),
                         _vm._v(" "),
@@ -1939,28 +2026,37 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control",
-                        attrs: { name: "nivel", id: "nivel" },
+                        attrs: { name: "clases", id: "clases" },
                         on: {
-                          change: function($event) {
-                            var $$selectedVal = Array.prototype.filter
-                              .call($event.target.options, function(o) {
-                                return o.selected
-                              })
-                              .map(function(o) {
-                                var val = "_value" in o ? o._value : o.value
-                                return val
-                              })
-                            _vm.$set(
-                              _vm.person,
-                              "clases_semanales",
-                              $event.target.multiple
-                                ? $$selectedVal
-                                : $$selectedVal[0]
-                            )
-                          }
+                          change: [
+                            function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.$set(
+                                _vm.person,
+                                "clases_semanales",
+                                $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              )
+                            },
+                            function($event) {
+                              return _vm.clase_precio($event)
+                            }
+                          ]
                         }
                       },
                       [
+                        _c("option", { attrs: { value: "" } }, [
+                          _vm._v("Seleccione los días")
+                        ]),
+                        _vm._v(" "),
                         _c("option", { attrs: { value: "1" } }, [_vm._v("1")]),
                         _vm._v(" "),
                         _c("option", { attrs: { value: "2" } }, [_vm._v("2")]),
@@ -1977,7 +2073,37 @@ var render = function() {
                   ])
                 ]),
                 _vm._v(" "),
-                _vm._m(1),
+                _c("div", { staticClass: "col-4 mb-2" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v("Monto a pagar.")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.person.clases_precio,
+                          expression: "person.clases_precio"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text" },
+                      domProps: { value: _vm.person.clases_precio },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.person,
+                            "clases_precio",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ])
+                ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "row" }, [
                   _c("div", { staticClass: "col-6" }, [
@@ -2755,7 +2881,9 @@ var render = function() {
                       ])
                     ])
                   : _vm._e()
-              ])
+              ]),
+              _vm._v(" "),
+              _vm._m(1)
             ]
           )
         ])
@@ -2776,16 +2904,22 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-4" }, [
-      _c(
-        "button",
-        { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-        [
-          _vm._v(
-            "\n                                Guardar\n                            "
-          )
-        ]
-      )
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-12" }, [_c("br")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-10" }),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-2" }, [
+        _c(
+          "button",
+          { staticClass: "btn btn-primary btn-lg", attrs: { type: "submit" } },
+          [
+            _vm._v(
+              "\n                                Guardar\n                            "
+            )
+          ]
+        )
+      ])
     ])
   }
 ]

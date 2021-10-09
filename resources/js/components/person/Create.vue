@@ -144,9 +144,13 @@
                                         id="nivel"
                                         v-model="person.nivel"
                                         class="form-control"
+                                        @change="nivel_precio($event)"
                                     >
+                                        <option value=""
+                                            >Seleccione el nivel</option
+                                        >
                                         <option value="Bebes">Bebes</option>
-                                        <option value="Mayor de 2 anos"
+                                        <option value="Mayor2"
                                             >Mayor de 2 años</option
                                         >
                                         <option value="Grupales"
@@ -159,11 +163,15 @@
                                 <div class="form-group">
                                     <label>Clases Semanales: </label>
                                     <select
-                                        name="nivel"
-                                        id="nivel"
+                                        name="clases"
+                                        id="clases"
                                         v-model="person.clases_semanales"
                                         class="form-control"
+                                        @change="clase_precio($event)"
                                     >
+                                        <option value=""
+                                            >Seleccione los días</option
+                                        >
                                         <option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
@@ -175,11 +183,15 @@
                                     </select>
                                 </div>
                             </div>
-
-                            <div class="col-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Guardar
-                                </button>
+                            <div class="col-4 mb-2">
+                                <div class="form-group">
+                                    <label>Monto a pagar.</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        v-model="person.clases_precio"
+                                    />
+                                </div>
                             </div>
 
                             <div class="row">
@@ -188,7 +200,7 @@
                                         <label>Profesor </label>
 
                                         <select
-                                        v-model="person.teacher_id"
+                                            v-model="person.teacher_id"
                                             class="form-control"
                                             @change="mostrarDias($event)"
                                             name="teacher_id"
@@ -207,14 +219,14 @@
                                     </div>
                                 </div>
                             </div>
-                            <div  >
+                            <div>
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label>Días </label>
 
                                             <select
-                                            v-model="person.day_id_1"
+                                                v-model="person.day_id_1"
                                                 class="form-control"
                                                 @change="mostrarClases($event)"
                                             >
@@ -234,8 +246,9 @@
                                         <div class="form-group">
                                             <label>Hora de clase: </label>
 
-                                            <select class="form-control"
-                                            v-model="person.clase_id_1"
+                                            <select
+                                                class="form-control"
+                                                v-model="person.clase_id_1"
                                             >
                                                 <option value="" selected
                                                     >Seleccione la clase</option
@@ -250,15 +263,15 @@
                                         </div>
                                     </div>
                                 </div>
-                           </div>
-                           <div id="show1" v-if="person.clases_semanales >= 2 "  >
+                            </div>
+                            <div id="show1" v-if="person.clases_semanales >= 2">
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label>Días </label>
 
                                             <select
-                                            v-model="person.day_id_2"
+                                                v-model="person.day_id_2"
                                                 class="form-control"
                                                 @change="mostrarClases($event)"
                                             >
@@ -278,8 +291,9 @@
                                         <div class="form-group">
                                             <label>Hora de clase: </label>
 
-                                            <select class="form-control"
-                                            v-model="person.clase_id_2"
+                                            <select
+                                                class="form-control"
+                                                v-model="person.clase_id_2"
                                             >
                                                 <option value="" selected
                                                     >Seleccione la clase</option
@@ -294,15 +308,15 @@
                                         </div>
                                     </div>
                                 </div>
-                           </div>
-                           <div id="show2" v-if="person.clases_semanales >= 3"  >
+                            </div>
+                            <div id="show2" v-if="person.clases_semanales >= 3">
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label>Días </label>
 
                                             <select
-                                            v-model="person.day_id_3"
+                                                v-model="person.day_id_3"
                                                 class="form-control"
                                                 @change="mostrarClases($event)"
                                             >
@@ -322,8 +336,9 @@
                                         <div class="form-group">
                                             <label>Hora de clase: </label>
 
-                                            <select class="form-control"
-                                            v-model="person.clase_id_3"
+                                            <select
+                                                class="form-control"
+                                                v-model="person.clase_id_3"
                                             >
                                                 <option value="" selected
                                                     >Seleccione la clase</option
@@ -338,15 +353,15 @@
                                         </div>
                                     </div>
                                 </div>
-                           </div>
-                           <div id="show2" v-if="person.clases_semanales >= 4"  >
+                            </div>
+                            <div id="show2" v-if="person.clases_semanales >= 4">
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label>Días </label>
 
                                             <select
-                                            v-model="person.day_id_4"
+                                                v-model="person.day_id_4"
                                                 class="form-control"
                                                 @change="mostrarClases($event)"
                                             >
@@ -366,8 +381,9 @@
                                         <div class="form-group">
                                             <label>Hora de clase: </label>
 
-                                            <select class="form-control"
-                                            v-model="person.clase_id_4"
+                                            <select
+                                                class="form-control"
+                                                v-model="person.clase_id_4"
                                             >
                                                 <option value="" selected
                                                     >Seleccione la clase</option
@@ -382,15 +398,15 @@
                                         </div>
                                     </div>
                                 </div>
-                           </div>
-                           <div id="show2" v-if="person.clases_semanales == 5"  >
+                            </div>
+                            <div id="show2" v-if="person.clases_semanales == 5">
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label>Días </label>
 
                                             <select
-                                            v-model="person.day_id_5"
+                                                v-model="person.day_id_5"
                                                 class="form-control"
                                                 @change="mostrarClases($event)"
                                             >
@@ -410,8 +426,9 @@
                                         <div class="form-group">
                                             <label>Hora de clase: </label>
 
-                                            <select class="form-control"
-                                            v-model="person.clase_id_5"
+                                            <select
+                                                class="form-control"
+                                                v-model="person.clase_id_5"
                                             >
                                                 <option value="" selected
                                                     >Seleccione la clase</option
@@ -426,7 +443,20 @@
                                         </div>
                                     </div>
                                 </div>
-                           </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12"><br /></div>
+
+                            <div class="col-10"></div>
+                            <div class="col-2">
+                                <button
+                                    type="submit"
+                                    class="btn btn-primary btn-lg"
+                                >
+                                    Guardar
+                                </button>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -450,11 +480,12 @@ export default {
                 telefono_mama: "",
                 correo_electronico: "",
                 nombre_emergencia: "",
-                clases_semanales:"",
+                clases_semanales: "",
                 telefono_emergencia: "",
                 fecha_inicio: "",
                 enfermedad: "",
                 nivel: "",
+                clases_precio: "",
                 day_id_1: "",
                 day_id_2: "",
                 day_id_3: "",
@@ -465,9 +496,9 @@ export default {
                 clase_id_3: "",
                 clase_id_4: "",
                 clase_id_5: "",
-                teacher_id: "",
+                teacher_id: ""
             },
-          
+            nivel_nado: "",
             teachers: [],
             days: [],
             clases: []
@@ -491,8 +522,6 @@ export default {
         },
 
         async mostrarDias(event) {
-           
-
             console.log(event.target.value);
             await this.axios
                 .get(`/person/ShowDays/${event.target.value}`)
@@ -506,11 +535,11 @@ export default {
                 });
         },
         async mostrarClases(event) {
-            console.log(event.target.value)
-            console.log(this.person.teacher_id)
-            var dia_id = event.target.value
-            var teacher_id = this.person.teacher_id
-            
+            console.log(event.target.value);
+            console.log(this.person.teacher_id);
+            var dia_id = event.target.value;
+            var teacher_id = this.person.teacher_id;
+
             await this.axios
                 .get(`/person/ShowClasses/${dia_id}/${teacher_id}`)
                 .then(response => {
@@ -524,16 +553,53 @@ export default {
         },
 
         async crear() {
-            console.log(this.person.clases_semanales)
+            console.log(this.person.clases_semanales);
 
-                await this.axios
-                .post("/api/person", this.person)
-               
-                .catch(error => {
-                    console.log(error);
-                });    
+            await this.axios.post("/api/person", this.person);
+            this.$router.push({ name: "indexTeacher" }).catch(error => {
+                console.log(error);
+            });
+        },
+
+        nivel_precio(event) {
+            this.nivel_nado = event.target.value;
+        },
+
+        clase_precio(event) {
+            var dias = event.target.value;
+
+            if (this.nivel_nado === "Bebes") {
+                if (dias === 1) {
+                    this.person.clases_precio = 650;
+                } else if (dias === 2) {
+                    this.person.clases_precio = 1150;
+                } else if (dias === 3) {
+                    this.person.clases_precio = 1550;
+                }
+            }
+            if (this.nivel_nado === "Mayor2") {
+                if (dias === 1) {
+                    this.person.clases_precio = 550;
+                } else if (dias === 2) {
+                    this.person.clases_precio = 850;
+                } else if (dias === 3) {
+                    this.person.clases_precio = 1150;
+                }
+            }
+            if (this.nivel_nado === "Grupales") {
+                if (dias === 1) {
+                    this.person.clases_precio = 600;
+                } else if (dias === 2) {
+                    this.person.clases_precio = 750;
+                } else if (dias === 3) {
+                    this.person.clases_precio = 850;
+                } else if (dias === 5) {
+                    this.person.clases_precio = 1200;
+                }
+            }
+            console.log(this.nivel_nado);
+            console.log(this.person.clases_precio);
         }
-
     }
 };
 </script>

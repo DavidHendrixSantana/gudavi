@@ -78,6 +78,28 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "create-teacher",
   data: function data() {
@@ -130,9 +152,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 console.log(_this2.teacher.schedule_id);
                 _context2.next = 3;
-                return _this2.axios.post('/api/teacher', _this2.teacher).then(function (response) {
+                return _this2.axios.post("/api/teacher", _this2.teacher).then(function (response) {
                   _this2.$router.push({
-                    name: "indexTeacher"
+                    name: "indexPerson"
                   });
                 })["catch"](function (error) {
                   console.log(error);
@@ -1151,7 +1173,7 @@ var render = function() {
                           [
                             _vm._v(
                               _vm._s(schedule.Dias) +
-                                " " +
+                                "\n                                        " +
                                 _vm._s(schedule.Hora_inicio)
                             )
                           ]
@@ -1188,7 +1210,11 @@ var staticRenderFns = [
       _c(
         "button",
         { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-        [_vm._v("Guardar")]
+        [
+          _vm._v(
+            "\n                                Guardar\n                            "
+          )
+        ]
       )
     ])
   }

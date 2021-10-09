@@ -24,7 +24,7 @@ class FuncionalController extends Controller
         for($x=0; $x<$number_of_days; $x++){
 
             $id_day = $Days[$x]->id;
-            $Classes = DB::select('select classes.id, classes.Clase from classes  inner join days_classes on classes.id = days_classes.class_id WHERE days_classes.day_teacher_id = ?', [$id_day]);
+            $Classes = DB::select('select classes.id, persons.nombre ,classes.Clase from classes  inner join days_classes on classes.id = days_classes.class_id INNER JOIN persons ON days_classes.person_id =persons.id WHERE days_classes.day_teacher_id = ?', [$id_day]);
             $Days[$x]->Clases = $Classes;
         }
         return response()->json([
