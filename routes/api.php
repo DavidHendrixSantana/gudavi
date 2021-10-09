@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FuncionalController;
+use App\Http\Controllers\PersonController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +21,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 Route::get('listado', [FuncionalController::class, 'listado_clases'])->name('listado_clases');
 Route::get('listado_teacher/{id}', [FuncionalController::class, 'listado_teacher'])->name('listado_teacher');
+Route::get('pago/{id}', [PersonController::class, 'consult_pay'])->name('consult_pay');
 
 
 Route::resource('schedule', App\Http\Controllers\SchedulesController::class)->only(['index','create','store','show','update','destroy']);;

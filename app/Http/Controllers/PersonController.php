@@ -9,6 +9,7 @@ use App\Models\Day;
 use App\Models\Clase;
 use App\Models\Day_clase;
 use App\Models\Days_teachers;
+use App\Models\Pay;
 use Illuminate\Support\Facades\DB;
 
 class PersonController extends Controller
@@ -82,6 +83,14 @@ class PersonController extends Controller
            
            
         }
+      
+        Pay::create([
+            'cantidad' => $request['clases_precio'],
+            'fecha_pago' =>  $request['fecha_inicio'],
+            'person_id' => $Person->id,
+           
+
+        ]);
         
 
 
@@ -159,5 +168,13 @@ class PersonController extends Controller
 
         return response()->json(['clases' => $clases]);
 
+    }
+
+    public function consult_pay($id){
+        // $pay = Pay::all();
+        
+        $pay = Pay::where('person_id', '=', $id)->first();
+        
+        return response()->json(['pay' => $pay]);
     }
 }

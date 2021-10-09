@@ -2,6 +2,7 @@ const Home = () => import("./components/Home.vue");
 const Listado = () => import("./components/Listado.vue");
 const Modal = () => import("./components/Modal.vue");
 
+
 //importamos los componentes para el  schedule
 const Index_schedule = () => import("./components/schedule/Index.vue");
 const Create_schedule = () => import("./components/schedule/Create.vue");

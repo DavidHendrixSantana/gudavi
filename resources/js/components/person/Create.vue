@@ -558,7 +558,7 @@ export default {
             console.log(this.person.clases_semanales);
 
             await this.axios.post("/api/person", this.person);
-            this.$router.push({ name: "indexTeacher" }).catch(error => {
+            this.$router.push({ name: "indexPerson" }).catch(error => {
                 console.log(error);
             });
         },

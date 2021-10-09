@@ -13,6 +13,7 @@ use App\Http\Controllers\PersonController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Auth::routes();
 
 Route::get('person/ShowDays/{id}', [PersonController::class, 'ShowDays'])->name('ShowDays');
 Route::get('person/ShowClasses/{dia_id}/{teacher_id}', [PersonController::class, 'ShowClasses'])->name('ShowClasses');
@@ -21,3 +22,8 @@ Route::get('person/ShowClasses/{dia_id}/{teacher_id}', [PersonController::class,
 Route::get('{any}', function () {
     return view('app');
 })->where('any', '.*');
+
+
+
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
