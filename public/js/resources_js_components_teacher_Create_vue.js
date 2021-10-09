@@ -100,13 +100,61 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "create-teacher",
   data: function data() {
     return {
       teacher: {
         nombre: "",
-        turno: "",
+        primer_apellido: "",
+        segundo_apellido: "",
+        rfc: "",
+        tarjeta: "",
+        emergencia: "",
         telefono: "",
         schedule_id: ""
       },
@@ -1043,7 +1091,7 @@ var render = function() {
             },
             [
               _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "col-12 mb-2" }, [
+                _c("div", { staticClass: "col-4 mb-2" }, [
                   _c("div", { staticClass: "form-group" }, [
                     _c("label", [_vm._v("Nombre del profesor: ")]),
                     _vm._v(" "),
@@ -1071,35 +1119,159 @@ var render = function() {
                   ])
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "col-12 mb-2" }, [
+                _c("div", { staticClass: "col-4 mb-2" }, [
                   _c("div", { staticClass: "form-group" }, [
-                    _c("label", [_vm._v("Turno ")]),
+                    _c("label", [_vm._v("Primer apellido: ")]),
                     _vm._v(" "),
                     _c("input", {
                       directives: [
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.teacher.turno,
-                          expression: "teacher.turno"
+                          value: _vm.teacher.primer_apellido,
+                          expression: "teacher.primer_apellido"
                         }
                       ],
                       staticClass: "form-control",
                       attrs: { type: "text" },
-                      domProps: { value: _vm.teacher.turno },
+                      domProps: { value: _vm.teacher.primer_apellido },
                       on: {
                         input: function($event) {
                           if ($event.target.composing) {
                             return
                           }
-                          _vm.$set(_vm.teacher, "turno", $event.target.value)
+                          _vm.$set(
+                            _vm.teacher,
+                            "primer_apellido",
+                            $event.target.value
+                          )
                         }
                       }
                     })
                   ])
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "col-12 mb-2" }, [
+                _c("div", { staticClass: "col-4 mb-2" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v("Segundo apellido: ")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.teacher.segundo_apellido,
+                          expression: "teacher.segundo_apellido"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text" },
+                      domProps: { value: _vm.teacher.segundo_apellido },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.teacher,
+                            "segundo_apellido",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-4 mb-2" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v("RFC: ")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.teacher.rfc,
+                          expression: "teacher.rfc"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text" },
+                      domProps: { value: _vm.teacher.rfc },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.teacher, "rfc", $event.target.value)
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-4 mb-2" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v("Tarjeta de pago: ")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.teacher.tarjeta,
+                          expression: "teacher.tarjeta"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text" },
+                      domProps: { value: _vm.teacher.tarjeta },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.teacher, "tarjeta", $event.target.value)
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-4 mb-2" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v("Contacto de emergencia: ")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.teacher.emergencia,
+                          expression: "teacher.emergencia"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text" },
+                      domProps: { value: _vm.teacher.emergencia },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.teacher,
+                            "emergencia",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-4 mb-2" }, [
                   _c("div", { staticClass: "form-group" }, [
                     _c("label", [_vm._v("Telefono ")]),
                     _vm._v(" "),
@@ -1127,7 +1299,7 @@ var render = function() {
                   ])
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "col-12 mb-2" }, [
+                _c("div", { staticClass: "col-4 mb-2" }, [
                   _c("div", { staticClass: "form-group" }, [
                     _c("label", [_vm._v("Horario ")]),
                     _vm._v(" "),
@@ -1142,6 +1314,7 @@ var render = function() {
                             expression: "teacher.schedule_id"
                           }
                         ],
+                        staticClass: "form-control",
                         attrs: { name: "teacher_id", id: "teacher_id" },
                         on: {
                           change: function($event) {
@@ -1172,9 +1345,12 @@ var render = function() {
                           },
                           [
                             _vm._v(
-                              _vm._s(schedule.Dias) +
-                                "\n                                        " +
-                                _vm._s(schedule.Hora_inicio)
+                              _vm._s(
+                                schedule.Dia_inicio +
+                                  "  - " +
+                                  schedule.Dia_final
+                              ) +
+                                "\n                                       \n                                        "
                             )
                           ]
                         )

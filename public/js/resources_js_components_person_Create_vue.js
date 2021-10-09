@@ -497,6 +497,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "create-schedule",
   data: function data() {
@@ -516,7 +518,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         fecha_inicio: "",
         enfermedad: "",
         nivel: "",
-        clases_precio: "",
+        clases_precio: 200,
         day_id_1: "",
         day_id_2: "",
         day_id_3: "",
@@ -654,39 +656,36 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var dias = event.target.value;
 
       if (this.nivel_nado === "Bebes") {
-        if (dias === 1) {
-          this.person.clases_precio = 650;
-        } else if (dias === 2) {
-          this.person.clases_precio = 1150;
-        } else if (dias === 3) {
-          this.person.clases_precio = 1550;
+        if (dias == 1) {
+          this.person.clases_precio = 850;
+        } else if (dias == 2) {
+          this.person.clases_precio = 1250;
+        } else if (dias == 3) {
+          this.person.clases_precio = 1750;
         }
       }
 
       if (this.nivel_nado === "Mayor2") {
-        if (dias === 1) {
-          this.person.clases_precio = 550;
-        } else if (dias === 2) {
-          this.person.clases_precio = 850;
-        } else if (dias === 3) {
-          this.person.clases_precio = 1150;
+        if (dias == 1) {
+          this.person.clases_precio = 750;
+        } else if (dias == 2) {
+          this.person.clases_precio = 1050;
+        } else if (dias == 3) {
+          this.person.clases_precio = 1250;
         }
       }
 
       if (this.nivel_nado === "Grupales") {
         if (dias === 1) {
-          this.person.clases_precio = 600;
-        } else if (dias === 2) {
-          this.person.clases_precio = 750;
-        } else if (dias === 3) {
-          this.person.clases_precio = 850;
-        } else if (dias === 5) {
-          this.person.clases_precio = 1200;
+          this.person.clases_precio = 800;
+        } else if (dias == 2) {
+          this.person.clases_precio = 950;
+        } else if (dias == 3) {
+          this.person.clases_precio = 1050;
+        } else if (dias == 5) {
+          this.person.clases_precio = 1400;
         }
       }
-
-      console.log(this.nivel_nado);
-      console.log(this.person.clases_precio);
     }
   }
 });
@@ -2087,7 +2086,7 @@ var render = function() {
                         }
                       ],
                       staticClass: "form-control",
-                      attrs: { type: "text" },
+                      attrs: { type: "text", disabled: "" },
                       domProps: { value: _vm.person.clases_precio },
                       on: {
                         input: function($event) {

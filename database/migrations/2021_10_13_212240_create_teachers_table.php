@@ -16,11 +16,15 @@ class CreateTeachersTable extends Migration
         Schema::create('teachers', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nombre');
-            $table->string('turno');
+            $table->string('primer_apellido');
+            $table->string('segundo_apellido');
+            $table->string('rfc');
+            $table->string('tarjeta');
+            $table->string('emergencia');
             $table->string('telefono');
             $table->integer('schedule_id')->unsigned();
             $table->foreign('schedule_id')->references('id')->on('schedules_teachers');
-        
+    
             $table->timestamps();
         });
     }

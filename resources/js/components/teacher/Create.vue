@@ -6,7 +6,7 @@
                 <div class="card-body">
                     <form @submit.prevent="crear">
                         <div class="row">
-                            <div class="col-12 mb-2">
+                            <div class="col-4 mb-2">
                                 <div class="form-group">
                                     <label>Nombre del profesor: </label>
                                     <input
@@ -16,17 +16,59 @@
                                     />
                                 </div>
                             </div>
-                            <div class="col-12 mb-2">
+                             <div class="col-4 mb-2">
                                 <div class="form-group">
-                                    <label>Turno </label>
+                                    <label>Primer apellido: </label>
                                     <input
                                         type="text"
                                         class="form-control"
-                                        v-model="teacher.turno"
+                                        v-model="teacher.primer_apellido"
                                     />
                                 </div>
                             </div>
-                            <div class="col-12 mb-2">
+                            <div class="col-4 mb-2">
+                                <div class="form-group">
+                                    <label>Segundo apellido: </label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        v-model="teacher.segundo_apellido"
+                                    />
+                                </div>
+                            </div>
+
+                            <div class="col-4 mb-2">
+                                <div class="form-group">
+                                    <label>RFC: </label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        v-model="teacher.rfc"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-4 mb-2">
+                                <div class="form-group">
+                                    <label>Tarjeta de pago: </label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        v-model="teacher.tarjeta"
+                                    />
+                                </div>
+                            </div>
+                               <div class="col-4 mb-2">
+                                <div class="form-group">
+                                    <label>Contacto de emergencia: </label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        v-model="teacher.emergencia"
+                                    />
+                                </div>
+                            </div>
+                            
+                            <div class="col-4 mb-2">
                                 <div class="form-group">
                                     <label>Telefono </label>
                                     <input
@@ -36,11 +78,12 @@
                                     />
                                 </div>
                             </div>
-                            <div class="col-12 mb-2">
+                            <div class="col-4 mb-2">
                                 <div class="form-group">
                                     <label>Horario </label>
 
                                     <select
+                                    class="form-control"
                                         v-model="teacher.schedule_id"
                                         name="teacher_id"
                                         id="teacher_id"
@@ -49,8 +92,9 @@
                                             v-for="schedule in schedules"
                                             :value="schedule.id"
                                             :key="schedule.id"
-                                            >{{ schedule.Dias }}
-                                            {{ schedule.Hora_inicio }}</option
+                                            >{{ schedule.Dia_inicio +'  - '+  schedule.Dia_final }}
+                                           
+                                            </option
                                         >
                                     </select>
                                 </div>
@@ -75,7 +119,11 @@ export default {
         return {
             teacher: {
                 nombre: "",
-                turno: "",
+                primer_apellido:"",
+                segundo_apellido:"",
+                rfc:"",
+                tarjeta:"",
+                emergencia:"",
                 telefono: "",
                 schedule_id: ""
             },

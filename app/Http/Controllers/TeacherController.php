@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Teacher;
 use App\Models\Schedule;
+use App\Models\Days_teachers;
 
 class TeacherController extends Controller
 {
@@ -43,6 +44,19 @@ class TeacherController extends Controller
     public function store(Request $request)
     {
         $Teacher= Teacher::create($request->all());
+        
+        $last_day = Days_teachers::max('id');
+        $teacher_id = $Teacher->id;
+
+        for($x=1; $x<6; $x++){
+            Days_teachers::create([
+                'day_id'  =>  $x,
+                'teacher_id' =>$teacher_id ,
+            ]);
+
+        }
+       
+
 
         return response()->json([
             'Teacher' => $Teacher,
