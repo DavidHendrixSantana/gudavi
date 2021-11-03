@@ -1,4 +1,5 @@
 <template>
+<div class="container">
 <div class="row">
     <div class="col-lg-12 mb-4">
         <router-link :to='{name:"createTeacher"}' class="btn btn-sucess"><i class="fas fa-plus-circle"></i>  Nuevo</router-link>
@@ -6,12 +7,13 @@
 
   <div class="col-12">             
                     <div class="table-responsive">
-                        <table class="table table-bordered">
-                            <thead class="bg-primary text-white">
+                        <table id="teacher_table" class="table table-striped">
+                            <thead style="background-color: #006699 " class=" text-white">
                                 <tr>
                                     <th>Id</th>
                                     <th>Nombre</th>
                                     <th>Turno</th>
+                                    <th>Acciones</th>
                          
                                 </tr>
                             </thead>
@@ -19,7 +21,7 @@
                                 <tr v-for="teacher in Teachers" :key="teacher.id">
                                     <td>{{ teacher.id }}</td>
                                     <td>{{ teacher.nombre }}</td>
-                                    <td>{{ teacher.turno }}</td>
+                                    <td>{{ teacher.rfc }}</td>
                                 
                                     <td>
                                         <!-- llamamos al componente para Editar     -->
@@ -33,8 +35,8 @@
                     </div>                          
         </div>
 
+    </div>
 </div>
-    
 </template>
 
 <script>
@@ -49,16 +51,40 @@ export default {
     },
     mounted(){
         this.mostrarTeachers()
+       
     },
+   
     methods:{
         mostrarTeachers(){
             this.axios.get('/api/teacher').then(response=>{
                this.Teachers = response.data
+           
+
+                    $(document).ready( function () {
+                        $('#teacher_table').DataTable();
+                    } );
+               console.log(this.Teachers)
+               
+           
+            // let table = new DataTable('#teacher_table', {
+            //       data:  this.Teachers ,
+            //         columns: [
+            //         { data: 'id' },
+            //         { data: 'nombre' },
+            //         { data: 'rfc' },
+                   
+            //     ]
+            //     });
+               
             }).catch(error=>{
                 console.log(error)
             })
-        }
+        },
+       
+            
+        
     }
+                 
 
 }
 </script>

@@ -1,4 +1,5 @@
 <template>
+<div class="container">
     <div class="row">
         <div class="col-12">
             <div class="card">
@@ -110,6 +111,7 @@
             </div>
         </div>
     </div>
+</div>
 </template>
 
 <script>
@@ -162,3 +164,11 @@ export default {
     }
 };
 </script>
+
+<style >
+ label{
+     font-size: 18px;
+     font-family: "Segoe UI", Arial, sans-serif;
+     font-weight: bold;
+ }
+</style>

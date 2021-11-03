@@ -17,6 +17,11 @@ const Edit_teacher = () => import("./components/teacher/Edit.vue");
 const Index_person = () => import("./components/person/Index.vue");
 const Create_person = () => import("./components/person/Create.vue");
 const Edit_person = () => import("./components/person/Edit.vue");
+
+//componentes pagos
+
+const Index_pay = () => import("./components/pays/Index.vue");
+
 export const routes = [
     {
         name: "home",
@@ -83,5 +88,13 @@ export const routes = [
         name: "editPerson",
         path: "/editPerson/:id",
         component: Edit_person
+    },
+
+    //Rutas pagos
+
+    {
+        name: "indexPay",
+        path: "/pays",
+        component: Index_pay
     }
 ];

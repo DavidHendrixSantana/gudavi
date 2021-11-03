@@ -1,4 +1,5 @@
 <template>
+<div class="container">
     <div class="row">
         <div class="col-12">
             <div class="card">
@@ -6,19 +7,19 @@
                 <div class="card-body">
                     <form @submit.prevent="crear">
                         <div class="row">
-                            <div class="col-12 mb-2">
+                            <div class="col-6 mb-2">
                                 <div class="form-group">
                                     <label>Hora Inicio</label>
                                     <input type="time" class="form-control" v-model="schedule.Hora_inicio">
                                 </div>
                             </div>
-                            <div class="col-12 mb-2">
+                            <div class="col-6 mb-2">
                                 <div class="form-group">
                                     <label>Hora final</label>
                                     <input type="time" class="form-control" v-model="schedule.Hora_final">
                                 </div>
                             </div>
-                            <div class="col-12 mb-2">
+                            <div class="col-6 mb-2">
                                 <div class="form-group">
                                     <label>Día inicio</label>
                                     <select class="form-control" name="Dia_inicio" id="Dia_inicio" v-model="schedule.Dia_inicio" >
@@ -32,7 +33,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-12 mb-2">
+                            <div class="col-6 mb-2">
                                 <div class="form-group">
                                     <label>Día Final</label>
                                     <select class="form-control" name="Dia_final" id="Dia_final" v-model="schedule.Dia_final" >
@@ -55,6 +56,7 @@
             </div>
         </div>
     </div>
+</div>
 </template>
 
 <script>
@@ -84,3 +86,11 @@ export default {
     }
 }
 </script>
+
+<style >
+ label{
+     font-size: 18px;
+     font-family: "Segoe UI", Arial, sans-serif;
+     font-weight: bold;
+ }
+</style>

@@ -1,10 +1,10 @@
 <template>
-    <main>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div>
+        <nav style="background-color: #006699 "  class="navbar navbar-expand-lg navbar-dark ">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">
                     <!-- llamamos al logo de Vue -->
-                    <img src="" alt="" width="30" height="24">
+                    <img src="/public/images/logo.jpg" alt="" width="30" height="24">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -25,20 +25,57 @@
                     </li>   
                     <li class="nav-item">
                         <router-link exact-active-class="active" to="/teachers" class="nav-link">Profesores</router-link>
+                    </li>  
+                        <li class="nav-item">
+                        <router-link exact-active-class="active" to="/pays" class="nav-link">Pagos</router-link>
+                    </li>    
+                   <li class="nav-item">
+                       <a href="" id="HoraActual" class="nav-link">Hora: {{timestamp}} </a>
                     </li>   
-                   
                            
                 </ul>
                
                 </div>
             </div>
         </nav>
-        <div class="container mt-5">
+        <div style="margin:0px; pading:0px;">
             <router-view></router-view>
         </div>
-    </main>
+    </div>
 </template>
  
+ 
 <script>
-    export default {}
+  
+
+    export default {
+        data(){
+        return{
+                timestamp: "",
+            }
+        },
+     
+      
+        mounted() {
+            
+
+        },
+        created(){
+                setInterval(this.getNow, 1000);
+
+        },
+    
+        methods: {
+
+            getNow: function() {
+                        const today = new Date();
+                        const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+                        const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+                       
+                        this.timestamp = time;
+                    }
+
+        }
+
+    }
 </script>

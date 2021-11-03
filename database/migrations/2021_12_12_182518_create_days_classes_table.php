@@ -21,6 +21,7 @@ class CreateDaysClassesTable extends Migration
             $table->foreign('class_id')->references('id')->on('classes');
             $table->integer('person_id')->unsigned();
             $table->foreign('person_id')->references('id')->on('persons');
+            $table->integer('status');
             $table->timestamps();
 
         });

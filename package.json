@@ -12,7 +12,7 @@
     "devDependencies": {
         "axios": "^0.21",
         "bootstrap": "^4.6.0",
-        "jquery": "^3.6",
+        "jquery": "^3.6.0",
         "laravel-mix": "^6.0.6",
         "lodash": "^4.17.19",
         "popper.js": "^1.16.1",
@@ -24,6 +24,8 @@
         "vue-template-compiler": "^2.6.14"
     },
     "dependencies": {
+        "datatables.net": "^1.11.3",
+        "datatables.net-dt": "^1.11.3",
         "vue": "^2.6.14",
         "vue-axios": "^3.3.7",
         "vue-multiselect": "^2.1.6",

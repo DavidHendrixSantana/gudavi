@@ -15,10 +15,12 @@ class CreatePaysTable extends Migration
     {
         Schema::create('pays', function (Blueprint $table) {
             $table->id();
-            $table->integer('cantidad');
+            $table->double('cantidad');
             $table->date('fecha_pago');
+            $table->date('fecha_vencimiento');
             $table->integer('person_id')->unsigned();
             $table->foreign('person_id')->references('id')->on('persons');
+            $table->integer('status');
             $table->timestamps();
         });
     }

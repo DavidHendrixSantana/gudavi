@@ -10,6 +10,7 @@ use App\Models\Clase;
 use App\Models\Day_clase;
 use App\Models\Days_teachers;
 use App\Models\Pay;
+use App\Models\History;
 use Illuminate\Support\Facades\DB;
 
 class PersonController extends Controller
@@ -47,6 +48,10 @@ class PersonController extends Controller
      */
     public function store(Request $request)
     {
+
+     
+
+
         $numero_clases=$request['clases_semanales'];
         $teacher_id=$request['teacher_id'];
         
@@ -79,15 +84,36 @@ class PersonController extends Controller
                 'day_teacher_id' => $day_id,
                 'class_id' =>  $clase_id,
                 'person_id' => $Person->id,
+                'status' => 1
             ]);
            
            
         }
       
+
+        $meses  = (int) $request['mesesPagados'];
+
+
+        $fecha_inicio = $request['fecha_inicio'];
+
+        $fechaComoEntero = strtotime($fecha_inicio);
+
+        $anio = date("Y", $fechaComoEntero);
+        $mes = date("m", $fechaComoEntero);
+        $dia = date("d", $fechaComoEntero);
+        $mes = $mes + $meses; 
+        if($mes < 10){
+            $mes = '0'.$mes;
+        }
+        $fecha_vencimiento = $anio.'-'.$mes.'-'.$dia;
+        
+      
         Pay::create([
             'cantidad' => $request['clases_precio'],
             'fecha_pago' =>  $request['fecha_inicio'],
+            'fecha_vencimiento' =>  $fecha_vencimiento,
             'person_id' => $Person->id,
+            'status' => 1,
            
 
         ]);
@@ -172,9 +198,40 @@ class PersonController extends Controller
 
     public function consult_pay($id){
         // $pay = Pay::all();
-        
-        $pay = Pay::where('person_id', '=', $id)->first();
-        
+         
+        $pay = Pay::where('person_id', $id)->first();
+    
         return response()->json(['pay' => $pay]);
+    }
+
+
+    public function save_pay($id,$forma,$tarjeta, $cantidad){
+        try {
+            
+            $date_now = date('Y/m/d'); 
+            $pay = Pay::where('person_id', $id)->update([
+                'fecha_pago' => $date_now,
+                'status' => 1
+            ]);
+    
+            History::create([
+                'person_id' => $id,
+                'forma_pago' => $forma,
+                'cantidad' => $cantidad,
+                'fecha_pago' => $date_now,
+                'tarjeta' => $tarjeta,
+            ]);
+
+        return response()->json('Guardado');
+
+          
+        } catch (Throwable $th) {
+
+        return response()->json($th);
+
+           
+        }
+       
+
     }
 }

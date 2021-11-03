@@ -1,4 +1,5 @@
 <template>
+<div class="container">
     <div class="row">
         <div class="col-12">
             <div class="card">
@@ -138,7 +139,7 @@
                         <div class="row">
                             <div class="col-4 mb-2">
                                 <div class="form-group">
-                                    <label>Nivel de nado: </label>
+                                    <label>Tipo de nado: </label>
                                     <select
                                         name="nivel"
                                         id="nivel"
@@ -167,7 +168,7 @@
                                         id="clases"
                                         v-model="person.clases_semanales"
                                         class="form-control"
-                                        @change="clase_precio($event)"
+                                        
                                     >
                                         <option value=""
                                             >Seleccione los días</option
@@ -180,6 +181,29 @@
                                             value="5"
                                             >5</option
                                         >
+                                    </select>
+                                </div>
+                            </div>
+                             <div class="col-4 mb-2">
+                                <div class="form-group">
+                                    <label>Meses a pagar: </label>
+                                    <select
+                                        name="clases"
+                                        id="clases"
+                                        v-model="person.mesesPagados"
+                                        class="form-control"
+                                        @change="clase_precio($event)"
+                                    >
+                                        <option value=""
+                                            >Seleccione los meses</option
+                                        >
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                     
                                     </select>
                                 </div>
                             </div>
@@ -220,7 +244,28 @@
                                         </select>
                                     </div>
                                 </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>Categoria de nado: </label>
+
+                                        <select
+                                            v-model="person.categoria"
+                                            class="form-control"
+                                    
+                                            name="categoria"
+                                            id="categoria"
+                                        >
+                                           
+                                        <option value="Nado normal">Nado normal</option>
+                                        <option value="Matronatación">Matronatación</option>
+                                        <option value="Acuazumba">Acuazumba</option>
+                                        <option value="Spin Acuatico">Spin Acuatico</option>
+                                        
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
+                            
                             <div>
                                 <div class="row">
                                     <div class="col-6">
@@ -465,6 +510,7 @@
             </div>
         </div>
     </div>
+ </div>   
 </template>
 
 <script>
@@ -484,6 +530,7 @@ export default {
                 nombre_emergencia: "",
                 clases_semanales: "",
                 telefono_emergencia: "",
+                mesesPagados: '',
                 fecha_inicio: "",
                 enfermedad: "",
                 nivel: "",
@@ -557,7 +604,7 @@ export default {
         async crear() {
             console.log(this.person.clases_semanales);
 
-            await this.axios.post("/api/person", this.person);
+            await this.axios.post("/api/person", this.person)
             this.$router.push({ name: "indexPerson" }).catch(error => {
                 console.log(error);
             });
@@ -568,37 +615,38 @@ export default {
         },
 
         clase_precio(event) {
-            var dias = event.target.value;
+            var dias = this.person.clases_semanales;
+            var meses =event.target.value
 
             if (this.nivel_nado === "Bebes") {
 
                 if (dias == 1) {
-                    this.person.clases_precio = 850;
+                    this.person.clases_precio =(meses* 650) + 200;
 
                 } else if (dias == 2) {
-                    this.person.clases_precio = 1250;
+                    this.person.clases_precio =(meses* 1150) + 200;
                 } else if (dias == 3) {
-                    this.person.clases_precio = 1750;
+                    this.person.clases_precio =(meses* 1550) + 200;
                 }
             }
             if (this.nivel_nado === "Mayor2") {
                 if (dias == 1) {
-                    this.person.clases_precio = 750;
+                    this.person.clases_precio =(meses* 550) + 200;
                 } else if (dias == 2) {
-                    this.person.clases_precio = 1050;
+                    this.person.clases_precio =(meses* 850) + 200;
                 } else if (dias == 3) {
-                    this.person.clases_precio = 1250;
+                    this.person.clases_precio =(meses* 1150) + 200;
                 }
             }
             if (this.nivel_nado === "Grupales") {
                 if (dias=== 1) {
-                    this.person.clases_precio = 800;
+                    this.person.clases_precio = (meses*600) + 200;
                 } else if (dias == 2) {
-                    this.person.clases_precio = 950;
+                    this.person.clases_precio =(meses*790) + 200;
                 } else if (dias == 3) {
-                    this.person.clases_precio = 1050;
+                    this.person.clases_precio = (meses*850) + 200;
                 } else if (dias == 5) {
-                    this.person.clases_precio = 1400;
+                    this.person.clases_precio =(meses* 1200) + 200;
                 }
             }
         
@@ -606,3 +654,10 @@ export default {
     }
 };
 </script>
+<style >
+ label{
+     font-size: 18px;
+     font-family: "Segoe UI", Arial, sans-serif;
+     font-weight: bold;
+ }
+</style>
