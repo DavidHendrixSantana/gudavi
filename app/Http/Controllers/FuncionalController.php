@@ -12,6 +12,7 @@ use App\Models\Days_teachers;
 use Illuminate\Support\Facades\DB;
 
 
+
 class FuncionalController extends Controller
 {
     

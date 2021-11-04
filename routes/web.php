@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PersonController;
+use App\Http\Controllers\PdfController;
+use App\Http\Controllers\BarCodeController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +20,14 @@ Auth::routes();
 
 Route::get('person/ShowDays/{id}', [PersonController::class, 'ShowDays'])->name('ShowDays');
 Route::get('person/ShowClasses/{dia_id}/{teacher_id}', [PersonController::class, 'ShowClasses'])->name('ShowClasses');
+
+//PDF
+Route::get('Quincenal', [PdfController::class, 'ReporterQuincenal'])->name('Quincenal');
+
+
+//Barcode
+Route::get('credencial', [BarcodeController::class, 'index'])->name('credencial');
+
 
 
 Route::get('{any}', function () {

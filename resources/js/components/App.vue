@@ -4,7 +4,7 @@
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">
                     <!-- llamamos al logo de Vue -->
-                    <img src="/public/images/logo.jpg" alt="" width="30" height="24">
+                    <img src="../public/images/logo.jpg" alt="" width="30" height="24">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
