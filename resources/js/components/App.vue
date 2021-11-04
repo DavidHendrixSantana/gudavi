@@ -4,7 +4,7 @@
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">
                     <!-- llamamos al logo de Vue -->
-                    <img src="../public/images/logo.jpg" alt="" width="30" height="24">
+                    <img src="/images/logo.jpg" alt="" width="130" height="100">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -12,7 +12,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <router-link exact-active-class="active" to="/" class="nav-link active" aria-current="page">Inicio</router-link>
+                        <router-link exact-active-class="active" to="/" class="nav-link" aria-current="page">Inicio</router-link>
                     </li>
                      <li class="nav-item">
                         <router-link exact-active-class="active" to="/listado" class="nav-link">Clases</router-link>
@@ -29,7 +29,7 @@
                         <li class="nav-item">
                         <router-link exact-active-class="active" to="/pays" class="nav-link">Pagos</router-link>
                     </li>    
-                   <li class="nav-item">
+                   <li  class="nav-item">
                        <a href="" id="HoraActual" class="nav-link">Hora: {{timestamp}} </a>
                     </li>   
                            
@@ -43,7 +43,15 @@
         </div>
     </div>
 </template>
+ <style scoped>
  
+ul>li{
+    font-size: 24px;
+    padding: 5px;
+    font-weight: bolder;
+}
+
+ </style>
  
 <script>
   

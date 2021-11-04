@@ -30,6 +30,10 @@ Route::get('pay', [PayController::class, 'listar_pago'])->name('listar_pago');
 Route::get('clasesMonth', [ReportesController::class, 'consult_month'])->name('clasesMonth');
 
 
+//Cambios
+Route::post('cambio', [FuncionalController::class, 'cambioClase'])->name('cambio');
+
+
 
 Route::resource('schedule', App\Http\Controllers\SchedulesController::class)->only(['index','create','store','show','update','destroy']);;
 

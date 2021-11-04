@@ -42,17 +42,43 @@
                     <tbody>
                         <tr>
                             <td v-for="day in Days" :key="day.id" >
-                                <button style="display: block; height:50px;"
-                                    v-for="clase in day.Clases"
-                                    :key="clase.id"
-                                    type="button"
-                                    :class="clase.status === 1 ? 'custom-btn btn-13' : 'custom-btn btn-5'"
-                                    @click="show_modal($event)"
-                                    :value="clase.nombre"
-                                >
-                                    {{ clase.Clase }}
-                                    {{ clase.nombre }}
-                                </button>
+                              <div v-for="clase in day.Clases"  :key="clase.id">
+                                <div v-if="clase.status == 1"  >
+                                  <button style="display: block; height:50px;"
+                                      type="button"
+                                      class="custom-btn btn-13">
+                                      {{ clase.Clase }}
+                                      {{ clase.nombre }}
+                                  </button>
+                                </div>
+                                 <div v-else-if="clase.status == 3"  >
+                                  <button style="display: block; height:50px;"
+                                      type="button"
+                                      class="custom-btn btn-6">
+                                      {{ clase.Clase }}
+                                      {{ clase.nombre }}
+                                  </button>
+                                </div>
+                                 <div v-else-if="clase.status == 4"  >
+                                  <button style="display: block; height:50px;"
+                                      type="button"
+                                      class="custom-btn btn-7">
+                                      {{ clase.Clase }}
+                                      {{ clase.nombre }}
+                                  </button>
+                                </div>
+                               
+                                <div v-else >
+                                  <button style="display: block; height:50px;"
+                                      type="button"
+                                      class="custom-btn btn-5">
+                                      {{ clase.Clase }}
+                                      {{ clase.nombre }}
+                                  </button>
+                                </div>
+                              
+                              </div>
+                                
                             </td>
                         </tr>
                     </tbody>
@@ -65,7 +91,7 @@
             <transition name="modal">
                 <div class="modal-mask">
                     <div class="modal-wrapper">
-                        <div class="modal-dialog" role="document">
+                        <div class="modal-dialog"  role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title">
@@ -89,21 +115,103 @@
                                     <button
                                         type="button"
                                         class="btn btn-secondary"
+                                        @click.prevent="noPresentara($event)"
+
                                     >
                                         No se presentara.
                                     </button>
                                     <button
                                         type="button"
                                         class="btn btn-warning"
+                                        @click.prevent="CambioClase($event)"
+
                                     >
                                         Solicitar cambio.
                                     </button>
                                 </div>
+                                <div class="container" v-if="noPresente">
+                                  <label for="">Descripción de la falta:</label>
+                                  <input class="form-control" type="text">
+
+                                </div> 
+
+                                <div class="container" v-if="cambioClase"> 
+                                      <div class="form-group">
+                                          <label>Profesor </label>
+
+                                          <select
+                                              v-model="person.teacher_id"
+                                              class="form-control"
+                                              name="teacher_id"
+                                              id="teacher_id"
+                                              @change="mostrarDias($event)"
+
+                                          >
+                                              <option value="" selected
+                                                  >Seleccione el profesor</option
+                                              >
+                                              <option
+                                                  v-for="teacher in teachers"
+                                                  :value="teacher.id"
+                                                  :key="teacher.id"
+                                                  >{{ teacher.nombre }}
+                                              </option>
+                                          </select>
+                                      </div>
+                                      <div class="form-group">
+                                            <label>Días </label>
+
+                                            <select
+                                                v-model="person.day_id"
+                                                class="form-control"
+                                                @change="mostrarClases($event)"
+                                            >
+                                                <option value="" selected
+                                                    >Seleccione el Día</option
+                                                >
+                                                <option
+                                                    v-for="day in days"
+                                                    :value="day.id"
+                                                    :key="day.id"
+                                                    >{{ day.Dia }}
+                                                </option>
+                                            </select>
+                                      </div>
+                                      <div class="form-group">
+                                            <label>Hora de clase: </label>
+
+                                            <select
+                                                class="form-control"
+                                                v-model="person.clase_id"
+                                            >
+                                                <option value="" selected
+                                                    >Seleccione la clase</option
+                                                >
+                                                <option
+                                                    v-for="clase in clases"
+                                                    :value="clase.id"
+                                                    :key="clase.id"
+                                                    >{{ clase.Clase }}
+                                                </option>
+                                            </select>
+                                        </div>
+
+                                         <button
+                                        type="button"
+                                        class="btn btn-success"
+                                        @click.prevent="realizarCambio($event)"
+
+                                    >
+                                       Guardar Cambio
+                                    </button>
+
+                                </div>
+
                                 <div class="modal-footer">
                                     <button
                                         type="button"
                                         class="btn btn-secondary"
-                                        @click="showModal = false"
+                                        @click="showModal = false, cambioClase=false"
                                     >
                                         Cerrar
                                     </button>
@@ -133,7 +241,20 @@ export default {
             Days: [],
             Teachers: [],
             showModal: false,
-            person_name: ""
+            person_name: "",
+            cambioClase:false,
+            noPresente:false,
+            person:{
+              $first_id:"",
+              teacher_id: "",
+              day_id: "",
+              clase_id: "",
+              person_id:"",
+            },
+            teachers: [],
+            days: [],
+            clases: []
+
         };
     },
 
@@ -168,9 +289,85 @@ export default {
                 });
         },
 
-        show_modal(event) {
-            this.person_name = event.target.value;
+        show_modal(nombre,id_person, id) {
+          this.person_name=nombre
+          console.log(id_person)
+          console.log(id)
+          this.person.first_id = id;
+            this.person.person_id = id_person;
             this.showModal = true;
+        },
+
+        CambioClase(event){
+            this.noPresente=false;
+
+                event.preventDefault()
+            this.cambioClase=true,
+            console.log(this.showModal)
+            this.mostrarTeachers();
+
+        },
+        
+        noPresentara(event){
+            this.cambioClase=false,
+            event.preventDefault(),
+            this.noPresente=true;
+        
+
+        },
+
+         async mostrarTeachers() {
+            await this.axios
+                .get(`/api/person/create`)
+                .then(response => {
+                    const { teachers } = response.data;
+                    this.teachers = teachers;
+                    console.log(teachers);
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        },
+
+        async mostrarDias(event) {
+            console.log(event.target.value);
+            await this.axios
+                .get(`/person/ShowDays/${event.target.value}`)
+                .then(response => {
+                    const { days } = response.data;
+                    this.days = days;
+                    console.log(days);
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        },
+          async mostrarClases(event) {
+            console.log(event.target.value);
+            console.log(this.person.teacher_id);
+            var dia_id = event.target.value;
+            var teacher_id = this.person.teacher_id;
+
+            await this.axios
+                .get(`/person/ShowClasses/${dia_id}/${teacher_id}`)
+                .then(response => {
+                    const { clases } = response.data;
+                    this.clases = clases;
+                    console.log(clases);
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        },
+        async realizarCambio(){
+          await this.axios.post("/api/cambio", this.person)
+          .then(response =>{
+            const {clase} =response.data;
+            console.log(clase);
+          })
+            .catch(error => {
+                console.log(error);
+            });
         }
     }
 };
@@ -471,7 +668,7 @@ button {
 
 /* 6 */
 .btn-6 {
-   background: #000;
+   background: rgb(201, 70, 0);
   color: #fff;
   line-height: 42px;
   padding: 0;
@@ -542,7 +739,7 @@ button {
 
 /* 7 */
 .btn-7 {
-   background: rgb(4, 3, 58);
+   background: rgb(191, 92, 0);
   color: #fff;
   line-height: 42px;
   padding: 0;
@@ -564,7 +761,7 @@ button {
   height: 50%;
   right: 0;
   z-index: -1;
-  background: rgb(4, 3, 58);
+  background: rgb(95, 12, 72);
   transition: all 0.3s ease;
 }
 .btn-7:before {

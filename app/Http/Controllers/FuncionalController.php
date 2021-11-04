@@ -25,7 +25,7 @@ class FuncionalController extends Controller
         for($x=0; $x<$number_of_days; $x++){
 
             $id_day = $Days[$x]->id;
-            $Classes = DB::select('select classes.id, persons.nombre ,classes.Clase, days_classes.status from classes  inner join days_classes on classes.id = days_classes.class_id INNER JOIN persons ON days_classes.person_id =persons.id WHERE days_classes.day_teacher_id = ?', [$id_day]);
+            $Classes = DB::select('select days_classes.id as clase_id, classes.id, persons.id as id_person ,persons.nombre ,classes.Clase, days_classes.status from classes  inner join days_classes on classes.id = days_classes.class_id INNER JOIN persons ON days_classes.person_id =persons.id WHERE days_classes.day_teacher_id = ?', [$id_day]);
            
             $Classes_general = DB::select('SELECT Clase from classes');
 
@@ -81,5 +81,36 @@ class FuncionalController extends Controller
         
           
         ]) ;
+    }
+
+    public function cambioClase(Request $request){
+        $first_id= $request['first_id'];
+        $teacher_id= $request['teacher_id'];
+        $day_id= $request['day_id'];
+        $clase_id= $request['clase_id'];
+        $person_id= $request['person_id'];
+
+        Day_clase::where('id', $first_id)->update([
+            'status' => 3,
+        ]);
+       
+
+        $clase = Day_clase::create([
+                'day_teacher_id' => $day_id,
+                'class_id' =>  $clase_id,
+                'person_id' => $person_id,
+                'status' => 4
+            ]);
+
+        
+
+     return response()->json([
+          
+            'clase' => $clase ,
+        
+          
+        ]) ;
+        
+
     }
 }
