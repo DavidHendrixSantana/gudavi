@@ -25,7 +25,7 @@ class PdfController extends Controller
             array_push($Classes_month,$Consult);
     
             }
-          
+      
 
        
         $pdf = \PDF::loadView('pdf.Quincenal', compact('Classes_month'));

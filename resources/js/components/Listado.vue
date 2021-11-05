@@ -3,17 +3,18 @@
     <header>
 
     </header>
-    <div style="margin-left:100; margin-top:15px; margin-bottom:25px;   pading:0px;">
-        <div class="row">
-            <div class="col-4" v-for="teacher in Teachers" :key="teacher.id">
+    <br>
+    <div >
+        <div class="row" style="padding-left:40px;">
+            <div class="col-md-1" v-for="teacher in Teachers" :key="teacher.id" style="padding-left:20px;">
                 <div class="row">
                     <button
                         type="button"
                         v-on:click="cargar_clases($event)"
                         :value="teacher.id"
                         :id="teacher.id"
-                        class="custom-btn btn-7 "
-                     
+                        class="btn btn-primary btn-lg"
+                      
                        data-toggle="button"
                         aria-pressed="false"
                         autocomplete="off"
@@ -22,16 +23,15 @@
                     </button>
                 </div>
             </div>
-        </div>
+        </div><br>
 
         <!-- <div class="btn-group" role="group" aria-label="Basic radio toggle button group" v-for="teacher in Teachers" :key="teacher.id">
         <input type="radio" class="btn-check" name="btnradio"   v-on:click="cargar_clases($event)" v-model="teacher_id" :id="teacher.id" autocomplete="off">
         <label class="btn btn-outline-primary" for="teacher.id">{{teacher.nombre}}</label> -->
 
         <div class="row">
-            <div class="col-12" style="width: 2500px;">
-                <div class="container">
-                <table class="table-responsive">
+            <div class="col-lg-12 col-md-4 col-sm-12 col-xs-12">
+                <table class="table-responsive" style="padding-left:30px;">
                     <thead class="thead-light">
                         <tr>
                             <th style="text-align:center; padding-top:25px; padding-bottom:15px; border:solid; background-color:  #006666; color:#ffffff; " v-for="day in Days" :key="day.id">
@@ -44,7 +44,7 @@
                             <td v-for="day in Days" :key="day.id" >
                               <div v-for="clase in day.Clases"  :key="clase.id">
                                 <div v-if="clase.status == 1"  >
-                                  <button style="display: block; height:50px;"
+                                  <button style="display: block; width:250px;  height: 70px;"
                                       type="button"
                                       class="custom-btn btn-13"
                                       @click="show_modal(clase.nombre, clase.id_person, clase.clase_id)">
@@ -53,7 +53,7 @@
                                   </button>
                                 </div>
                                  <div v-else-if="clase.status == 3"  >
-                                  <button style="display: block; height:50px;"
+                                  <button style="display: block; width:250px;  height: 70px;"
                                       type="button"
                                       class="custom-btn btn-6"
                                       @click="show_modal(clase.nombre, clase.id_person, clase.clase_id)">
@@ -62,7 +62,7 @@
                                   </button>
                                 </div>
                                  <div v-else-if="clase.status == 4"  >
-                                  <button style="display: block; height:50px;"
+                                  <button style="display: block; width:250px;  height: 70px;"
                                       type="button"
                                       class="custom-btn btn-7"
                                       @click="show_modal(clase.nombre, clase.id_person, clase.clase_id)"
@@ -73,10 +73,10 @@
                                 </div>
                                
                                 <div v-else >
-                                  <button style="display: block; height:50px;"
+                                  <button style="display: block; width:250px; height: 70px;"
                                       type="button"
                                       class="custom-btn btn-5"
-                                     @click="show_modal(clase.nombre, clase.id_person, clase.clase_id)">
+                                    >
                                       {{ clase.Clase }}
                                       {{ clase.nombre }}
                                   </button>
@@ -88,7 +88,6 @@
                         </tr>
                     </tbody>
                 </table>
-                </div>
             </div>
         </div>
 
@@ -295,10 +294,11 @@ export default {
         },
 
         show_modal(nombre,id_person, id) {
-          this.person_name=nombre
+          console.log(nombre)
           console.log(id_person)
           console.log(id)
-          this.person.first_id = id;
+            this.person_name=nombre
+            this.person.first_id = id;
             this.person.person_id = id_person;
             this.showModal = true;
         },
@@ -306,7 +306,7 @@ export default {
         CambioClase(event){
             this.noPresente=false;
 
-                event.preventDefault()
+            event.preventDefault()
             this.cambioClase=true,
             console.log(this.showModal)
             this.mostrarTeachers();
@@ -676,8 +676,10 @@ button {
    background: rgb(201, 70, 0);
   color: #fff;
   line-height: 42px;
-  padding: 0;
+
   border: none;
+    margin: 3px;
+  padding: 3px;
 }
 .btn-6 span {
   position: relative;
@@ -747,11 +749,13 @@ button {
    background: rgb(191, 92, 0);
   color: #fff;
   line-height: 42px;
-  padding: 0;
+ 
   border: none;
   z-index: 1;
    -webkit-transition: all 0.3s linear;
 	transition: all 0.3s linear;
+    margin: 3px;
+  padding: 3px;
 }
 .btn-7:hover {
   background: rgba(5, 119, 172, 0.911);
