@@ -17,7 +17,7 @@ class CreatePaysHistoryTable extends Migration
             $table->id();
             $table->integer('person_id');
             $table->string('forma_pago');
-            $table->string('tarjeta');
+            $table->string('tipo_tarjeta');
             $table->double('cantidad');
             $table->date('fecha_pago');
             $table->integer('folio');

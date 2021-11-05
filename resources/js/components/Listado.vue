@@ -46,7 +46,8 @@
                                 <div v-if="clase.status == 1"  >
                                   <button style="display: block; height:50px;"
                                       type="button"
-                                      class="custom-btn btn-13">
+                                      class="custom-btn btn-13"
+                                      @click="show_modal(clase.nombre, clase.id_person, clase.clase_id)">
                                       {{ clase.Clase }}
                                       {{ clase.nombre }}
                                   </button>
@@ -54,7 +55,8 @@
                                  <div v-else-if="clase.status == 3"  >
                                   <button style="display: block; height:50px;"
                                       type="button"
-                                      class="custom-btn btn-6">
+                                      class="custom-btn btn-6"
+                                      @click="show_modal(clase.nombre, clase.id_person, clase.clase_id)">
                                       {{ clase.Clase }}
                                       {{ clase.nombre }}
                                   </button>
@@ -62,7 +64,9 @@
                                  <div v-else-if="clase.status == 4"  >
                                   <button style="display: block; height:50px;"
                                       type="button"
-                                      class="custom-btn btn-7">
+                                      class="custom-btn btn-7"
+                                      @click="show_modal(clase.nombre, clase.id_person, clase.clase_id)"
+                                      >
                                       {{ clase.Clase }}
                                       {{ clase.nombre }}
                                   </button>
@@ -71,7 +75,8 @@
                                 <div v-else >
                                   <button style="display: block; height:50px;"
                                       type="button"
-                                      class="custom-btn btn-5">
+                                      class="custom-btn btn-5"
+                                     @click="show_modal(clase.nombre, clase.id_person, clase.clase_id)">
                                       {{ clase.Clase }}
                                       {{ clase.nombre }}
                                   </button>
@@ -495,9 +500,9 @@ button {
 }
 
 /* 2 */
-.btn-2 {
+/* .btn-2 {
   
-}
+} */
 .btn-2:after {
   position: absolute;
   content: "";
