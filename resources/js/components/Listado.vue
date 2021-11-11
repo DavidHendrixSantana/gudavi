@@ -6,7 +6,7 @@
     <br>
     <div >
         <div class="row" style="padding-left:40px;">
-            <div class="col-md-1" v-for="teacher in Teachers" :key="teacher.id" style="padding-left:20px;">
+            <div class="col-md-2" v-for="teacher in Teachers" :key="teacher.id" style="padding-left:20px;">
                 <div class="row">
                     <button
                         type="button"
@@ -66,6 +66,16 @@
                                       type="button"
                                       class="custom-btn btn-7"
                                       @click="show_modal(clase.nombre, clase.id_person, clase.clase_id)"
+                                      >
+                                      {{ clase.Clase }}
+                                      {{ clase.nombre }}
+                                  </button>
+                                </div>
+                                 <div v-else-if="clase.status == 5"  >
+                                  <button style="display: block; width:250px;  height: 70px;"
+                                      type="button"
+                                      class="custom-btn btn-8"
+                                      
                                       >
                                       {{ clase.Clase }}
                                       {{ clase.nombre }}
@@ -135,8 +145,14 @@
                                 </div>
                                 <div class="container" v-if="noPresente">
                                   <label for="">Descripción de la falta:</label>
-                                  <input class="form-control" type="text">
+                                  <input class="form-control" :value="person.desc_falta" type="text">
+                                  <button
+                                        type="button"
+                                        class="btn btn-info"
+                                        @click.prevent="presentarFalta()"
 
+                                    > Registrar Falta
+                                    </button>
                                 </div> 
 
                                 <div class="container" v-if="cambioClase"> 
@@ -248,12 +264,14 @@ export default {
             person_name: "",
             cambioClase:false,
             noPresente:false,
+            
             person:{
               $first_id:"",
               teacher_id: "",
               day_id: "",
               clase_id: "",
               person_id:"",
+              desc_falta:"",
             },
             teachers: [],
             days: [],
@@ -280,10 +298,22 @@ export default {
         },
 
         async cargar_clases(event) {
+           this.teacher_id = event.target.value;
             console.log(event.target.value);
             var id = event.target.value;
             await this.axios
                 .get(`/api/listado_teacher/${event.target.value}`)
+                .then(response => {
+                    const { Days } = response.data;
+                    this.Days = Days;
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        },
+          async cargar_clases2() {
+            await this.axios
+                .get(`/api/listado_teacher/${this.teacher_id}`)
                 .then(response => {
                     const { Days } = response.data;
                     this.Days = Days;
@@ -305,7 +335,6 @@ export default {
 
         CambioClase(event){
             this.noPresente=false;
-
             event.preventDefault()
             this.cambioClase=true,
             console.log(this.showModal)
@@ -369,6 +398,18 @@ export default {
           .then(response =>{
             const {clase} =response.data;
             console.log(clase);
+            this.cargar_clases2() ;
+          })
+            .catch(error => {
+                console.log(error);
+            });
+        },
+         async presentarFalta(){
+          await this.axios.post("/api/falta", this.person)
+          .then(response =>{
+            const {respuesta} =response.data;
+            console.log(respuesta);
+            this.cargar_clases2() ;
           })
             .catch(error => {
                 console.log(error);
@@ -791,8 +832,9 @@ button {
 /* 8 */
 .btn-8 {
    line-height: 40px;
-  padding: 0;
-  background: transparent;
+      margin: 3px;
+  padding: 3px;
+  background: rgb(102, 102, 102);
   position: relative;
   z-index: 2;
   color: #fff;
@@ -802,28 +844,8 @@ button {
   transform-style: preserve-3d;
 }
 .btn-8:hover{
-  color: #000;
+  color: rgb(92, 92, 92);
 }
-.btn-8:after {
-  position: absolute;
-  content: "";
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: #000;
-  z-index: -1;
-  -webkit-transform-origin: center bottom;
-  transform-origin: center bottom;
-  -webkit-transform: rotateX(0);
-  transform: rotateX(0);
-  transition: all 0.3s ease;
-}
-.btn-8:hover:after {
-  -webkit-transform: rotateX(-180deg);
-  transform: rotateX(-180deg);
-}
-  
 
 /* 9 */
 .btn-9 {

@@ -6,7 +6,7 @@
                 <div class="card-body">
                     <form @submit.prevent="Actualizar">
                         <div class="row">
-                            <div class="col-12 mb-2">
+                            <div class="col-6 mb-2">
                                 <div class="form-group">
                                     <label>Hora Inicio</label>
                                     <input
@@ -16,7 +16,7 @@
                                     />
                                 </div>
                             </div>
-                            <div class="col-12 mb-2">
+                            <div class="col-6 mb-2">
                                 <div class="form-group">
                                     <label>Hora final</label>
                                     <input
@@ -26,7 +26,7 @@
                                     />
                                 </div>
                             </div>
-                            <div class="col-12 mb-2">
+                            <div class="col-6 mb-2">
                                 <div class="form-group">
                                     <label>Día inicio</label>
                                     <select
@@ -35,19 +35,19 @@
                                         id="Dia_inicio"
                                         v-model="schedule.Dia_inicio"
                                     >
-                                        <option value="Lunes">Lunes</option>
-                                        <option value="Martes">Martes</option>
-                                        <option value="Miercoles"
+                                        <option value="1">Lunes</option>
+                                        <option value="2">Martes</option>
+                                        <option value="3"
                                             >Miercoles</option
                                         >
-                                        <option value="Jueves">Jueves</option>
-                                        <option value="Viernes">Viernes</option>
-                                        <option value="Sabado">Sabado</option>
-                                        <option value="Domingo">Domingo</option>
+                                        <option value="4">Jueves</option>
+                                        <option value="5">Viernes</option>
+                                        <option value="6">Sabado</option>
+                                        <option value="7">Domingo</option>
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-12 mb-2">
+                            <div class="col-6 mb-2">
                                 <div class="form-group">
                                     <label>Día Final</label>
                                     <select
@@ -56,15 +56,15 @@
                                         id="Dia_final"
                                         v-model="schedule.Dia_final"
                                     >
-                                        <option value="Lunes">Lunes</option>
-                                        <option value="Martes">Martes</option>
-                                        <option value="Miercoles"
+                                        <option value="1">Lunes</option>
+                                        <option value="2">Martes</option>
+                                        <option value="3"
                                             >Miercoles</option
                                         >
-                                        <option value="Jueves">Jueves</option>
-                                        <option value="Viernes">Viernes</option>
-                                        <option value="Sabado">Sabado</option>
-                                        <option value="Domingo">Domingo</option>
+                                        <option value="4">Jueves</option>
+                                        <option value="5">Viernes</option>
+                                        <option value="6">Sabado</option>
+                                        <option value="7">Domingo</option>
                                     </select>
                                 </div>
                             </div>
@@ -130,3 +130,11 @@ export default {
     }
 };
 </script>
+
+<style >
+ label{
+     font-size: 18px;
+     font-family: "Segoe UI", Arial, sans-serif;
+     font-weight: bold;
+ }
+</style>

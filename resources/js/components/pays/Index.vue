@@ -1,11 +1,9 @@
 <template>
 <div class="container">
-
+<br>
     <div class="row">
         <div class="col-lg-12 mb-4">
-            <router-link :to="{ name: 'createSchedule' }" class="btn btn-sucess"
-                ><i class="fas fa-plus-circle"></i> Nuevo</router-link
-            >
+             <router-link to="/QuincenalPersons" target="_blank" type="button" class="btn btn-success">Generar Reporte</router-link>
         </div>
 
         <div class="col-12">
@@ -90,6 +88,10 @@ export default {
                 .catch(error => {
                     console.log(error);
                 });
+        },
+        generarReporte(){
+            this.axios.get('Quincenal')
+            .then();
         }
     }
 };

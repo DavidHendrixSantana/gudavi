@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Schedule;
+use App\Models\Day;
 
 class SchedulesController extends Controller
 {
@@ -15,6 +16,14 @@ class SchedulesController extends Controller
     public function index()
     {
         $schedules = Schedule::all();
+
+        foreach($schedules as $schedule){
+            $day= Day::where('id',$schedule->Dia_inicio)->first();
+            $schedule->Dia_inicio = $day->Dia;
+
+            $day= Day::where('id',$schedule->Dia_final)->first();
+            $schedule->Dia_final = $day->Dia;
+        }
        
         return response()->json($schedules);
     }

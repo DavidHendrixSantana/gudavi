@@ -104,6 +104,9 @@ class PersonController extends Controller
         $mes = $mes + $meses; 
         if($mes < 10){
             $mes = '0'.$mes;
+        }else if($mes >= 12){
+            $mes -= 12;
+            $anio +=1; 
         }
         $fecha_vencimiento = $anio.'-'.$mes.'-'.$dia;
         
@@ -188,9 +191,13 @@ class PersonController extends Controller
     }
 
     public function ShowClasses($id_day,$id_teacher){
+        $Horarios = DB::select('select schedules_teachers.Hora_inicio, schedules_teachers.Hora_final FROM teachers inner join schedules_teachers on schedules_teachers.id = teachers.schedule_id  WHERE teachers.id = ?', [$id_teacher]);
+        $hora_inicio = $Horarios[0]->Hora_inicio;
+        $hora_final = $Horarios[0]->Hora_final;
+
       
-        $clases = DB::select('select id, Clase from  classes where id not in(SELECT classes.id FROM classes inner JOIN
-        days_classes  on classes.id = days_classes.class_id INNER JOIN days_teachers on days_classes.day_teacher_id= ? where days_teachers.teacher_id =?)', [$id_day, $id_teacher]);
+        $clases = DB::select('select id, Clase, valor from  classes where id not in(SELECT classes.id FROM classes inner JOIN
+        days_classes  on classes.id = days_classes.class_id INNER JOIN days_teachers on days_classes.day_teacher_id= ? where days_teachers.teacher_id =?) having valor > ? and valor < ?', [$id_day, $id_teacher, $hora_inicio, $hora_final]);
 
         return response()->json(['clases' => $clases]);
 
@@ -219,7 +226,7 @@ class PersonController extends Controller
                 'forma_pago' => $forma,
                 'cantidad' => $cantidad,
                 'fecha_pago' => $date_now,
-                'tarjeta' => $tarjeta,
+                'tipo_tarjeta' => $tarjeta,
             ]);
 
         return response()->json('Guardado');

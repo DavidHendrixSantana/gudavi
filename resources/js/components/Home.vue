@@ -5,7 +5,8 @@
         <br><br>
 
         <div>
-            <span style="font-size:23px ">Quincenal                   -</span>  <button type="button" class="btn btn-success">Generar Corte</button>
+            <span style="font-size:23px ">Quincenal                   -</span>     <router-link to="/Quincenal" target="_blank" type="button" class="btn btn-success">Generar Reporte</router-link>
+
 
             <hr>
             <table class="table">
@@ -29,58 +30,7 @@
         </div>
         <br><br>
 
-        <div>
-             <span style="font-size:23px ">Semanal                   -</span>  <button type="button" class="btn btn-success">Generar Corte</button>
 
-            <hr>
-                <table class="table">
-                <thead class="thead-dark">
-                
-                    <th>Nombre Profesor</th>
-                    <th>Clases Asignadas</th>
-                    <th>Clases Impartidas</th>
-                
-                </thead>
-                <tbody>
-                    <tr v-for="valor in result1" :key="valor.index">
-                    
-                    <td>{{valor[0].name}}</td>
-                    <td>{{valor[0].number}} </td>
-                    <td>0 </td>
-                
-                    </tr>
-                
-
-                </tbody>
-                </table>
-        </div>
-
-        <br><br>
-        <div>
-                         <span style="font-size:23px ">Diario                   -</span>  <button type="button" class="btn btn-success">Generar Corte</button>
-
-            <hr>
-                <table class="table">
-                <thead class="thead-dark">
-                
-                    <th>Nombre Profesor</th>
-                    <th>Clases Asignadas</th>
-                    <th>Clases Impartidas</th>
-                
-                </thead>
-                <tbody>
-                    <tr v-for="valor in result1" :key="valor.index">
-                    
-                    <td>5</td>
-                    <td>3</td>
-                    <td>0 </td>
-                
-                    </tr>
-                
-
-                </tbody>
-                </table>
-        </div>
         
     </div>
 </template>

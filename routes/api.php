@@ -6,6 +6,7 @@ use App\Http\Controllers\FuncionalController;
 use App\Http\Controllers\PersonController;
 use App\Http\Controllers\PayController;
 use App\Http\Controllers\ReportesController;
+use App\Http\Controllers\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +22,12 @@ use App\Http\Controllers\ReportesController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+Route::get('login/{email}/{pass}', [LoginController::class, 'login'])->name('login');
+
+
+
 Route::get('listado', [FuncionalController::class, 'listado_clases'])->name('listado_clases');
 Route::get('listado_teacher/{id}', [FuncionalController::class, 'listado_teacher'])->name('listado_teacher');
 Route::get('pago/{id}', [PersonController::class, 'consult_pay'])->name('consult_pay');
@@ -28,10 +35,12 @@ Route::get('realizarPago/{id}/{forma}/{tarjeta}/{cantidad}', [PersonController::
 
 Route::get('pay', [PayController::class, 'listar_pago'])->name('listar_pago');
 Route::get('clasesMonth', [ReportesController::class, 'consult_month'])->name('clasesMonth');
+Route::get('pendientes', [FuncionalController::class, 'clasesPendientes'])->name('pendientes');
 
 
 //Cambios
 Route::post('cambio', [FuncionalController::class, 'cambioClase'])->name('cambio');
+Route::post('falta', [FuncionalController::class, 'faltaClase'])->name('falta');
 
 
 

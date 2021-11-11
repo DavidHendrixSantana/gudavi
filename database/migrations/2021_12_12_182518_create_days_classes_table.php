@@ -22,6 +22,8 @@ class CreateDaysClassesTable extends Migration
             $table->integer('person_id')->unsigned();
             $table->foreign('person_id')->references('id')->on('persons');
             $table->integer('status');
+            $table->integer('asistencia');
+            $table->integer('grupal');
             $table->timestamps();
 
         });

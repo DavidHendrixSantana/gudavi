@@ -1,3 +1,4 @@
+
 const Home = () => import("./components/Home.vue");
 const Listado = () => import("./components/Listado.vue");
 const Modal = () => import("./components/Modal.vue");
@@ -21,8 +22,10 @@ const Edit_person = () => import("./components/person/Edit.vue");
 //componentes pagos
 
 const Index_pay = () => import("./components/pays/Index.vue");
+const Pendientes = () => import("./components/classes/Pendientes.vue");
 
 export const routes = [
+
     {
         name: "home",
         path: "/",
@@ -96,5 +99,10 @@ export const routes = [
         name: "indexPay",
         path: "/pays",
         component: Index_pay
+    },
+    {
+        name: "indexPendientes",
+        path: "/pendientes",
+        component: Pendientes
     }
 ];

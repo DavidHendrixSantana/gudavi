@@ -23,13 +23,13 @@
                                 <div class="form-group">
                                     <label>Día inicio</label>
                                     <select class="form-control" name="Dia_inicio" id="Dia_inicio" v-model="schedule.Dia_inicio" >
-                                        <option value="Lunes">Lunes</option>
-                                        <option value="Martes">Martes</option>
-                                        <option value="Miercoles">Miercoles</option>
-                                        <option value="Jueves">Jueves</option>
-                                        <option value="Viernes">Viernes</option>
-                                        <option value="Sabado">Sabado</option>
-                                        <option value="Domingo">Domingo</option>
+                                        <option value="1">Lunes</option>
+                                        <option value="2">Martes</option>
+                                        <option value="3">Miercoles</option>
+                                        <option value="4">Jueves</option>
+                                        <option value="5">Viernes</option>
+                                        <option value="6">Sabado</option>
+                                        <option value="7">Domingo</option>
                                     </select>
                                 </div>
                             </div>
@@ -37,13 +37,13 @@
                                 <div class="form-group">
                                     <label>Día Final</label>
                                     <select class="form-control" name="Dia_final" id="Dia_final" v-model="schedule.Dia_final" >
-                                        <option value="Lunes">Lunes</option>
-                                        <option value="Martes">Martes</option>
-                                        <option value="Miercoles">Miercoles</option>
-                                        <option value="Jueves">Jueves</option>
-                                        <option value="Viernes">Viernes</option>
-                                        <option value="Sabado">Sabado</option>
-                                        <option value="Domingo">Domingo</option>
+                                        <option value="1">Lunes</option>
+                                        <option value="2">Martes</option>
+                                        <option value="3">Miercoles</option>
+                                        <option value="4">Jueves</option>
+                                        <option value="5">Viernes</option>
+                                        <option value="6">Sabado</option>
+                                        <option value="7">Domingo</option>
                                     </select>
                                 </div>
                             </div>

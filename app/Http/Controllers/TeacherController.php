@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Teacher;
 use App\Models\Schedule;
 use App\Models\Days_teachers;
+use App\Models\Teacher_pay;
 
 class TeacherController extends Controller
 {
@@ -29,6 +30,7 @@ class TeacherController extends Controller
     public function create()
     {
         $schedules = Schedule::all();
+        
         return response()->json([
             
             'schedules' => $schedules,]);
@@ -44,6 +46,11 @@ class TeacherController extends Controller
     public function store(Request $request)
     {
         $Teacher= Teacher::create($request->all());
+
+        Teacher_pay::create([
+            'teacher_id' => $Teacher->id,
+            'total_classes' =>0
+        ]);
         
         $last_day = Days_teachers::max('id');
         $teacher_id = $Teacher->id;
