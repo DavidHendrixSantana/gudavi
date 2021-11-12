@@ -92,4 +92,9 @@ class PdfController extends Controller
            return $th;
         }
     }
+
+
+    public function ReporteFechasss($formaPago, $fechaInicio, $fechaFinal){
+        return response()->json('llegando');
+    }
 }

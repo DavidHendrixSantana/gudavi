@@ -23,7 +23,8 @@ Route::get('person/ShowClasses/{dia_id}/{teacher_id}', [PersonController::class,
 
 //PDF
 Route::get('Quincenal', [PdfController::class, 'ReporterQuincenal'])->name('Quincenal');
-Route::get('QuincenalPersons', [PdfController::class, 'ReporterQuincenalPersons'])->name('QuincenalPersons');
+Route::get('Quincenal', [PdfController::class, 'ReporterQuincenal'])->name('Quincenal');
+Route::get('ReporteFechas/{forma_pago}/{fecha_inicial}/{fecha_final}', [PdfController::class, 'ReporteFechas'])->name('ReporteFechas');
 
 
 //Barcode

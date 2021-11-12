@@ -15,10 +15,10 @@ class CreateSchedulesTable extends Migration
     {
         Schema::create('schedules_teachers', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('Dia_inicio');
-            $table->string('Dia_final');
-            $table->string('Hora_inicio');
-            $table->string('Hora_final');
+            $table->integer('Dia_inicio');
+            $table->integer('Dia_final');
+            $table->double('Hora_inicio');
+            $table->double('Hora_final');
             $table->timestamps();
         });
     }
