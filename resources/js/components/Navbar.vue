@@ -12,10 +12,10 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <router-link exact-active-class="active" to="/" class="nav-link" aria-current="page">Inicio</router-link>
+                        <router-link exact-active-class="active" to="/" class="nav-link" aria-current="page">Clases</router-link>
                     </li>
                      <li class="nav-item">
-                        <router-link exact-active-class="active" to="/listado" class="nav-link">Clases</router-link>
+                        <router-link exact-active-class="active" to="/listado" class="nav-link">Reportes profesores</router-link>
                     </li>   
                      <li class="nav-item">
                         <router-link exact-active-class="active" to="/persons" class="nav-link">Personas</router-link>

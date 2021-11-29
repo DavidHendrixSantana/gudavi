@@ -29,12 +29,12 @@ export const routes = [
     {
         name: "home",
         path: "/",
-        component: Home
+        component: Listado
     },
     {
         name: "listado",
         path: "/listado",
-        component: Listado
+        component: Home
     },
     {
         name: "modal",

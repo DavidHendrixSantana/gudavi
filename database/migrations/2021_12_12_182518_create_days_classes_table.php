@@ -24,6 +24,8 @@ class CreateDaysClassesTable extends Migration
             $table->integer('status');
             $table->integer('asistencia');
             $table->integer('grupal');
+            $table->integer('week_id')->unsigned();
+            $table->foreign('week_id')->references('id')->on('week');
             $table->timestamps();
 
         });

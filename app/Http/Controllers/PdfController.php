@@ -7,6 +7,8 @@ use App\Models\Teacher;
 use App\Models\Day_clase;
 use App\Models\Days_teachers;
 use App\Models\History;
+use App\Models\Pay;
+use App\Models\Person;
 use Illuminate\Support\Facades\DB;
 use \stdClass;
 
@@ -94,7 +96,26 @@ class PdfController extends Controller
     }
 
 
-    public function ReporteFechasss($formaPago, $fechaInicio, $fechaFinal){
-        return response()->json('llegando');
+    public function ReporteFechas($formaPago, $fechaInicio, $fechaFinal){
+
+        try {
+            $pagos = History::select('forma_pago','fecha_pago','tipo_tarjeta','folio','person_id')->whereDate('created_at', '>=', $fechaInicio)->whereDate('created_at', '<=', $fechaFinal)->get(); 
+            foreach($pagos as $pago){
+                $persona =Person::where('id', $pago->person_id)->first();
+                $pago['nombre']=$persona->nombre;
+            }
+            $Consult = $pagos;
+                $pdf = \PDF::loadView('pdf.QuincelPagosPersons', compact('Consult'));
+                return $pdf->download('QuincenalPagosPersons.pdf');
+                
+        } catch (Throwable $th) {
+            return $th;
+        }
+
+       
+
+      
     }
+
+  
 }

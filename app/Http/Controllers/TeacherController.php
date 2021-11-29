@@ -7,6 +7,7 @@ use App\Models\Teacher;
 use App\Models\Schedule;
 use App\Models\Days_teachers;
 use App\Models\Teacher_pay;
+use App\Models\AsistenciaT;
 
 class TeacherController extends Controller
 {
@@ -45,11 +46,21 @@ class TeacherController extends Controller
      */
     public function store(Request $request)
     {
+        $teach = Teacher::orderBy('id', 'desc')->first();
+        $last_teacher = $teach->id + 1;
+        $request['matricula'] = 'TGDV00' . $last_teacher;
         $Teacher= Teacher::create($request->all());
 
         Teacher_pay::create([
             'teacher_id' => $Teacher->id,
-            'total_classes' =>0
+            'total_classes' =>0,
+            'porcentuales' =>0,
+        ]);
+
+        AsistenciaT::create([
+            'teacher_id' => $Teacher->id,
+            'asistencia' =>0
+
         ]);
         
         $last_day = Days_teachers::max('id');
@@ -59,6 +70,7 @@ class TeacherController extends Controller
             Days_teachers::create([
                 'day_id'  =>  $x,
                 'teacher_id' =>$teacher_id ,
+                'status' =>1 ,
             ]);
 
         }

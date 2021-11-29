@@ -1,9 +1,10 @@
 require('./bootstrap');
 import vue from 'vue'
 import JQuery  from 'jquery'
-import DataTable from 'datatables.net-dt'
+import DataTable from 'datatables.net-bs4'
 window.Vue = vue;
 window.$ = JQuery
+
 window.DataTable = DataTable;
 
 import App from './components/App.vue';

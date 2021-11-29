@@ -27,6 +27,7 @@ class LoginController extends Controller
             if($users_pass->password === $pass){
                 $confirm_email=true;
                 return response()->json([
+                    'user' => $users_pass,
                     'respuesta' => '1'
                 ]);
 
@@ -38,12 +39,12 @@ class LoginController extends Controller
                 ]);
             }   
         }
-        return response()->json([
-                    'respuesta' => '3'
-                ]);
-       
-
+      
     }
+
+    return response()->json([
+        'respuesta' => '3'
+    ]);
 
     }
 }

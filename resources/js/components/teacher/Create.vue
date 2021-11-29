@@ -100,6 +100,16 @@
                                     </select>
                                 </div>
                             </div>
+                             <div class="col-4 mb-2">
+                                <div class="form-group">
+                                    <label>Pago por hora </label>
+                                    <input
+                                        type="number"
+                                        class="form-control"
+                                        v-model="teacher.pago_hora"
+                                    />
+                                </div>
+                            </div>
                             <div class="col-12">
                                 <button type="submit" class="btn btn-primary">
                                     Guardar
@@ -127,7 +137,8 @@ export default {
                 tarjeta:"",
                 emergencia:"",
                 telefono: "",
-                schedule_id: ""
+                schedule_id: "",
+                pago_hora:"",
             },
             schedules: []
         };

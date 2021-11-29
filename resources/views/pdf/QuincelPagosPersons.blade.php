@@ -102,7 +102,7 @@ $fpdf->Rect(18,32, 270, 100);
         $fpdf->SetFont('Times', 'B', 11);
         $fpdf->SetY($i);
         $fpdf->SetX(250);
-        $fpdf->Cell(0,5,$person->folio,0,1,'L');
+        $fpdf->Cell(0,5,'00'.$person->folio,0,1,'L');
 
         $i+=10;
 
@@ -117,7 +117,7 @@ $fpdf->Rect(18,32, 270, 100);
    
     
 
-    // $fpdf->Output('D','ReporteQuincenal.pdf');
-    $fpdf->Output();
+    $fpdf->Output('D','ReporteQuincenal.pdf');
+    // $fpdf->Output();
     exit;
 ?>

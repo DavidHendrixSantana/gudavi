@@ -15,6 +15,7 @@
                         <tr>
                             <th>Id</th>
                             <th>Fecha Clase</th>
+                            <th>Nombre Alumno</th>
                             <th>Motivo Falta</th>
                             <th>Acciones</th>
 
@@ -27,6 +28,10 @@
                                 {{ classe.fecha_clase }}
                             
                             </td>
+                             <td>
+                                {{ classe.nombre }}
+                            
+                            </td>
                             <td>
                                 {{ classe.motivo_falta }}
                                
@@ -34,7 +39,7 @@
 
                             <td>
                                 <!-- llamamos al componente para Editar     -->
-                               <button class="btn btn-primary">
+                               <button class="btn btn-primary"  @click="CambioClase( classe.id,classe.class_id)">
                                    Reasignar
 
                                </button>
@@ -45,6 +50,175 @@
             </div>
         </div>
     </div>
+
+    <div v-if="showModal">
+            <transition name="modal">
+                <div class="modal-mask">
+                    <div class="modal-wrapper">
+                        <div class="modal-dialog"  role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">
+                                        Modificar la clase de: 
+                                    </h5>
+                                    <button
+                                        type="button"
+                                        class="close"
+                                        data-dismiss="modal"
+                                        aria-label="Close"
+                                    >
+                                        <span
+                                            aria-hidden="true"
+                                            @click="showModal = false"
+                                            >&times;</span
+                                        >
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                          
+                                </div>
+                     
+
+                                <div class="container" v-if="cambioClase"> 
+
+                                    <div class="form-group">
+                                          <label>Mes </label>
+
+                                          <select
+                                              v-model="person.month_id"
+                                              class="form-control"
+                                              name="mes_id"
+                                              id="mes_id"
+                                              @change="mostrarSemanas($event.target.value)"
+                                          >
+                                              <option value="" selected
+                                                  >Seleccione el Mes</option
+                                              >
+                                              <option
+                                                  v-for="month in months"
+                                                  :value="month.id"
+                                                  :key="month.id"
+                                                  >{{ month.description }}
+                                              </option>
+                                          </select>
+                                      </div>
+
+                                       <div class="form-group">
+                                          <label>Semana </label>
+
+                                          <select
+                                              v-model="person.semana_id"
+                                              class="form-control"
+                                              name="semana_id"
+                                              id="semana_id"
+                                          >
+                                              <option value="" selected
+                                                  >Seleccione  La semana</option
+                                              >
+                                              <option
+                                                  v-for="week in weeks"
+                                                  :value="week.id"
+                                                  :key="week.id"
+                                                  >{{ week.description }}
+                                              </option>
+                                          </select>
+                                      </div>
+
+                                      <div class="form-group">
+                                          <label>Profesor </label>
+
+                                          <select
+                                              v-model="person.teacher_id"
+                                              class="form-control"
+                                              name="teacher_id"
+                                              id="teacher_id"
+                                              @change="mostrarDias($event)"
+
+                                          >
+                                              <option value="" selected
+                                                  >Seleccione el profesor</option
+                                              >
+                                              <option
+                                                  v-for="teacher in teachers"
+                                                  :value="teacher.id"
+                                                  :key="teacher.id"
+                                                  >{{ teacher.nombre }}
+                                              </option>
+                                          </select>
+                                      </div>
+                                     
+                                     
+                                      <div class="form-group">
+                                            <label>Días </label>
+
+                                            <select
+                                                v-model="person.day_id"
+                                                class="form-control"
+                                                @change="mostrarClases($event)"
+                                            >
+                                                <option value="" selected
+                                                    >Seleccione el Día</option
+                                                >
+                                                <option
+                                                    v-for="day in days"
+                                                    :value="day.id"
+                                                    :key="day.id"
+                                                    >{{ day.Dia }}
+                                                </option>
+                                            </select>
+                                      </div>
+                                      <div class="form-group">
+                                            <label>Hora de clase: </label>
+
+                                            <select
+                                                class="form-control"
+                                                v-model="person.clase_id"
+                                            >
+                                                <option value="" selected
+                                                    >Seleccione la clase</option
+                                                >
+                                                <option
+                                                    v-for="clase in clases"
+                                                    :value="clase.id"
+                                                    :key="clase.id"
+                                                    >{{ clase.Clase }}
+                                                </option>
+                                            </select>
+                                        </div>
+
+                                        
+                                      <div class="form-group">
+                                          <label>Motivo </label>
+
+                                        <textarea
+                                              class="form-control"
+                                                v-model="person.motivo"
+                                         name="motivo" id="motivo" cols="20" rows="2">
+
+                                        </textarea>
+                                      </div>
+                                     
+
+                                         <button
+                                        type="button"
+                                        class="btn btn-success"
+                                        @click.prevent="realizarCambio($event)"
+
+                                    >
+                                       Guardar Cambio
+                                    </button>
+
+                                </div>
+
+                                <div class="modal-footer">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </transition>
+        </div>
     </div>
 </template>
 
@@ -53,11 +227,34 @@ export default {
     name: "pendientes",
     data() {
         return {
-            classes: []
+            weeks: [],
+            months: [],
+
+            classes: [],
+            teachers: [],
+            days:[],
+            clases: [],
+            showModal:false,
+            cambioClase:false,
+              person:{
+              pend_id:"",
+              first_id:"",
+              teacher_id: "",
+              day_id: "",
+              clase_id: "",
+              person_id:"",
+              desc_falta:"",
+              semana_id:"",
+              month_id:"",
+              motivo: '',
+            },
         };
     },
     mounted() {
         this.mostrarPendientes();
+        this.mostrarTeachers()
+        this.mostrarMeses();
+
     
     },
     methods: {
@@ -74,7 +271,119 @@ export default {
                 .catch(error => {
                     console.log(error);
                 });
-        }
-    }
+        },
+        CambioClase(id,idClase){
+            this.person.pend_id = id
+           this.person.first_id = idClase;
+            this.showModal=true,
+            this.cambioClase=true,
+            this.mostrarTeachers();
+
+        },
+        async mostrarTeachers() {
+            await this.axios
+                .get(`/api/person/create`)
+                .then(response => {
+                    const { teachers } = response.data;
+                    this.teachers = teachers;
+                    console.log(teachers);
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        },
+
+        async mostrarMeses() {
+            await this.axios
+                .get(`/api/meses`)
+                .then(response => {
+                    const { Months } = response.data;
+                    this.months =Months;
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        },
+
+                  async mostrarSemanas($id) {
+            var month_id = $id
+            await this.axios
+                .get(`/api/semanas/${month_id}`)
+                .then(response => {
+                    const { Weeks } = response.data;
+                    this.weeks =Weeks;
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        },
+
+         async mostrarDias(event) {
+            console.log(event.target.value);
+            await this.axios
+                .get(`/person/ShowDays/${event.target.value}`)
+                .then(response => {
+                    const { days } = response.data;
+                    this.days = days;
+                    console.log(days);
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        },
+          async mostrarClases(event) {
+            console.log(event.target.value);
+            console.log(this.person.teacher_id);
+            var dia_id = event.target.value;
+            var teacher_id = this.person.teacher_id;
+
+            await this.axios
+                .get(`/person/ShowClasses/${dia_id}/${teacher_id}`)
+                .then(response => {
+                    const { clases } = response.data;
+                    this.clases = clases;
+                    console.log(clases);
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        },
+
+         async realizarCambio(){
+          await this.axios.post("/api/cambio2", this.person)
+          .then(response =>{
+            const {clase} =response.data;
+            console.log(clase);
+            this.cargar_clases2() ;
+            this.showModal =false
+        this.mostrarPendientes();
+
+          })
+            .catch(error => {
+                console.log(error);
+            });
+        },
+
+    },
+    
 };
 </script>
+
+<style>
+.modal-mask {
+    position: fixed;
+    z-index: 9998;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: table;
+    transition: opacity 0.3s ease;
+}
+
+.modal-wrapper {
+    display: table-cell;
+    vertical-align: middle;
+}
+</style>

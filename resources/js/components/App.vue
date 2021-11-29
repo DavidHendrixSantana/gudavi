@@ -15,7 +15,7 @@
                         <li class="nav-item">
                             <router-link exact-active-class="active" to="/" class="nav-link" aria-current="page">Inicio</router-link>
                         </li>
-                        <li class="nav-item">
+                        <li  v-if="showTeachersP" class="nav-item">
                             <router-link exact-active-class="active" to="/listado" class="nav-link">Clases</router-link>
                         </li>   
                         <li class="nav-item">
@@ -27,7 +27,7 @@
                         <li class="nav-item">
                             <router-link exact-active-class="active" to="/teachers" class="nav-link">Profesores</router-link>
                         </li>  
-                            <li class="nav-item">
+                        <li v-if="showPays" class="nav-item">
                             <router-link exact-active-class="active" to="/pays" class="nav-link">Pagos</router-link>
                         </li>    
                         
@@ -38,6 +38,10 @@
                     <li  class="nav-item">
                         <a  style="padding-left:400px;" href="" id="HoraActual" class="nav-link">Hora: {{timestamp}} </a>
                         </li>   
+
+                        <li class="nav-item">
+                            <button @click="pasarLista()" class="btn btn-success"> Pase</button>
+                        </li>
                             
                     </ul>
                 
@@ -46,20 +50,23 @@
             </nav>
             <div style="margin:0px; pading:0px;">
                 <router-view></router-view>
+                
             </div>
 
     </div>
 
-     <div class="container" v-if="login">
-         <img style=" margin-left:35% " src="/images/logo.jpg" width="30%" height="30%" alt="">
+     <div style="height:100%; background-image: url(https://cdn.pixabay.com/photo/2015/11/02/18/32/water-1018808_960_720.jpg);"   v-if="login">
 
                 <section id="login" v-bind:class="isShake">
+                    <img style=" margin-left:30%; border-radius:20px; margin-top:10%" src="/images/logo.jpg" width="40%" height="40%" alt="">
+
                     <form>
                     <h2>Inicio de sesión</h2>
                     <div class="info" v-bind:class="good">
-                    <p>Bienvenido</p>
                     </div>
+                    <label for="">USUARIO DE INICIO:</label>
                     <input type="text" v-model="emailLogin" placeholder="Username" />
+                    <label for="">CONTRASEÑA DE INICIO:</label>
                     <input type="password" v-model="passwordLogin" placeholder="Password" />
                     <button @click.prevent="doLogin">Iniciar Sesión</button>
                     </form>
@@ -92,12 +99,18 @@ export default {
       registerActive: false,
       emailLogin: "",
       passwordLogin: "",
-
+      user:[],
+      showPays:false,
+      showTeachersP:false,
+      hrNow:"",
+      tiempo:"",
        timestamp: "",
+       firtsHour: "",
         }
 	},
     created(){
                 setInterval(this.getNow, 1000);
+                this.firstHr();
 
         },
     computed: {
@@ -111,17 +124,87 @@ export default {
 	},
    
    methods: {
+
+       async pasarLista(){
+
+        //    var minutes = this.giveMinutes()
+        var minutes = '00'
+           var hour = this.giveHours()
+
+           if(minutes === '30' || minutes === '00' ){
+               var valorHora = `10:${minutes}`
+               this.axios.get(`ListaClases/${valorHora}`).then(
+                   console.log('exitoso')
+            ).catch( error =>{
+                console.log(error)
+            })
+
+           }
+
+
+       },
+
+       async firstHr(){
+              await this.axios.get(`getFirstHour`)
+           .then(response => {
+               const {firstHour} = response.data;
+               this.firtsHour = firstHour
+               console.log(firstHour)
+
+           }).catch(error => {
+                    console.log(error);
+                });              
+       },
+
+       giveTime(){
+                        const hr = formatoHora(today.getHours())  
+                        const min = formatoHora(today.getMinutes()) 
+                        this.hrNow = `${hr}:00`
+                        this.tiempo= `${hr}:${min}`    
+                        function formatoHora(hora){
+                            if(hora<10)
+                            hora= '0'+ hora;
+                            return hora;
+                        }
+       },
+
+       giveMinutes(){
+        const today = new Date();
+           var minutes = formatoHora(today.getMinutes()) 
+               function formatoHora(hora){
+                            if(hora<10)
+                            hora= '0'+ hora;
+                            return hora;
+                        }
+           return minutes
+       },
+
+            giveHours(){
+        const today = new Date();
+           var minutes = formatoHora(today.getHours()) 
+
+               function formatoHora(hora){
+                            if(hora<10)
+                            hora= '0'+ hora;
+                            return hora;
+                        }
+           return minutes
+       },
+
         async doLogin() {
             var email =this.emailLogin
             var pass =this.passwordLogin
             await this.axios
                 .get(`/api/login/${email}/${pass}`)
                 .then(response => {
+                    
                     const { respuesta } = response.data;
-                    console.log(respuesta)
+                    const { user } = response.data;
+                    this.user = user
                     if(respuesta == 1){
                         this.login=false,
                         this.navbar=true
+                        this.verificarRol()
                     }else if(respuesta == 0){
                         alert('Contraseña incorrecta')
                     }else if(respuesta == 3){
@@ -139,9 +222,9 @@ export default {
                         const hr = formatoHora(today.getHours())  
                         const min = formatoHora(today.getMinutes()) 
                         const seg =  formatoHora(today.getSeconds())
-                        const time = `${hr}:${min}:${seg}:`
+                        const time = `${hr}:${min}:${seg}`
 
-                        const formatoHora = (hora) =>{
+                        function formatoHora(hora){
                             if(hora<10)
                             hora= '0'+ hora;
                             return hora;
@@ -150,7 +233,15 @@ export default {
                        
 
                         this.timestamp = time;
-                    }
+                    },
+            verificarRol(){
+                console.log('verificando')
+                if(this.user.rol === 1){
+                    this.showPays=true
+                this.showTeachersP=true
+                }
+                
+            }
    }
 }
 </script>
@@ -189,11 +280,19 @@ form{
 	flex-direction:column;
 	padding: 15px; 
 }
+
+label{
+    	font-family: 'Archivo Black', sans-serif;
+	color:#e0dada;
+	
+    font-size: 18px;
+}
 h2{
 	font-family: 'Archivo Black', sans-serif;
 	color:#e0dada;
 	margin-left:auto;
 	margin-right:auto;
+    font-size: 36px;
 }
 
 .info{
@@ -242,6 +341,15 @@ button{
 }
 button:hover{
 	background-color:#711f1b;
+}
+
+#content {
+  position: absolute; 
+  left: 0; 
+  right: 0; 
+  margin-left: auto; 
+  margin-right: auto; 
+  width: 100%; /* Need a specific value to work */
 }
 
 @-webkit-keyframes shake{

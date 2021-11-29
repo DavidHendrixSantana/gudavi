@@ -50,10 +50,15 @@ class PersonController extends Controller
     {
 
      
-
-
-        $numero_clases=$request['clases_semanales'];
+try {
+    $numero_clases=$request['clases_semanales'];
         $teacher_id=$request['teacher_id'];
+
+
+        $pers = Person::orderBy('id', 'desc')->first();
+        $last_person = $pers->id + 1;
+        $request['matricula'] = 'AGDV00' . $last_person;
+      
         
       
         $Person= Person::create([
@@ -71,6 +76,7 @@ class PersonController extends Controller
             'enfermedad' =>$request['enfermedad'],
             'nivel' =>$request['nivel'],
             'clases_semanales' =>$request['clases_semanales'],
+            'matricula' =>$request['matricula'],
         ]);
 
         for($x=1; $x<=$numero_clases; $x++){
@@ -79,13 +85,16 @@ class PersonController extends Controller
             $day_id=$request['day_id_'.$x];
 
          
-          
+         for ($i=1; $i <13 ; $i++) { 
             Day_clase::create([
                 'day_teacher_id' => $day_id,
                 'class_id' =>  $clase_id,
                 'person_id' => $Person->id,
-                'status' => 1
+                'status' => 1,
+                'week_id' => $i
             ]);
+         } 
+          
            
            
         }
@@ -126,9 +135,16 @@ class PersonController extends Controller
         //Creamos la persona
         //Creamos la asignación de clases
 
-        return response()->json([
-            'Person' => $Person,
-        ]);
+                return response()->json([
+                    'Person' => $Person,
+                ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'error' => $th,
+            ]);
+        }
+
+       
     }
 
     /**

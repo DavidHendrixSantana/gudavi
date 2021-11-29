@@ -1,11 +1,11 @@
 <template>
     <div class="container">
         <br>
-        <h2 align="center">Reportes</h2>
+        <h2 align="center">Reportes de clases asignadas e impartidas</h2>
         <br><br>
 
         <div>
-            <span style="font-size:23px ">Quincenal                   -</span>     <router-link to="/Quincenal" target="_blank" type="button" class="btn btn-success">Generar Reporte</router-link>
+            <span style="font-size:23px ">Quincenal -</span>     <router-link to="/QuincenalPersons" target="_blank" type="button" class="btn btn-success">Generar Reporte</router-link>
 
 
             <hr>
@@ -14,6 +14,8 @@
              
                 <th>Nombre Profesor</th>
                 <th>Clases Asignadas</th>
+                <th>Clases Grupales</th>
+                <th>Clases Impartidas</th>
               
             </thead>
             <tbody>
@@ -21,6 +23,8 @@
                 
                 <td>{{valor[0].name}}</td>
                 <td>{{valor[0].number}} </td>
+                <td>{{0}} </td>
+                <td>{{valor[1].total_classes}} </td>
                
                 </tr>
                

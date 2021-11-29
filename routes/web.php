@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PersonController;
 use App\Http\Controllers\PdfController;
 use App\Http\Controllers\BarCodeController;
+use App\Http\Controllers\FuncionalController;
+
 
 
 /*
@@ -20,11 +22,16 @@ Auth::routes();
 
 Route::get('person/ShowDays/{id}', [PersonController::class, 'ShowDays'])->name('ShowDays');
 Route::get('person/ShowClasses/{dia_id}/{teacher_id}', [PersonController::class, 'ShowClasses'])->name('ShowClasses');
+Route::get('paseLista/{matricula}', [FuncionalController::class, 'paseLista'])->name('paseLista');
+Route::get('paseListaT/{matricula}', [FuncionalController::class, 'paseListaTeacher'])->name('paseListaTeacher');
+Route::get('getFirstHour', [FuncionalController::class, 'getFirstHour'])->name('getFirstHour');
+Route::get('ListaClases/{valorHora}', [FuncionalController::class, 'ListaClases'])->name('ListaClases');
 
 //PDF
-Route::get('Quincenal', [PdfController::class, 'ReporterQuincenal'])->name('Quincenal');
-Route::get('Quincenal', [PdfController::class, 'ReporterQuincenal'])->name('Quincenal');
+
+Route::get('QuincenalPersons', [PdfController::class, 'ReporterQuincenal'])->name('Quincenal');
 Route::get('ReporteFechas/{forma_pago}/{fecha_inicial}/{fecha_final}', [PdfController::class, 'ReporteFechas'])->name('ReporteFechas');
+// Route::get('ReporteFechas/{tipo}/{fechaInicio}/{fechaFinal}', [PdfController::class, 'prueba'])->name('prueba');
 
 
 //Barcode

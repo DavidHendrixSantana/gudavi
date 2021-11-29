@@ -48,7 +48,7 @@
                             <th>Forma Pago</th>
                             <th>Tarjeta</th>
                             <th>Cantidad</th>
-                            <th>Fecha</th>
+                            <th>Fecha del pago</th>
                             <th>Acciones</th>
 
                         </tr>
@@ -67,7 +67,7 @@
                               
                             </td>
                               <td>
-                                {{ pay.created_at }}
+                                {{ pay.fecha_pago }}
                               
                             </td>
 
@@ -110,7 +110,7 @@ export default {
             pays: [],
             folio_efectivo: 0,
             folio_tarjeta: 0,
-            tipo_pago: '',
+            tipo_pago: 'Ambos',
             fecha_inicio: '',
             fecha_final: '',
         };
@@ -126,7 +126,15 @@ export default {
                 .then(response => {
                     this.pays = response.data;
                           $(document).ready( function () {
-                    $('#pay_table').DataTable();
+                    $('#pay_table').DataTable( {
+                                "language": {
+                                "paginate": {
+                                "next": "Siguiente",
+                                "previous": "Anterior"
+                                }
+                            }
+                            }
+                    );
                 } );
               
                 })
@@ -136,17 +144,12 @@ export default {
         },
       async  reporteFechas(){
           console.log('peticion')
-          const tipo_pago =this.tipo_pago
-          const fecha_inicio =this.fecha_inicio
-          const fecha_final =this.fecha_final
-            await this.axios
-                .get(`/person/ShowClasses/${tipo_pago}/${fecha_inicio}/${fecha_final}`)
-                .then(response => {
-                    console.log(response)
-                })
-                .catch(error => {
-                    console.log(error);
-                });
+          var tipo =this.tipo_pago
+          console.log(tipo)
+          var fecha_inicio =this.fecha_inicio
+          var fecha_final =this.fecha_final
+               window.location.href = `http://127.0.0.1:8000/ReporteFechas/${tipo}/${fecha_inicio}/${fecha_final}`;
+                
                     
           
         

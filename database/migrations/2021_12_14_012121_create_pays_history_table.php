@@ -15,12 +15,14 @@ class CreatePaysHistoryTable extends Migration
     {
         Schema::create('pays_history', function (Blueprint $table) {
             $table->id();
-            $table->integer('person_id');
             $table->string('forma_pago');
             $table->string('tipo_tarjeta');
             $table->double('cantidad');
             $table->date('fecha_pago');
+            $table->integer('person_id')->unsigned();
+            $table->foreign('person_id')->references('id')->on('persons');
             $table->integer('folio');
+
             $table->timestamps();
         });
     }

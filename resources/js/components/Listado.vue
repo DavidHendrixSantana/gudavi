@@ -1,20 +1,51 @@
 <template>
-<div >
+<div class="fondo" >
     <header>
 
     </header>
+        <div class="row" style="padding-left:2%;">
+       
+        <div class="col-md-4" style="padding-left:40px; padding-top:30px;" >
+              <div class="row">
+                <button type="button" class="btn btn-dark btn-lg" data-bs-toggle="button" v-on:click="pasarLista=true, lista_tea=false ,lista_al=true" >Pasar lista</button>
+           
+
+              </div>
+             
+        </div>
+        <div class="col-md-4" style="padding-left:40px; padding-top:30px;" >
+              <div class="row">
+         
+                <button type="button" class="btn btn-dark btn-lg" data-bs-toggle="button" v-on:click="pasarLista=true, lista_al=false, lista_tea=true" >Pasar lista Maestro</button>
+
+              </div>
+             
+        </div>
+           
+    <br>
+      <div class="row" style=" padding-top:30px;">
+       
+            <div class="col-md-4" v-for="month in months" :key="month.id" style="padding-left:40px;" >
+              <div class="row">
+                <button type="button" class="btn btn-info " data-bs-toggle="button" v-on:click="asignarMes(month.id)" >Mes de: {{month.description}}</button>
+
+              </div>
+             
+        </div>
+           
+      </div>
+        <br>
     <br>
     <div >
-        <div class="row" style="padding-left:40px;">
-            <div class="col-md-2" v-for="teacher in Teachers" :key="teacher.id" style="padding-left:20px;">
+        <div class="row">
+            <div class="col-md-1" v-for="teacher in Teachers" :key="teacher.id" style="padding-left:20px; padding-top:30px;">
                 <div class="row">
                     <button
                         type="button"
-                        v-on:click="cargar_clases($event)"
                         :value="teacher.id"
                         :id="teacher.id"
                         class="btn btn-primary btn-lg"
-                      
+                        v-on:click="asignarTeacher(teacher.id)"
                        data-toggle="button"
                         aria-pressed="false"
                         autocomplete="off"
@@ -29,12 +60,29 @@
         <input type="radio" class="btn-check" name="btnradio"   v-on:click="cargar_clases($event)" v-model="teacher_id" :id="teacher.id" autocomplete="off">
         <label class="btn btn-outline-primary" for="teacher.id">{{teacher.nombre}}</label> -->
 
+
+      <div class="row" style="padding-left:8%;">
+                
+              <div class="col-md-2" v-for="week in weeks" :key="week.id"  style="padding-left:20px;"> 
+                  <div class="row">
+                <button type="button"
+                  v-on:click="cargar_clases(week.id, week.id, week.first_day, week.last_day)"
+                class="btn btn-success "   > Semana de : {{week.description}}</button>
+
+                </div>
+              
+
+              </div>
+        </div>
+   
+        <br>
+
         <div class="row">
             <div class="col-lg-12 col-md-4 col-sm-12 col-xs-12">
                 <table class="table-responsive" style="padding-left:30px;">
                     <thead class="thead-light">
                         <tr>
-                            <th style="text-align:center; padding-top:25px; padding-bottom:15px; border:solid; background-color:  #006666; color:#ffffff; " v-for="day in Days" :key="day.id">
+                            <th style="text-align:center; padding-top:25px; padding-bottom:15px; border:solid;  background-color:  #006666; color:#ffffff; " v-for="day in Days" :key="day.id">
                                 {{ day.Dia }}
                             </th>
                         </tr>
@@ -46,7 +94,7 @@
                                 <div v-if="clase.status == 1"  >
                                   <button style="display: block; width:250px;  height: 70px;"
                                       type="button"
-                                      class="custom-btn btn-13"
+                                      class="custom-btn btn-1"
                                       @click="show_modal(clase.nombre, clase.id_person, clase.clase_id)">
                                       {{ clase.Clase }}
                                       {{ clase.nombre }}
@@ -55,7 +103,7 @@
                                  <div v-else-if="clase.status == 3"  >
                                   <button style="display: block; width:250px;  height: 70px;"
                                       type="button"
-                                      class="custom-btn btn-6"
+                                      class="custom-btn btn-3"
                                       @click="show_modal(clase.nombre, clase.id_person, clase.clase_id)">
                                       {{ clase.Clase }}
                                       {{ clase.nombre }}
@@ -64,17 +112,28 @@
                                  <div v-else-if="clase.status == 4"  >
                                   <button style="display: block; width:250px;  height: 70px;"
                                       type="button"
-                                      class="custom-btn btn-7"
+                                      class="custom-btn btn-4"
                                       @click="show_modal(clase.nombre, clase.id_person, clase.clase_id)"
                                       >
                                       {{ clase.Clase }}
                                       {{ clase.nombre }}
                                   </button>
                                 </div>
-                                 <div v-else-if="clase.status == 5"  >
+                                <div v-else-if="clase.status == 5"  >
                                   <button style="display: block; width:250px;  height: 70px;"
                                       type="button"
-                                      class="custom-btn btn-8"
+                                      class="custom-btn btn-5"
+                                      
+                                      >
+                                      {{ clase.Clase }}
+                                      {{ clase.nombre }}
+                                  </button>
+                                </div>
+
+                            <div v-else-if="clase.status == 7"  >
+                                  <button style="display: block; width:250px;  height: 70px;"
+                                      type="button"
+                                      class="custom-btn btn-7"
                                       
                                       >
                                       {{ clase.Clase }}
@@ -85,7 +144,8 @@
                                 <div v-else >
                                   <button style="display: block; width:250px; height: 70px;"
                                       type="button"
-                                      class="custom-btn btn-5"
+                                      class="custom-btn btn-8"
+                                 
                                     >
                                       {{ clase.Clase }}
                                       {{ clase.nombre }}
@@ -145,7 +205,9 @@
                                 </div>
                                 <div class="container" v-if="noPresente">
                                   <label for="">Descripción de la falta:</label>
-                                  <input class="form-control" :value="person.desc_falta" type="text">
+                                  <input class="form-control" v-model="person.desc_falta" type="text">
+                                  <label for="">Documento Adjunto:</label>
+                                  <input class="form-control" type="file">
                                   <button
                                         type="button"
                                         class="btn btn-info"
@@ -156,6 +218,50 @@
                                 </div> 
 
                                 <div class="container" v-if="cambioClase"> 
+
+                                    <div class="form-group">
+                                          <label>Mes </label>
+
+                                          <select
+                                              v-model="person.month_id"
+                                              class="form-control"
+                                              name="mes_id"
+                                              id="mes_id"
+                                              @change="mostrarSemanas($event.target.value)"
+                                          >
+                                              <option value="" selected
+                                                  >Seleccione el Mes</option
+                                              >
+                                              <option
+                                                  v-for="month in months"
+                                                  :value="month.id"
+                                                  :key="month.id"
+                                                  >{{ month.description }}
+                                              </option>
+                                          </select>
+                                      </div>
+
+                                       <div class="form-group">
+                                          <label>Semana </label>
+
+                                          <select
+                                              v-model="person.semana_id"
+                                              class="form-control"
+                                              name="semana_id"
+                                              id="semana_id"
+                                          >
+                                              <option value="" selected
+                                                  >Seleccione  La semana</option
+                                              >
+                                              <option
+                                                  v-for="week in weeks"
+                                                  :value="week.id"
+                                                  :key="week.id"
+                                                  >{{ week.description }}
+                                              </option>
+                                          </select>
+                                      </div>
+
                                       <div class="form-group">
                                           <label>Profesor </label>
 
@@ -178,6 +284,8 @@
                                               </option>
                                           </select>
                                       </div>
+                                     
+                                     
                                       <div class="form-group">
                                             <label>Días </label>
 
@@ -216,6 +324,19 @@
                                             </select>
                                         </div>
 
+                                        
+                                      <div class="form-group">
+                                          <label>Motivo </label>
+
+                                        <textarea
+                                              class="form-control"
+                                                v-model="person.motivo"
+                                         name="motivo" id="motivo" cols="20" rows="3">
+
+                                        </textarea>
+                                      </div>
+                                     
+
                                          <button
                                         type="button"
                                         class="btn btn-success"
@@ -228,19 +349,7 @@
                                 </div>
 
                                 <div class="modal-footer">
-                                    <button
-                                        type="button"
-                                        class="btn btn-secondary"
-                                        @click="showModal = false, cambioClase=false"
-                                    >
-                                        Cerrar
-                                    </button>
-                                    <button
-                                        type="button"
-                                        class="btn btn-primary"
-                                    >
-                                        Aceptar
-                                    </button>
+
                                 </div>
                             </div>
                         </div>
@@ -248,6 +357,61 @@
                 </div>
             </transition>
         </div>
+        <div v-if="pasarLista">
+                    <transition name="modal">
+                        <div class="modal-mask">
+                            <div class="modal-wrapper">
+                                <div class="modal-dialog"  role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">
+                                                Asistencia
+                                            </h5>
+                                            <button
+                                                type="button"
+                                                class="close"
+                                                data-dismiss="modal"
+                                                aria-label="Close"
+                                            >
+                                                <span
+                                                    aria-hidden="true"
+                                                    @click="pasarLista = false"
+                                                    >&times;</span
+                                                >
+                                            </button>
+                                        </div>
+                                        <div v-if="lista_al" class="modal-body">
+                        
+
+                                            <form v-on:submit.prevent="paseLista()" >
+                                                <label for="">Pase de lista Alumno:</label>
+                                                <input v-model="matricula" type="text">
+                                            </form>
+                                        
+                                        </div>
+                                        <div v-if="lista_tea" class="modal-body">
+                                       
+
+                                            <form v-on:submit.prevent="paseLista()" >
+                                                <label for="">Pase de lista Profesor:</label>
+                                                <input v-model="matriculaT" type="text">
+                                            </form>
+                                        
+                                        </div>
+                                        
+
+                                        <div class="modal-footer">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </transition>
+         </div>
+        </div>
+
+
     </div>
    </div> 
 </template>
@@ -257,13 +421,26 @@ export default {
     name: "Listado",
     data() {
         return {
-            teacher_id: "",
+            teacher_id: 2,
             Days: [],
             Teachers: [],
             showModal: false,
             person_name: "",
             cambioClase:false,
             noPresente:false,
+            pasarLista:false,
+            lista_al: false,
+            lista_tea:false,
+            week_id:1,
+            month_id:1,
+            first_day: 1,
+            matricula:"",
+            matriculaT:"",
+            last_day: 7,
+              isActive: true,
+              hasError: false,
+              activeClass: 'myButton',
+              errorClass: 'btn-danger',
             
             person:{
               $first_id:"",
@@ -272,21 +449,108 @@ export default {
               clase_id: "",
               person_id:"",
               desc_falta:"",
+              semana_id:"",
+              month_id:"",
+              motivo: '',
             },
             teachers: [],
             days: [],
-            clases: []
+            clases: [],
+            months: [],
+            weeks: [],
 
         };
     },
 
     mounted() {
-        this.mostrarDatos();
+        this.mostrarMeses();
+        this.mostrarSemanas(1);
+        this.mostrarDatos(2,1);
+
     },
     methods: {
-        async mostrarDatos() {
+
+         async paseLista() {
+             var matricula = this.matricula
+             var matriculaT = this.matriculaT
+
+
+             if(this.lista_al){
+                      await this.axios
+                .get(`/paseLista/${matricula}`)
+                .then(response => {
+                    console.log('Pase Exitoso')
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+                 
+             }else if(this.lista_tea){
+
+                           await this.axios
+                .get(`/paseListaT/${matriculaT}`)
+                .then(response => {
+                    console.log('Pase Exitoso')
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+
+
+             }
+       
+        },
+
+        asignarTeacher(teacher){
+        this.teacher_id = teacher
+           if(this.month_id === 2){
+            this.week_id = 6
+          }else if(this.month_id === 1){
+            this.week_id = 1
+          }
+          console.log(this.week_id, this.month_id)
+        this.cargar_clases(this.week_id, this.month_id, this.first_day, this.last_day);
+        },
+        asignarMes(month_id){
+        this.month_id = month_id
+          if(this.month_id === 2){
+            this.week_id = 6
+          }else if(this.month_id === 1){
+            this.week_id = 1
+          }
+          console.log(this.week_id, this.month_id)
+
+        this.cargar_clases(this.week_id,this.month_id, this.first_day, this.last_day);
+        this.mostrarSemanas(month_id)
+        },
+
+        async mostrarMeses() {
             await this.axios
-                .get(`/api/listado`)
+                .get(`/api/meses`)
+                .then(response => {
+                    const { Months } = response.data;
+                    this.months =Months;
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        },
+          async mostrarSemanas($id) {
+            var month_id = $id
+            await this.axios
+                .get(`/api/semanas/${month_id}`)
+                .then(response => {
+                    const { Weeks } = response.data;
+                    this.weeks =Weeks;
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        },
+
+            async mostrarDatos(teacher, week) {
+            await this.axios
+                .get(`/api/listado/${teacher}/${week}`)
                 .then(response => {
                     const { Days, Teachers } = response.data;
                     this.Days = Days;
@@ -297,12 +561,13 @@ export default {
                 });
         },
 
-        async cargar_clases(event) {
-           this.teacher_id = event.target.value;
-            console.log(event.target.value);
-            var id = event.target.value;
+        async cargar_clases(week,month, first, last) {
+            month =this.month_id
+            var teacher = this.teacher_id
+            console.log(teacher)
+            console.log(week)
             await this.axios
-                .get(`/api/listado_teacher/${event.target.value}`)
+                .get(`/api/listado_teacher/${teacher}/${week}/${month}/${first}/${last}`)
                 .then(response => {
                     const { Days } = response.data;
                     this.Days = Days;
@@ -337,7 +602,6 @@ export default {
             this.noPresente=false;
             event.preventDefault()
             this.cambioClase=true,
-            console.log(this.showModal)
             this.mostrarTeachers();
 
         },
@@ -357,6 +621,32 @@ export default {
                     const { teachers } = response.data;
                     this.teachers = teachers;
                     console.log(teachers);
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        },
+
+            async mostrarMesesClases() {
+            await this.axios
+                .get(`/api/person/create`)
+                .then(response => {
+                    const { Months } = response.data;
+                    this.pers = Months;
+                    console.log(teachers);
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        },
+        async mostrarSemanasClases(event) {
+            console.log(event.target.value);
+            await this.axios
+                .get(`/person/ShowDays/${event.target.value}`)
+                .then(response => {
+                    const { days } = response.data;
+                    this.days = days;
+                    console.log(days);
                 })
                 .catch(error => {
                     console.log(error);
@@ -398,7 +688,8 @@ export default {
           .then(response =>{
             const {clase} =response.data;
             console.log(clase);
-            this.cargar_clases2() ;
+                    this.cargar_clases(this.week_id,this.month_id, this.first_day, this.last_day);
+
           })
             .catch(error => {
                 console.log(error);
@@ -409,7 +700,8 @@ export default {
           .then(response =>{
             const {respuesta} =response.data;
             console.log(respuesta);
-            this.cargar_clases2() ;
+                    this.cargar_clases(this.week_id,this.month_id, this.first_day, this.last_day);
+
           })
             .catch(error => {
                 console.log(error);
@@ -420,6 +712,38 @@ export default {
 </script>
 
 <style>
+.fondo{
+  background: rgba(1, 75, 44, 0.356);
+}
+.myButton {
+	box-shadow:inset 0px 1px 0px 0px #97c4fe;
+	background:linear-gradient(to bottom, #3d94f6 5%, #1e62d0 100%);
+	background-color:#3d94f6;
+	border-radius:6px;
+	border:1px solid #337fed;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #1570cd;
+}
+.myButton:hover {
+	background:linear-gradient(to bottom, #1e62d0 5%, #3d94f6 100%);
+	background-color:#1e62d0;
+}
+.myButton:active {
+	position:relative;
+	top:1px;
+
+}
+
+
+
+
 .modal-mask {
     position: fixed;
     z-index: 9998;
@@ -528,158 +852,13 @@ button {
   display: inline-block;
 }
 
-/* 1 */
-.btn-1 {
-  transition: all 0.3s ease;
+.btn-1{
+  background: rgb(8, 51, 92);
+  color: rgb(255, 255, 255);
+
 }
 .btn-1:hover {
-   box-shadow:
-   -7px -7px 20px 0px #fff9,
-   -4px -4px 5px 0px #fff9,
-   7px 7px 20px 0px #0002,
-   4px 4px 5px 0px #0001;
-}
-
-/* 2 */
-/* .btn-2 {
-  
-} */
-.btn-2:after {
-  position: absolute;
-  content: "";
-  top: 5px;
-  left: 6px;
-  width: 90%;
-  height: 70%;
-  border: 1px solid #000;
-  opacity: 0;
-  transition: all 0.3s ease;
-}
-.btn-2:hover:after {
-  opacity: 1;
-}
-
-
-/* 3 */
-.btn-3 {
-  line-height: 39px;
-  padding: 0;
-}
-.btn-3:hover{
-  background: transparent;
-  color: #000;
-}
-.btn-3 span {
-  position: relative;
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-.btn-3:before,
-.btn-3:after {
-  position: absolute;
-  content: "";
-  left: 0;
-  top: 0;
-  background: #000;
-  transition: all 0.3s ease;
-}
-.btn-3:before {
-  height: 0%;
-  width: 2px;
-}
-.btn-3:after {
-  width: 0%;
-  height: 2px;
-}
-.btn-3:hover:before {
-  height: 100%;
-}
-.btn-3:hover:after {
-  width: 100%;
-}
-.btn-3 span:before,
-.btn-3 span:after {
-  position: absolute;
-  content: "";
-  right: 0;
-  bottom: 0;
-  background: #000;
-  transition: all 0.3s ease;
-}
-.btn-3 span:before {
-  width: 2px;
-  height: 0%;
-}
-.btn-3 span:after {
-  width: 0%;
-  height: 2px;
-}
-.btn-3 span:hover:before {
-  height: 100%;
-}
-.btn-3 span:hover:after {
-  width: 100%;
-}
-
-/* 4 */
-.btn-4 {
-  position: relative;
-  color: #000;
-  z-index: 2;
-  line-height: 40px;
-  padding: 0;
-}
-.btn-4:hover{
-  border: none;
-}
-.btn-4:before,
-.btn-4:after {
-  position: absolute;
-  content: "";
-  width: 0%;
-  height: 0%;
-  border: 2px solid;
-  z-index: -1;
-  transition: all 0.3s ease;
-}
-.btn-4:before {
-  top: 0;
-   left: 0;
-   border-bottom-color: transparent;
-   border-right-color: transparent;
-   border-top-color: #000;
-   border-left-color: #000;
-}
-.btn-4:after{
-   bottom: 0;
-   right: 0;
-   border-top-color: transparent;
-   border-left-color: transparent;
-   border-bottom-color: #000;
-   border-right-color: #000;
-}
-.btn-4:hover:before,
-.btn-4:hover:after {
-  border-color: #000;
-  height: 100%;
-  width: 100%;
-}
-
-
-
-/* 5 */
-.btn-5 {
-      background: rgb(7, 102, 39);
-  color: #fff;
-  line-height: 42px;
-  
-  border: none;
-   margin: 3px;
-  padding: 3px;
-}
-.btn-5:hover {
-  background: rgb(116, 180, 145);
+  background: rgb(28, 69, 106);
   color: rgb(255, 255, 255);
    box-shrgb(218, 218, 218):
    -7px -7px 20px 0px #fff9,
@@ -687,440 +866,118 @@ button {
    7px 7px 20px 0px #0002,
    4px 4px 5px 0px #0001;
 }
-.btn-5:before,
-.btn-5:after{
-  content:'';
-  position:absolute;
-  top:0;
-  right:0;
-  height:2px;
-  width:0;
-       background: rgb(7, 102, 39);
 
-  transition:400ms ease all;
-}
-.btn-5:after{
-  right:inherit;
-  top:inherit;
-  left:0;
-  bottom:0;
-}
-.btn-5:hover:before,
-.btn-5:hover:after{
-  width:100%;
-  transition:800ms ease all;
+.btn-2{
+  background: rgb(138, 21, 1);
+  color: rgb(255, 255, 255);
+
 }
 
-
-/* 6 */
-.btn-6 {
-   background: rgb(201, 70, 0);
-  color: #fff;
-  line-height: 42px;
-
-  border: none;
-    margin: 3px;
-  padding: 3px;
-}
-.btn-6 span {
-  position: relative;
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-.btn-6:before,
-.btn-6:after {
-  position: absolute;
-  content: "";
-  height: 0%;
-  width: 2px;
-  background: #000;
-}
-.btn-6:before {
-  right: 0;
-  top: 0;
-  transition: all 500ms ease;
-}
-.btn-6:after {
-  left: 0;
-  bottom: 0;
-  transition: all 500ms ease;
-}
-.btn-6:hover{
-  color: #000;
-  background: transparent;
-}
-.btn-6:hover:before {
-  transition: all 500ms ease;
-  height: 100%;
-}
-.btn-6:hover:after {
-  transition: all 500ms ease;
-  height: 100%;
-}
-.btn-6 span:before,
-.btn-6 span:after {
-  position: absolute;
-  content: "";
-  background: #000;
-}
-.btn-6 span:before {
-  left: 0;
-  top: 0;
-  width: 0%;
-  height: 2px;
-  transition: all 500ms ease;
-}
-.btn-6 span:after {
-  right: 0;
-  bottom: 0;
-  width: 0%;
-  height: 2px;
-  transition: all 500ms ease;
-}
-.btn-6 span:hover:before {
-  width: 100%;
-}
-.btn-6 span:hover:after {
-  width: 100%;
-}
-
-/* 7 */
-.btn-7 {
-   background: rgb(191, 92, 0);
-  color: #fff;
-  line-height: 42px;
- 
-  border: none;
-  z-index: 1;
-   -webkit-transition: all 0.3s linear;
-	transition: all 0.3s linear;
-    margin: 3px;
-  padding: 3px;
-}
-.btn-7:hover {
-  background: rgba(5, 119, 172, 0.911);
-  color: rgb(223, 219, 219);
-}
-.btn-7:before,
-.btn-7:after {
-  position: absolute;
-  content: "";
-  left: 0;
-  width: 100%;
-  height: 50%;
-  right: 0;
-  z-index: -1;
-  background: rgb(95, 12, 72);
-  transition: all 0.3s ease;
-}
-.btn-7:before {
-  top: 0;
-}
-.btn-7:after {
-  bottom: 0;
-}
-.btn-7:hover:before,
-.btn-7:hover:after {
-  height: 0;
-  background-color: rgb(4, 3, 58);
-}
-
-
-
-
-/* 8 */
-.btn-8 {
-   line-height: 40px;
-      margin: 3px;
-  padding: 3px;
-  background: rgb(102, 102, 102);
-  position: relative;
-  z-index: 2;
-  color: #fff;
-  -webkit-perspective: 300px;
-  perspective: 300px;
-  -webkit-transform-style: preserve-3d;
-  transform-style: preserve-3d;
-}
-.btn-8:hover{
-  color: rgb(92, 92, 92);
-}
-
-/* 9 */
-.btn-9 {
-  z-index: 2;
-  transition: all 0.3s ease;
-  overflow: hidden;
-}
-.btn-9:after {
-  position: absolute;
-  content: " ";
-  z-index: -1;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  transition: all 0.3s ease;
-}
-.btn-9:hover {
-  box-shadow:  4px 4px 6px 0 rgba(255,255,255,.5),
-              -4px -4px 6px 0 rgba(116, 125, 136, .2), 
-    inset -4px -4px 6px 0 rgba(255,255,255,.5),
-    inset 4px 4px 6px 0 rgba(116, 125, 136, .3);
-  color: #fff;
-}
-.btn-9:hover:after {
-  -webkit-transform: scale(2) rotate(180deg);
-  transform: scale(2) rotate(180deg);
-  background: #000;
-  box-shadow:  4px 4px 6px 0 rgba(255,255,255,.5),
-              -4px -4px 6px 0 rgba(116, 125, 136, .2), 
-    inset -4px -4px 6px 0 rgba(255,255,255,.5),
-    inset 4px 4px 6px 0 rgba(116, 125, 136, .3);
-}
-
-/* 10 */
-.btn-10 {
-  transition: all 0.3s ease;
-  overflow: hidden;
-}
-.btn-10:after {
-  position: absolute;
-  content: " ";
-  top: 0;
-  left: 0;
-  z-index: -1;
-  width: 100%;
-  height: 100%;
-  transition: all 0.3s ease;
-  -webkit-transform: scale(.1);
-  transform: scale(.1);
-}
-.btn-10:hover {
-  color: #fff;
-}
-.btn-10:hover:after {
-  background: #000;
-  -webkit-transform: scale(1);
-  transform: scale(1);
-}
-
-/* 11 */
-.btn-11 {
-  overflow: hidden;
-  transition: all 0.3s ease;
-}
-.btn-11:hover {
-   background: #000;
-  color: #fff;
-}
-.btn-11:before {
-    position: absolute;
-    content: '';
-    display: inline-block;
-    top: -180px;
-    left: 0;
-    width: 30px;
-    height: 100%;
-    background-color: #fff;
-    animation: shiny-btn1 3s ease-in-out infinite;
-}
-.btn-11:active{
-  box-shadow:  4px 4px 6px 0 rgba(255,255,255,.3),
-              -4px -4px 6px 0 rgba(116, 125, 136, .2), 
-    inset -4px -4px 6px 0 rgba(255,255,255,.2),
-    inset 4px 4px 6px 0 rgba(0, 0, 0, .2);
-}
-
-
-@-webkit-keyframes shiny-btn1 {
-    0% { -webkit-transform: scale(0) rotate(45deg); opacity: 0; }
-    80% { -webkit-transform: scale(0) rotate(45deg); opacity: 0.5; }
-    81% { -webkit-transform: scale(4) rotate(45deg); opacity: 1; }
-    100% { -webkit-transform: scale(50) rotate(45deg); opacity: 0; }
-}
-
-
-/* 12 */
-.btn-12{
-  position: relative;
-  right: 20px;
-  bottom: 20px;
-  border:none;
-  width: 130px;
-  height: 40px;
-  line-height: 40px;
-  -webkit-perspective: 230px;
-  perspective: 230px;
-}
-.btn-12 span {
-  display: block;
-  position: absolute;
-  width: 130px;
-  height: 40px;
-  border: 2px solid #000;
-  margin:0;
-  text-align: center;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  -webkit-transition: all .3s;
-  transition: all .3s;
-}
-.btn-12 span:nth-child(1) {
-  box-shadow:
+.btn-2:hover {
+  background: rgb(68, 0, 0);
+  color: rgb(255, 255, 255);
+   box-shrgb(218, 218, 218):
    -7px -7px 20px 0px #fff9,
    -4px -4px 5px 0px #fff9,
    7px 7px 20px 0px #0002,
    4px 4px 5px 0px #0001;
-  -webkit-transform: rotateX(90deg);
-  -moz-transform: rotateX(90deg);
-  transform: rotateX(90deg);
-  -webkit-transform-origin: 50% 50% -20px;
-  -moz-transform-origin: 50% 50% -20px;
-  transform-origin: 50% 50% -20px;
 }
-.btn-12 span:nth-child(2) {
-  -webkit-transform: rotateX(0deg);
-  -moz-transform: rotateX(0deg);
-  transform: rotateX(0deg);
-  -webkit-transform-origin: 50% 50% -20px;
-  -moz-transform-origin: 50% 50% -20px;
-  transform-origin: 50% 50% -20px;
+
+.btn-3{
+  background: rgb(0, 107, 14);
+  color: rgb(255, 255, 255);
+
 }
-.btn-12:hover span:nth-child(1) {
-  -webkit-transform: rotateX(0deg);
-  -moz-transform: rotateX(0deg);
-  transform: rotateX(0deg);
+
+.btn-3:hover {
+  background: rgb(0, 68, 17);
+  color: rgb(255, 255, 255);
+   box-shrgb(218, 218, 218):
+   -7px -7px 20px 0px #fff9,
+   -4px -4px 5px 0px #fff9,
+   7px 7px 20px 0px #0002,
+   4px 4px 5px 0px #0001;
 }
-.btn-12:hover span:nth-child(2) {
-  background: #e0e5ec;
-  color: #e0e5ec;
-  -webkit-transform: rotateX(-90deg);
-  -moz-transform: rotateX(-90deg);
-  transform: rotateX(-90deg);
+
+.btn-4{
+  background: rgb(0, 176, 240);
+  color: rgba(255, 255, 255, 0.63);
+
+}
+
+.btn-4:hover {
+  background: rgb(0, 74, 158);
+  color: rgb(255, 255, 255);
+   box-shrgb(218, 218, 218):
+   -7px -7px 20px 0px #fff9,
+   -4px -4px 5px 0px #fff9,
+   7px 7px 20px 0px #0002,
+   4px 4px 5px 0px #0001;
+}
+
+.btn-5{
+  background: rgb(128, 128, 128);
+  color: rgba(255, 255, 255, 0.63);
+
+}
+.btn-5:hover {
+  background: rgb(68, 68, 68);
+  color: rgb(255, 255, 255);
+   box-shrgb(218, 218, 218):
+   -7px -7px 20px 0px #fff9,
+   -4px -4px 5px 0px #fff9,
+   7px 7px 20px 0px #0002,
+   4px 4px 5px 0px #0001;
+}
+
+.btn-6{
+  background: rgb(204, 102, 255);
+  color: rgb(255, 255, 255);
+
+}
+.btn-6:hover {
+   background: rgb(134, 49, 177);
+  color: rgb(255, 255, 255);
+   box-shrgb(218, 218, 218):
+   -7px -7px 20px 0px #fff9,
+   -4px -4px 5px 0px #fff9,
+   7px 7px 20px 0px #0002,
+   4px 4px 5px 0px #0001;
+}
+
+.btn-7{
+  background: hsl(66, 100%, 50%);
+  color: rgb(0, 0, 0);
+
+}
+.btn-7:hover {
+  background: rgba(65, 71, 5, 0.959);
+  color: rgb(255, 255, 255);
+   box-shrgb(218, 218, 218):
+   -7px -7px 20px 0px #fff9,
+   -4px -4px 5px 0px #fff9,
+   7px 7px 20px 0px #0002,
+   4px 4px 5px 0px #0001;
+}
+
+.btn-8{
+  background: rgba(255, 255, 255, 0.959);
+  color: rgb(0, 0, 0);
+  border: solid;
+
+}
+.btn-8:hover {
+  background: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
+   box-shrgb(218, 218, 218):
+   -7px -7px 20px 0px #fff9,
+   -4px -4px 5px 0px #fff9,
+   7px 7px 20px 0px #0002,
+   4px 4px 5px 0px #0001;
 }
 
 
-/* 13 */
-.btn-13 {
-   background: rgb(20, 61, 138);
-  color: #fff;
-  z-index: 1;
-  margin: 3px;
-  padding: 3px;
 
 
-}
-.btn-13:after {
-  position: absolute;
-  content: "";
-  width: 100%;
-  height: 0;
-  bottom: 0;
-  left: 0;
-  z-index: -1;
-   background: #2e77ff;
-  transition: all 0.3s ease;
-}
-.btn-13:hover {
-  color: rgb(46, 46, 46);
-}
-.btn-13:hover:after {
-  top: 0;
-  height: 100%;
-}
-.btn-13:active {
-  top: 2px;
-}
 
-
-/* 14 */
-.btn-14 {
-   background: #000;
-  color: #fff;
-  z-index: 1;
-}
-.btn-14:after {
-  position: absolute;
-  content: "";
-  width: 100%;
-  height: 0;
-  top: 0;
-  left: 0;
-  z-index: -1;
-  background: #e0e5ec;
-  transition: all 0.3s ease;
-}
-.btn-14:hover {
-  color: #000;
-}
-.btn-14:hover:after {
-  top: auto;
-  bottom: 0;
-  height: 100%;
-}
-.btn-14:active {
-  top: 2px;
-}
-
-/* 15 */
-.btn-15 {
-   background: #000;
-  color: #fff;
-  z-index: 1;
-}
-.btn-15:after {
-  position: absolute;
-  content: "";
-  width: 0;
-  height: 100%;
-  top: 0;
-  right: 0;
-  z-index: -1;
-   background: #e0e5ec;
-  transition: all 0.3s ease;
-}
-.btn-15:hover {
-  color: #000;
-}
-.btn-15:hover:after {
-  left: 0;
-  width: 100%;
-}
-.btn-15:active {
-  top: 2px;
-}
-
-
-/* 16 */
-.btn-16 {
-   background: #000;
-  color: #fff;
-  z-index: 1;
-}
-.btn-16:after {
-  position: absolute;
-  content: "";
-  width: 0;
-  height: 100%;
-  top: 0;
-  left: 0;
-  direction: rtl;
-  z-index: -1;
-  background: #e0e5ec;
-  transition: all 0.3s ease;
-}
-.btn-16:hover {
-  color: #000;
-}
-.btn-16:hover:after {
-  left: auto;
-  right: 0;
-  width: 100%;
-}
-.btn-16:active {
-  top: 2px;
-}
 </style>
