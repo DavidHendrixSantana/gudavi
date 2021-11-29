@@ -28,32 +28,33 @@ class PdfController extends Controller
 					WHERE days_classes.status !=2 and days_classes.status !=3   and days_teachers.teacher_id= ? GROUP BY teachers.nombre
             ', [$teacher->id]) ;
 
+            if (isset($Consult[0]->name)){
        
-            $preconsult = DB::select('select teachers_pay.total_classes, teachers.pago_hora from teachers_pay
-            INNER JOIN teachers on teachers.id = teachers_pay.teacher_id
-        WHERE teacher_id = ?', [$teacher->id]);
-            $preconsult = $preconsult[0];
-            array_push($Consult,$preconsult);
+                    $preconsult = DB::select('select teachers_pay.total_classes, teachers.pago_hora from teachers_pay
+                    INNER JOIN teachers on teachers.id = teachers_pay.teacher_id
+                WHERE teacher_id = ?', [$teacher->id]);
+                    $preconsult = $preconsult[0];
+                    array_push($Consult,$preconsult);
 
-            $clases_pendientes = DB::select('select COUNT(days_classes.id) as pendientes  from days_classes 
-            INNER  JOIN days_teachers ON days_classes.day_teacher_id = days_teachers.id 
-            INNER join teachers on teachers.id = days_teachers.teacher_id 
-					WHERE days_classes.status=5 and days_teachers.teacher_id=? GROUP BY teachers.nombre', [$teacher->id]);
+                    $clases_pendientes = DB::select('select COUNT(days_classes.id) as pendientes  from days_classes 
+                    INNER  JOIN days_teachers ON days_classes.day_teacher_id = days_teachers.id 
+                    INNER join teachers on teachers.id = days_teachers.teacher_id 
+                            WHERE days_classes.status=5 and days_teachers.teacher_id=? GROUP BY teachers.nombre', [$teacher->id]);
 
-            if(isset($clases_pendientes[0])){
-                $pendientes = $clases_pendientes[0];
-                array_push($Consult,$pendientes);
+                    if(isset($clases_pendientes[0])){
+                        $pendientes = $clases_pendientes[0];
+                        array_push($Consult,$pendientes);
 
-            }else{
-               
-                $sin_pendientes = new stdClass();
-                $sin_pendientes->pendientes = 0;
-                array_push($Consult,$sin_pendientes);
+                    }else{
+                    
+                        $sin_pendientes = new stdClass();
+                        $sin_pendientes->pendientes = 0;
+                        array_push($Consult,$sin_pendientes);
 
-            }
-                
-       array_push($Classes_month,$Consult);
-
+                    }
+                        
+            array_push($Classes_month,$Consult);
+        }
     
             }
 

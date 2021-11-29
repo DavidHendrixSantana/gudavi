@@ -33,7 +33,7 @@
                                         >Realizar pago.
                                      </button>
                                 <button type="button" class="btn btn-warning">Dar de baja Temporal</button>
-                                <button type="button" class="btn btn-danger">Dar de baja</button>
+                                <button type="button" @click="borrarPerson(person.id)" class="btn btn-danger">Dar de baja</button>
                                           <router-link to="/credencial" target="_blank" type="button" class="btn btn-success">Imprimir credencial</router-link>
 
 
@@ -169,6 +169,16 @@ export default {
                 console.log(error)
             })
         },
+
+         borrarPerson(id){
+            if(confirm("¿Confirma eliminar el registro?")){
+                this.axios.delete(`/api/person/${id}`).then(response=>{
+                    this.mostrarPersons()
+                }).catch(error=>{
+                    console.log(error)
+                })
+            }
+         },
 
         async  show_modal(event) {
              var id = event.target.value;

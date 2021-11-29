@@ -10,6 +10,7 @@ use App\Models\Clase;
 use App\Models\Day_clase;
 use App\Models\Days_teachers;
 use App\Models\Pay;
+use App\Models\Class_pend;
 use App\Models\History;
 use Illuminate\Support\Facades\DB;
 
@@ -191,6 +192,19 @@ try {
      */
     public function destroy(Person $Person)
     {
+        $id= $Person->id;
+
+        $classes = Day_clase::where('person_id', $id)->get();
+
+
+
+        foreach ($classes as $clase ) {
+            Day_clase::destroy($clase->id);
+
+            Class_pend::where('id', $clase->id)->delete();
+        }
+
+
         $Person->delete();
         return response()->json([
 

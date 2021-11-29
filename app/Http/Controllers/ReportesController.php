@@ -25,8 +25,9 @@ class ReportesController extends Controller
                 inner join teachers on teachers.id = days_teachers.teacher_id 
                         WHERE days_classes.status !=2 and days_classes.status !=3   and days_teachers.teacher_id= ? GROUP BY teachers.nombre
                 ', [$teacher->id]) ;
-    
-           
+
+              if (isset($Consult[0]->name)){
+
                 $preconsult = DB::select('select teachers_pay.total_classes, teachers.pago_hora from teachers_pay
                 INNER JOIN teachers on teachers.id = teachers_pay.teacher_id
             WHERE teacher_id = ?', [$teacher->id]);
@@ -51,6 +52,11 @@ class ReportesController extends Controller
                 }
                     
            array_push($Classes_month,$Consult);
+
+              }
+    
+           
+             
     
         
                 }
