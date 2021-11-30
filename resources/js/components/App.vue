@@ -5,7 +5,7 @@
                 <div class="container-fluid">
                     <a class="navbar-brand" href="#">
                         <!-- llamamos al logo de Vue -->
-                        <img src="/images/logo.jpg" alt="" width="130" height="100">
+                        <img src="/images/logo.png" alt="" width="130" height="100">
                     </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -58,7 +58,7 @@
      <div style="height:100%; background-image: url(https://cdn.pixabay.com/photo/2015/11/02/18/32/water-1018808_960_720.jpg);"   v-if="login">
 
                 <section id="login" v-bind:class="isShake">
-                    <img style=" margin-left:30%; border-radius:20px; margin-top:10%" src="/images/logo.jpg" width="40%" height="40%" alt="">
+                    <img style=" margin-left:30%; border-radius:20px; margin-top:10%" src="/images/logo.png" width="40%" height="40%" alt="">
 
                     <form>
                     <h2>Inicio de sesión</h2>

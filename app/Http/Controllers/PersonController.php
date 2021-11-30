@@ -85,15 +85,43 @@ try {
             $clase_id=$request['clase_id_'.$x];
             $day_id=$request['day_id_'.$x];
 
+            $nivel = $request['nivel'];
+
          
          for ($i=1; $i <13 ; $i++) { 
-            Day_clase::create([
-                'day_teacher_id' => $day_id,
-                'class_id' =>  $clase_id,
-                'person_id' => $Person->id,
-                'status' => 1,
-                'week_id' => $i
-            ]);
+      
+            if($nivel == 'Grupales'){
+         
+
+                Day_clase::create([
+                    'day_teacher_id' => $day_id,
+                    'class_id' =>  $clase_id,
+                    'person_id' => $Person->id,
+                    'status' => 1,
+                    'week_id' => $i,
+                    'grupal' => 1,
+    
+                ]);
+
+                Day_clase::create([
+                    'day_teacher_id' => $day_id,
+                    'class_id' =>  $clase_id +1,
+                    'person_id' => $Person->id,
+                    'status' => 1,
+                    'week_id' => $i,
+                    'grupal' => 1,
+                ]);
+            } else {
+                Day_clase::create([
+                    'day_teacher_id' => $day_id,
+                    'class_id' =>  $clase_id,
+                    'person_id' => $Person->id,
+                    'status' => 1,
+                    'week_id' => $i,
+                    'grupal' => 0,
+    
+                ]);# code...
+            }
          } 
           
            

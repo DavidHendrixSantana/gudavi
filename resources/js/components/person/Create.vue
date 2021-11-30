@@ -168,6 +168,8 @@
                                         id="clases"
                                         v-model="person.clases_semanales"
                                         class="form-control"
+                                        @change="clase_precio()"
+
                                         
                                     >
                                         <option value=""
@@ -192,7 +194,7 @@
                                         id="clases"
                                         v-model="person.mesesPagados"
                                         class="form-control"
-                                        @change="clase_precio($event)"
+                                        @change="clase_precio()"
                                     >
                                         <option value=""
                                             >Seleccione los meses</option
@@ -612,11 +614,13 @@ export default {
 
         nivel_precio(event) {
             this.nivel_nado = event.target.value;
+            this.clase_precio()
+
         },
 
-        clase_precio(event) {
+        clase_precio() {
             var dias = this.person.clases_semanales;
-            var meses =event.target.value
+            var meses =this.person.mesesPagados
 
             if (this.nivel_nado === "Bebes") {
 

@@ -32,7 +32,7 @@ class FuncionalController extends Controller
     }
     public function listado_week($month_id){
         $weeks = Week::where('month_id', $month_id)->get();
-        $first_day=1;
+        $first_day=29;
         $last_day_month= 0;
 
         if ($month_id == 1) {
@@ -44,7 +44,6 @@ class FuncionalController extends Controller
             $siguiente_mes = date("d-m-Y", strtotime("+1 month", $fecha_actual));
             $total_days = date('t', strtotime($siguiente_mes));
             $last_day_month= date('t');
-      
             $ultimo_dia = Contador::where('id', 1)->first();
             $first_day = $ultimo_dia->last_day + 1; 
 
