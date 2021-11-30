@@ -2,7 +2,7 @@
 <div class="container">
 <div class="row">
     <div class="col-lg-12 mb-4">
-        <router-link :to='{name:"createPerson"}' class="btn btn-sucess"><i class="fas fa-plus-circle"></i>  Nuevo</router-link>
+        <router-link :to='{name:"createPerson"}' class="btn btn-sucess"> <span style="font-size:24px;"><i class="fas fa-plus-circle"></i> Nuevo</span>  </router-link>
     </div>
 
   <div class="col-12">             
@@ -34,7 +34,7 @@
                                      </button>
                                 <button type="button" class="btn btn-warning">Dar de baja Temporal</button>
                                 <button type="button" @click="borrarPerson(person.id)" class="btn btn-danger">Dar de baja</button>
-                                          <router-link to="/credencial" target="_blank" type="button" class="btn btn-success">Imprimir credencial</router-link>
+                                          <button  @click="imprimirCredencial(person.id)" target="_blank" type="button" class="btn btn-success">Imprimir credencial</button>
 
 
                                        
@@ -245,6 +245,11 @@ export default {
                 console.log(error)
             })
           
+
+        },
+        imprimirCredencial(id){
+             window.location.href = `http://127.0.0.1:8000/credencial/${id}`;
+
 
         }
     },

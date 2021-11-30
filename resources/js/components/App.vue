@@ -19,7 +19,7 @@
                             <router-link exact-active-class="active" to="/listado" class="nav-link">Clases</router-link>
                         </li>   
                         <li class="nav-item">
-                            <router-link exact-active-class="active" to="/persons" class="nav-link">Personas</router-link>
+                            <router-link exact-active-class="active" to="/persons" class="nav-link">Estudiantes</router-link>
                         </li>   
                         <li class="nav-item">
                             <router-link exact-active-class="active" to="/schedules" class="nav-link">Horarios</router-link>
@@ -110,6 +110,8 @@ export default {
 	},
     created(){
                 setInterval(this.getNow, 1000);
+                setInterval(this.pasarLista(), 60000);
+
                 this.firstHr();
 
         },
@@ -128,7 +130,7 @@ export default {
        async pasarLista(){
 
         //    var minutes = this.giveMinutes()
-        var minutes = '00'
+        var minutes = this.giveMinutes()
            var hour = this.giveHours()
 
            if(minutes === '30' || minutes === '00' ){

@@ -1,13 +1,11 @@
-
-
-
         <?php
         use Codedge\Fpdf\Fpdf\Fpdf;
         use Picqer\Barcode\BarcodeGeneratorPNG;
         $generador = new BarcodeGeneratorPNG();
+        $matricula = $person->matricula;
         $texto = "G202111001";
         $tipo = $generador::TYPE_CODE_128;
-        $imagen = $generador->getBarcode($texto, $tipo);
+        $imagen = $generador->getBarcode($matricula, $tipo);
         $nombreArchivo = "codigo.png"; 
         $bytesEscritos = file_put_contents($nombreArchivo, $imagen);
         
@@ -37,7 +35,7 @@
            
             
         
-        //     $fpdf->Output('D','ReporteQuincenal.pdf');
-            $fpdf->Output();
+            $fpdf->Output('D','Credencial.pdf');
+            // $fpdf->Output();
             exit;
         ?>

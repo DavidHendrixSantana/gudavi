@@ -37,7 +37,7 @@
         <br>
     <br>
     <div >
-        <div class="row">
+        <div class="row" style=" padding-top:10px; padding-left:10px;">
             <div class="col-md-1" v-for="teacher in Teachers" :key="teacher.id" style="padding-left:20px; padding-top:30px;">
                 <div class="row">
                     <button
@@ -61,7 +61,7 @@
         <label class="btn btn-outline-primary" for="teacher.id">{{teacher.nombre}}</label> -->
 
 
-      <div class="row" style="padding-left:8%;">
+      <div class="row" style="padding-left:3%;">
                 
               <div class="col-md-2" v-for="week in weeks" :key="week.id"  style="padding-left:20px;"> 
                   <div class="row">
@@ -92,7 +92,7 @@
                             <td v-for="day in Days" :key="day.id" >
                               <div v-for="clase in day.Clases"  :key="clase.id">
                                 <div v-if="clase.status == 1"  >
-                                  <button style="display: block; width:250px;  height: 70px;"
+                                  <button style="display: block; width:200px;  height: 70px;"
                                       type="button"
                                       class="custom-btn btn-1"
                                       @click="show_modal(clase.nombre, clase.id_person, clase.clase_id)">
@@ -101,7 +101,7 @@
                                   </button>
                                 </div>
                                  <div v-else-if="clase.status == 3"  >
-                                  <button style="display: block; width:250px;  height: 70px;"
+                                  <button style="display: block; width:200px;  height: 70px;"
                                       type="button"
                                       class="custom-btn btn-3"
                                       @click="show_modal(clase.nombre, clase.id_person, clase.clase_id)">
@@ -110,7 +110,7 @@
                                   </button>
                                 </div>
                                  <div v-else-if="clase.status == 4"  >
-                                  <button style="display: block; width:250px;  height: 70px;"
+                                  <button style="display: block; width:200px;  height: 70px;"
                                       type="button"
                                       class="custom-btn btn-4"
                                       @click="show_modal(clase.nombre, clase.id_person, clase.clase_id)"
@@ -120,7 +120,7 @@
                                   </button>
                                 </div>
                                 <div v-else-if="clase.status == 5"  >
-                                  <button style="display: block; width:250px;  height: 70px;"
+                                  <button style="display: block; width:200px;  height: 70px;"
                                       type="button"
                                       class="custom-btn btn-5"
                                       
@@ -131,7 +131,7 @@
                                 </div>
 
                             <div v-else-if="clase.status == 7"  >
-                                  <button style="display: block; width:250px;  height: 70px;"
+                                  <button style="display: block; width:200px;  height: 70px;"
                                       type="button"
                                       class="custom-btn btn-7"
                                       
@@ -142,7 +142,7 @@
                                 </div>
                                
                                 <div v-else >
-                                  <button style="display: block; width:250px; height: 70px;"
+                                  <button style="display: block; width:200px; height: 70px;"
                                       type="button"
                                       class="custom-btn btn-8"
                                  
@@ -219,7 +219,9 @@
 
                                 <div class="container" v-if="cambioClase"> 
 
-                                    <div class="form-group">
+                    <div class="row">
+                            <div class="col-6 mb-2">
+                             <div class="form-group">
                                           <label>Mes </label>
 
                                           <select
@@ -240,8 +242,9 @@
                                               </option>
                                           </select>
                                       </div>
-
-                                       <div class="form-group">
+                            </div>
+                            <div class="col-6 mb-2">
+                                <div class="form-group">
                                           <label>Semana </label>
 
                                           <select
@@ -261,6 +264,12 @@
                                               </option>
                                           </select>
                                       </div>
+
+                            </div>
+                    </div>
+                                   
+
+                                       
 
                                       <div class="form-group">
                                           <label>Profesor </label>
@@ -285,8 +294,10 @@
                                           </select>
                                       </div>
                                      
-                                     
-                                      <div class="form-group">
+
+                                    <div class="row">
+                                 <div class="col-6 mb-2">
+                                     <div class="form-group">
                                             <label>Días </label>
 
                                             <select
@@ -305,7 +316,11 @@
                                                 </option>
                                             </select>
                                       </div>
-                                      <div class="form-group">
+
+                                        
+                                        </div> 
+                                 <div class="col-6 mb-2">
+                                       <div class="form-group">
                                             <label>Hora de clase: </label>
 
                                             <select
@@ -323,6 +338,11 @@
                                                 </option>
                                             </select>
                                         </div>
+
+                                        </div> 
+                                        </div> 
+                                      
+                                    
 
                                         
                                       <div class="form-group">
@@ -759,7 +779,17 @@ export default {
 .modal-wrapper {
     display: table-cell;
     vertical-align: middle;
+    width: 500px;
+
 }
+
+.modal-body{
+    width: 500px;
+
+}
+
+
+
 
 .clase_normal {
     box-shadow: inset 0px -3px 7px 0px #091a22;

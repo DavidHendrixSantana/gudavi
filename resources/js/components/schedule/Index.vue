@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-lg-12 mb-4">
             <router-link :to="{ name: 'createSchedule' }" class="btn btn-sucess"
-                ><i class="fas fa-plus-circle"></i> Nuevo</router-link
+                ><span style="font-size:24px;"><i class="fas fa-plus-circle"></i> Nuevo</span> </router-link
             >
         </div>
 
