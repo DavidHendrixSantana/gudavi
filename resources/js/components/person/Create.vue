@@ -602,12 +602,16 @@ export default {
         },
 
         async crear() {
-            console.log(this.person.clases_semanales);
+           
 
             await this.axios.post("/api/person", this.person)
-            this.$router.push({ name: "indexPerson" }).catch(error => {
-                console.log(error);
-            });
+                 .then(response => {
+                      this.$router.push({ name: "indexPerson" })
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+          
         },
 
         nivel_precio(event) {
