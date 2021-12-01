@@ -102,6 +102,7 @@ try {
                     'status' => 1,
                     'week_id' => $i,
                     'grupal' => 1,
+                    'asistencia' => 0,
     
                 ]);
 
@@ -112,6 +113,7 @@ try {
                     'status' => 1,
                     'week_id' => $i,
                     'grupal' => 1,
+                    'asistencia' => 0,
                 ]);
             } else {
                 Day_clase::create([
@@ -121,6 +123,8 @@ try {
                     'status' => 1,
                     'week_id' => $i,
                     'grupal' => 0,
+                    'asistencia' => 0,
+
     
                 ]);# code...
             }
