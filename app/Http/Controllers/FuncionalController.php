@@ -85,7 +85,7 @@ class FuncionalController extends Controller
         $Horarios = DB::select('select schedules_teachers.Hora_inicio, schedules_teachers.Hora_final FROM teachers inner join schedules_teachers on schedules_teachers.id = teachers.schedule_id  WHERE teachers.id = ?', [$last_teacher]);
         $Days= DB::select('select days_teachers.id, days.Dia from days inner join days_teachers on days.id = days_teachers.day_id where days_teachers.teacher_id=?',[$last_teacher]);
         $number_of_days = count($Days);
-        $hora_inicio = $Horarios[0]->Hora_inicio -1;
+        $hora_inicio = $Horarios[0]->Hora_inicio -0.5;
         $hora_final = $Horarios[0]->Hora_final +1;
         for($x=0; $x<$number_of_days; $x++){
 

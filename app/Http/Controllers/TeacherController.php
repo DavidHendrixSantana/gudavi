@@ -47,8 +47,14 @@ class TeacherController extends Controller
     public function store(Request $request)
     {
         $teach = Teacher::orderBy('id', 'desc')->first();
-        $last_teacher = $teach->id + 1;
-        $request['matricula'] = 'TGDV00' . $last_teacher;
+        if($teach){
+            $last_teacher = $teach->id + 1;
+            $request['matricula'] = 'TGDV00' . $last_teacher;
+        }else{
+            $request['matricula'] = 'TGDV00' . 1;
+
+        }
+      
         $Teacher= Teacher::create($request->all());
 
         Teacher_pay::create([

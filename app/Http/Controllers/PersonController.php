@@ -49,7 +49,7 @@ class PersonController extends Controller
      */
     public function store(Request $request)
     {
-
+        
      
 try {
     $numero_clases=$request['clases_semanales'];
@@ -57,11 +57,13 @@ try {
 
 
         $pers = Person::orderBy('id', 'desc')->first();
-        $last_person = $pers->id + 1;
+        if($pers){
+            $last_person = $pers->id + 1;
+
+        }else{
+            $last_person = 1;
+        }
         $request['matricula'] = 'AGDV00' . $last_person;
-      
-        
-      
         $Person= Person::create([
             'nombre' =>$request['nombre'],
             'fecha_nacimiento' =>$request['fecha_nacimiento'],
@@ -160,14 +162,10 @@ try {
         ]);
         
 
-
-        //Creamos la persona
-        //Creamos la asignación de clases
-
                 return response()->json([
                     'Person' => $Person,
                 ]);
-        } catch (\Throwable $th) {
+        } catch (Exception $th) {
             return response()->json([
                 'error' => $th,
             ]);
@@ -250,8 +248,8 @@ try {
 
     public function ShowClasses($id_day,$id_teacher){
         $Horarios = DB::select('select schedules_teachers.Hora_inicio, schedules_teachers.Hora_final FROM teachers inner join schedules_teachers on schedules_teachers.id = teachers.schedule_id  WHERE teachers.id = ?', [$id_teacher]);
-        $hora_inicio = $Horarios[0]->Hora_inicio;
-        $hora_final = $Horarios[0]->Hora_final;
+        $hora_inicio = $Horarios[0]->Hora_inicio-1;
+        $hora_final = $Horarios[0]->Hora_final+2;
 
       
         $clases = DB::select('select id, Clase, valor from  classes where id not in(SELECT classes.id FROM classes inner JOIN
