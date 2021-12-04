@@ -38,6 +38,7 @@ Route::get('realizarPago/{id}/{forma}/{tarjeta}/{cantidad}', [PersonController::
 Route::get('pay', [PayController::class, 'listar_pago'])->name('listar_pago');
 Route::get('clasesMonth', [ReportesController::class, 'consult_month'])->name('clasesMonth');
 Route::get('pendientes', [FuncionalController::class, 'clasesPendientes'])->name('pendientes');
+Route::get('lastTeachere', [FuncionalController::class, 'lastTeachere'])->name('lastTeachere');
 
 
 //Cambios

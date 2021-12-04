@@ -99,7 +99,7 @@ try {
                     'day_teacher_id' => $day_id,
                     'class_id' =>  $clase_id,
                     'person_id' => $Person->id,
-                    'status' => 1,
+                    'status' => 8,
                     'week_id' => $i,
                     'grupal' => 1,
                     'asistencia' => 0,
@@ -110,7 +110,7 @@ try {
                     'day_teacher_id' => $day_id,
                     'class_id' =>  $clase_id +1,
                     'person_id' => $Person->id,
-                    'status' => 1,
+                    'status' => 8,
                     'week_id' => $i,
                     'grupal' => 1,
                     'asistencia' => 0,
@@ -148,7 +148,7 @@ try {
         $mes = $mes + $meses; 
         if($mes < 10){
             $mes = '0'.$mes;
-        }else if($mes >= 12){
+        }else if($mes > 12){
             $mes -= 12;
             $anio +=1; 
         }
@@ -257,7 +257,7 @@ try {
 
       
         $clases = DB::select('select id, Clase, valor from  classes where id not in(SELECT classes.id FROM classes inner JOIN
-        days_classes  on classes.id = days_classes.class_id INNER JOIN days_teachers on days_classes.day_teacher_id= ? where days_teachers.teacher_id =?) having valor > ? and valor < ?', [$id_day, $id_teacher, $hora_inicio, $hora_final]);
+        days_classes  on classes.id = days_classes.class_id INNER JOIN days_teachers on days_classes.day_teacher_id= ? where days_teachers.teacher_id =? and days_classes.status != 8 ) having valor > ? and valor < ?', [$id_day, $id_teacher, $hora_inicio, $hora_final]);
 
         return response()->json(['clases' => $clases]);
 

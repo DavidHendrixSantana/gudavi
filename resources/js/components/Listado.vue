@@ -134,17 +134,31 @@
                                   <button style="display: block; width:200px;  height: 70px;"
                                       type="button"
                                       class="custom-btn btn-7"
+                                  
+
                                       
                                       >
                                       {{ clase.Clase }}
                                       {{ clase.nombre }}
                                   </button>
-                                </div>
+                            </div>
+                            <div v-else-if="clase.status == 8"  >
+                                  <button style="display: block; width:200px;  height: 70px;"
+                                      type="button"
+                                      class="custom-btn btn-8"
+                                      show_modal_grupal
+                                      @click="show_modal_grupal(clase.Clase, clase.nombre)"
+
+                                      >
+                                      {{ clase.Clase }}
+                                      {{ clase.nombre }}
+                                  </button>
+                            </div>
                                
                                 <div v-else >
                                   <button style="display: block; width:200px; height: 70px;"
                                       type="button"
-                                      class="custom-btn btn-8"
+                                      class="custom-btn btn-9"
                                  
                                     >
                                       {{ clase.Clase }}
@@ -429,6 +443,48 @@
                         </div>
                     </transition>
          </div>
+
+         <div v-if="showGrupal">
+                    <transition name="modal">
+                        <div class="modal-mask">
+                            <div class="modal-wrapper">
+                                <div class="modal-dialog"  role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">
+                                               Integrantes de la clase de: {{ claseG}}
+                                            </h5>
+                                            <button
+                                                type="button"
+                                                class="close"
+                                                data-dismiss="modal"
+                                                aria-label="Close"
+                                            >
+                                                <span
+                                                    aria-hidden="true"
+                                                    @click="showGrupal = false"
+                                                    >&times;</span
+                                                >
+                                            </button>
+                                        </div>
+                                        <div class="container">
+                                           
+                                                    
+                                                    <h3> {{grupal}}</h3>
+                                        
+                                        </div>
+                                              
+                                        
+
+                                        <div class="modal-footer">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </transition>
+         </div>
         </div>
 
 
@@ -461,6 +517,9 @@ export default {
               hasError: false,
               activeClass: 'myButton',
               errorClass: 'btn-danger',
+              grupal: '',
+            claseG: '',
+            showGrupal: false,
             
             person:{
               $first_id:"",
@@ -486,6 +545,7 @@ export default {
         this.mostrarMeses();
         this.mostrarSemanas(1);
         this.mostrarDatos(2,1);
+        this.lastTeacher()
 
     },
     methods: {
@@ -618,6 +678,15 @@ export default {
             this.showModal = true;
         },
 
+
+
+        show_modal_grupal(clase,grupal) {
+            this.claseG =clase
+            this.grupal=grupal
+
+            this.showGrupal = true;
+        },
+
         CambioClase(event){
             this.noPresente=false;
             event.preventDefault()
@@ -641,6 +710,19 @@ export default {
                     const { teachers } = response.data;
                     this.teachers = teachers;
                     console.log(teachers);
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        },
+         async lastTeacher() {
+            await this.axios
+                .get(`/api/lastTeachere`)
+                .then(response => {
+                    const { teacher } = response.data;
+                    console.log('lasteacher:', teacher)
+                    this.teacher_id = teacher;
+                
                 })
                 .catch(error => {
                     console.log(error);
@@ -991,12 +1073,27 @@ button {
 }
 
 .btn-8{
+  background: rgba(0, 32, 96);
+  color: rgb(255, 255, 255);
+  border: solid;
+
+}
+.btn-8:hover {
+  background: rgb(4, 16, 41);
+  color: rgb(255, 255, 255);
+   box-shrgb(218, 218, 218):
+   -7px -7px 20px 0px #fff9,
+   -4px -4px 5px 0px #fff9,
+   7px 7px 20px 0px #0002,
+   4px 4px 5px 0px #0001;
+}
+.btn-9{
   background: rgba(255, 255, 255, 0.959);
   color: rgb(0, 0, 0);
   border: solid;
 
 }
-.btn-8:hover {
+.btn-9:hover {
   background: rgb(0, 0, 0);
   color: rgb(255, 255, 255);
    box-shrgb(218, 218, 218):
