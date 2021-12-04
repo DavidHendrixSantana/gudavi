@@ -72,7 +72,7 @@ class TeacherController extends Controller
         $last_day = Days_teachers::max('id');
         $teacher_id = $Teacher->id;
 
-        for($x=1; $x<6; $x++){
+        for($x=1; $x<7; $x++){
             Days_teachers::create([
                 'day_id'  =>  $x,
                 'teacher_id' =>$teacher_id ,

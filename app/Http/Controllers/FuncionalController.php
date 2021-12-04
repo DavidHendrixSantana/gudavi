@@ -30,6 +30,14 @@ class FuncionalController extends Controller
         ]);
 
     }
+
+        public function lastTeachere(){
+        $teacher = DB::select('select Min(id) as id from teachers');
+            return response()->json([
+                'teacher' => $teacher[0]->id
+            ]);
+        }
+
     public function listado_week($month_id){
         $weeks = Week::where('month_id', $month_id)->get();
         $first_day=29;
@@ -93,13 +101,39 @@ class FuncionalController extends Controller
             $Classes = DB::select('select days_classes.id as clase_id, classes.id, persons.id as id_person ,persons.nombre ,classes.Clase, days_classes.status from classes  inner join days_classes on classes.id = days_classes.class_id INNER JOIN persons ON days_classes.person_id =persons.id WHERE days_classes.day_teacher_id = ? and days_classes.week_id = ?', [$id_day, $week]);
            
             $Classes_general = DB::select('select Clase, valor from classes having valor > ? and valor < ?',[$hora_inicio, $hora_final]);
+            $Classes_grupales = DB::select('select days_classes.id as clase_id, classes.id, persons.id as id_person ,persons.nombre ,classes.Clase, days_classes.status from classes  inner join days_classes on classes.id = days_classes.class_id INNER JOIN persons ON days_classes.person_id =persons.id WHERE days_classes.day_teacher_id =?  and days_classes.week_id =? and days_classes.grupal = 1', [$id_day, $week]);
+            $nombres = [];
+            $names = '';
+            if($Classes_grupales){
+                for ($z=0; $z < count($Classes_grupales); $z++) {
+                   
+                    $secon_name = $Classes_grupales[$z]->nombre;
+                    if(in_array($secon_name, $nombres)){
+                    }else{
+                      array_push($nombres, $secon_name);
+                      $names = $names . "\n" .$secon_name . ',';
+
+                    }
+
+                
+
+                $Classes_grupales[$z]->nombre =  $names;
+                }
+
+
+            }
+     
 
 
             for($y=0; $y<count($Classes_general); $y++){
                 for($w=0; $w<count($Classes); $w++){
-
-                    if($Classes_general[$y]->Clase == $Classes[$w]->Clase){
+                    if($Classes_general[$y]->Clase == $Classes[$w]->Clase){             
                         $Classes_general[$y] = $Classes[$w];
+                        if($Classes_grupales){
+                            if($Classes_general[$y]->Clase == $Classes_grupales[$w]->Clase){
+                                   $Classes_general[$y] = $Classes_grupales[$w];   
+                            }
+                        }
                     }
                     
                     } 
@@ -121,54 +155,50 @@ class FuncionalController extends Controller
       
         $last_teacher=  $id;
         $Days= DB::select('select days_teachers.id, days.Dia from days inner join days_teachers on days.id = days_teachers.day_id where days_teachers.teacher_id=?',[$last_teacher]);
-        // $total_days= date('t');
-        // $residuo = 0;
-        // $new_days = [];
-        // $day_prov = [];
-        // $i = 0;
-  
-
-        // if ($month_id == 1) {
-        //     $total_days= date('t');
-
-        // } else{
-                        
-        //     $fecha_actual = strtotime(date("d-m-Y"));
-        //     //sumo 1 mes
-        //     $siguiente_mes = date("d-m-Y", strtotime("+1 month", $fecha_actual));
-        //     $total_days = date('t', strtotime($siguiente_mes));
-        // }
-        // $first += 6;
-        // if($first >$total_days){
-        //     $residuo = $first - $total_days;
-        // }
-        // $number_of_days -= $residuo; 
- 
-      
-        //     foreach ($Days as $day) {
-        //         if ($i < $number_of_days) {
-        //             $new_days[$i] = $day;
-        //             $i++;
-        //         }
-               
-            
-        //     }
-        //     $Days = $new_days;
-
-
-            $number_of_days = count($Days);
+        $number_of_days = count($Days);
+        $Horarios = DB::select('select schedules_teachers.Hora_inicio, schedules_teachers.Hora_final FROM teachers inner join schedules_teachers on schedules_teachers.id = teachers.schedule_id  WHERE teachers.id = ?', [$last_teacher]);
+        $hora_inicio = $Horarios[0]->Hora_inicio -0.5;
+        $hora_final = $Horarios[0]->Hora_final +1;
    
         for($x=0; $x<$number_of_days; $x++){
             $id_day = $Days[$x]->id;
             $Classes = DB::select('	select days_classes.id as clase_id, persons.id as id_person ,classes.id, persons.nombre ,classes.Clase, days_classes.status from classes  inner join days_classes on classes.id = days_classes.class_id INNER JOIN persons ON days_classes.person_id =persons.id inner join week on week.id = days_classes.week_id  inner join month on month.id= week.month_id WHERE days_classes.day_teacher_id = ? and days_classes.week_id = ? and week.month_id = ?', [$id_day, $week, $month_id]);
-            $Classes_general = DB::select('SELECT Clase from classes');
+            $Classes_general = DB::select('select Clase, valor from classes having valor > ? and valor < ?',[$hora_inicio, $hora_final]);
+            $Classes_grupales = DB::select('select days_classes.id as clase_id, classes.id, persons.id as id_person ,persons.nombre ,classes.Clase, days_classes.status from classes  inner join days_classes on classes.id = days_classes.class_id INNER JOIN persons ON days_classes.person_id =persons.id inner join week on week.id = days_classes.week_id   WHERE days_classes.day_teacher_id =?  and days_classes.week_id =? and  week.month_id =? and days_classes.grupal = 1', [$id_day, $week, $month_id]);
+
+            $nombres = [];
+            $names = '';
+
+            if($Classes_grupales){
+                for ($z=0; $z < count($Classes_grupales); $z++) {
+                   
+                    $secon_name = $Classes_grupales[$z]->nombre;
+                    if(in_array($secon_name, $nombres)){
+                    }else{
+                      array_push($nombres, $secon_name);
+                      $names = $names . "\n" . $secon_name . ',';
+
+                    }
+
+                
+
+                $Classes_grupales[$z]->nombre =  $names;
+                }
+
+
+            }
+     
 
 
             for($y=0; $y<count($Classes_general); $y++){
                 for($w=0; $w<count($Classes); $w++){
-
-                    if($Classes_general[$y]->Clase == $Classes[$w]->Clase){
+                    if($Classes_general[$y]->Clase == $Classes[$w]->Clase){             
                         $Classes_general[$y] = $Classes[$w];
+                        if($Classes_grupales){
+                            if($Classes_general[$y]->Clase == $Classes_grupales[$w]->Clase){
+                                   $Classes_general[$y] = $Classes_grupales[$w];   
+                            }
+                        }
                     }
                     
                     } 
@@ -423,16 +453,7 @@ class FuncionalController extends Controller
                         }
 
                     }
-                    
-                 
-                
-
-                
-         
-        
-            
-            
-                        
+  
                    
             }
             return 'entrando';

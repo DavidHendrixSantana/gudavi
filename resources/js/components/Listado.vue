@@ -37,7 +37,7 @@
         <br>
     <br>
     <div >
-        <div class="row">
+        <div class="row" style=" padding-top:10px; padding-left:10px;">
             <div class="col-md-1" v-for="teacher in Teachers" :key="teacher.id" style="padding-left:20px; padding-top:30px;">
                 <div class="row">
                     <button
@@ -61,7 +61,7 @@
         <label class="btn btn-outline-primary" for="teacher.id">{{teacher.nombre}}</label> -->
 
 
-      <div class="row" style="padding-left:8%;">
+      <div class="row" style="padding-left:3%;">
                 
               <div class="col-md-2" v-for="week in weeks" :key="week.id"  style="padding-left:20px;"> 
                   <div class="row">
@@ -92,7 +92,7 @@
                             <td v-for="day in Days" :key="day.id" >
                               <div v-for="clase in day.Clases"  :key="clase.id">
                                 <div v-if="clase.status == 1"  >
-                                  <button style="display: block; width:250px;  height: 70px;"
+                                  <button style="display: block; width:200px;  height: 70px;"
                                       type="button"
                                       class="custom-btn btn-1"
                                       @click="show_modal(clase.nombre, clase.id_person, clase.clase_id)">
@@ -101,7 +101,7 @@
                                   </button>
                                 </div>
                                  <div v-else-if="clase.status == 3"  >
-                                  <button style="display: block; width:250px;  height: 70px;"
+                                  <button style="display: block; width:200px;  height: 70px;"
                                       type="button"
                                       class="custom-btn btn-3"
                                       @click="show_modal(clase.nombre, clase.id_person, clase.clase_id)">
@@ -110,7 +110,7 @@
                                   </button>
                                 </div>
                                  <div v-else-if="clase.status == 4"  >
-                                  <button style="display: block; width:250px;  height: 70px;"
+                                  <button style="display: block; width:200px;  height: 70px;"
                                       type="button"
                                       class="custom-btn btn-4"
                                       @click="show_modal(clase.nombre, clase.id_person, clase.clase_id)"
@@ -120,7 +120,7 @@
                                   </button>
                                 </div>
                                 <div v-else-if="clase.status == 5"  >
-                                  <button style="display: block; width:250px;  height: 70px;"
+                                  <button style="display: block; width:200px;  height: 70px;"
                                       type="button"
                                       class="custom-btn btn-5"
                                       
@@ -131,20 +131,34 @@
                                 </div>
 
                             <div v-else-if="clase.status == 7"  >
-                                  <button style="display: block; width:250px;  height: 70px;"
+                                  <button style="display: block; width:200px;  height: 70px;"
                                       type="button"
                                       class="custom-btn btn-7"
+                                  
+
                                       
                                       >
                                       {{ clase.Clase }}
                                       {{ clase.nombre }}
                                   </button>
-                                </div>
-                               
-                                <div v-else >
-                                  <button style="display: block; width:250px; height: 70px;"
+                            </div>
+                            <div v-else-if="clase.status == 8"  >
+                                  <button style="display: block; width:200px;  height: 70px;"
                                       type="button"
                                       class="custom-btn btn-8"
+                                      show_modal_grupal
+                                      @click="show_modal_grupal(clase.Clase, clase.nombre)"
+
+                                      >
+                                      {{ clase.Clase }}
+                                      {{ clase.nombre }}
+                                  </button>
+                            </div>
+                               
+                                <div v-else >
+                                  <button style="display: block; width:200px; height: 70px;"
+                                      type="button"
+                                      class="custom-btn btn-9"
                                  
                                     >
                                       {{ clase.Clase }}
@@ -219,7 +233,9 @@
 
                                 <div class="container" v-if="cambioClase"> 
 
-                                    <div class="form-group">
+                    <div class="row">
+                            <div class="col-6 mb-2">
+                             <div class="form-group">
                                           <label>Mes </label>
 
                                           <select
@@ -240,8 +256,9 @@
                                               </option>
                                           </select>
                                       </div>
-
-                                       <div class="form-group">
+                            </div>
+                            <div class="col-6 mb-2">
+                                <div class="form-group">
                                           <label>Semana </label>
 
                                           <select
@@ -261,6 +278,12 @@
                                               </option>
                                           </select>
                                       </div>
+
+                            </div>
+                    </div>
+                                   
+
+                                       
 
                                       <div class="form-group">
                                           <label>Profesor </label>
@@ -285,8 +308,10 @@
                                           </select>
                                       </div>
                                      
-                                     
-                                      <div class="form-group">
+
+                                    <div class="row">
+                                 <div class="col-6 mb-2">
+                                     <div class="form-group">
                                             <label>Días </label>
 
                                             <select
@@ -305,7 +330,11 @@
                                                 </option>
                                             </select>
                                       </div>
-                                      <div class="form-group">
+
+                                        
+                                        </div> 
+                                 <div class="col-6 mb-2">
+                                       <div class="form-group">
                                             <label>Hora de clase: </label>
 
                                             <select
@@ -323,6 +352,11 @@
                                                 </option>
                                             </select>
                                         </div>
+
+                                        </div> 
+                                        </div> 
+                                      
+                                    
 
                                         
                                       <div class="form-group">
@@ -409,6 +443,48 @@
                         </div>
                     </transition>
          </div>
+
+         <div v-if="showGrupal">
+                    <transition name="modal">
+                        <div class="modal-mask">
+                            <div class="modal-wrapper">
+                                <div class="modal-dialog"  role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">
+                                               Integrantes de la clase de: {{ claseG}}
+                                            </h5>
+                                            <button
+                                                type="button"
+                                                class="close"
+                                                data-dismiss="modal"
+                                                aria-label="Close"
+                                            >
+                                                <span
+                                                    aria-hidden="true"
+                                                    @click="showGrupal = false"
+                                                    >&times;</span
+                                                >
+                                            </button>
+                                        </div>
+                                        <div class="container">
+                                           
+                                                    
+                                                    <h3> {{grupal}}</h3>
+                                        
+                                        </div>
+                                              
+                                        
+
+                                        <div class="modal-footer">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </transition>
+         </div>
         </div>
 
 
@@ -441,6 +517,9 @@ export default {
               hasError: false,
               activeClass: 'myButton',
               errorClass: 'btn-danger',
+              grupal: '',
+            claseG: '',
+            showGrupal: false,
             
             person:{
               $first_id:"",
@@ -466,6 +545,7 @@ export default {
         this.mostrarMeses();
         this.mostrarSemanas(1);
         this.mostrarDatos(2,1);
+        this.lastTeacher()
 
     },
     methods: {
@@ -598,6 +678,15 @@ export default {
             this.showModal = true;
         },
 
+
+
+        show_modal_grupal(clase,grupal) {
+            this.claseG =clase
+            this.grupal=grupal
+
+            this.showGrupal = true;
+        },
+
         CambioClase(event){
             this.noPresente=false;
             event.preventDefault()
@@ -621,6 +710,19 @@ export default {
                     const { teachers } = response.data;
                     this.teachers = teachers;
                     console.log(teachers);
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        },
+         async lastTeacher() {
+            await this.axios
+                .get(`/api/lastTeachere`)
+                .then(response => {
+                    const { teacher } = response.data;
+                    console.log('lasteacher:', teacher)
+                    this.teacher_id = teacher;
+                
                 })
                 .catch(error => {
                     console.log(error);
@@ -759,7 +861,17 @@ export default {
 .modal-wrapper {
     display: table-cell;
     vertical-align: middle;
+    width: 500px;
+
 }
+
+.modal-body{
+    width: 500px;
+
+}
+
+
+
 
 .clase_normal {
     box-shadow: inset 0px -3px 7px 0px #091a22;
@@ -961,12 +1073,27 @@ button {
 }
 
 .btn-8{
+  background: rgba(0, 32, 96);
+  color: rgb(255, 255, 255);
+  border: solid;
+
+}
+.btn-8:hover {
+  background: rgb(4, 16, 41);
+  color: rgb(255, 255, 255);
+   box-shrgb(218, 218, 218):
+   -7px -7px 20px 0px #fff9,
+   -4px -4px 5px 0px #fff9,
+   7px 7px 20px 0px #0002,
+   4px 4px 5px 0px #0001;
+}
+.btn-9{
   background: rgba(255, 255, 255, 0.959);
   color: rgb(0, 0, 0);
   border: solid;
 
 }
-.btn-8:hover {
+.btn-9:hover {
   background: rgb(0, 0, 0);
   color: rgb(255, 255, 255);
    box-shrgb(218, 218, 218):
