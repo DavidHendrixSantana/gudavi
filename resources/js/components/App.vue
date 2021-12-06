@@ -39,9 +39,7 @@
                         <a  style="padding-left:400px;" href="" id="HoraActual" class="nav-link">Hora: {{timestamp}} </a>
                         </li>   
 
-                        <li class="nav-item">
-                            <button @click="pasarLista()" class="btn btn-success"> Pase</button>
-                        </li>
+                 
                             
                     </ul>
                 
