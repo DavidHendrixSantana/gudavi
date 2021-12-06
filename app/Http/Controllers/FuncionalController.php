@@ -15,6 +15,7 @@ use App\Models\Week;
 use App\Models\Contador;
 use App\Models\Teacher_pay;
 use App\Models\AsistenciaT;
+use App\Models\Log;
 use Illuminate\Support\Facades\DB;
 use \stdClass;
 
@@ -340,6 +341,7 @@ class FuncionalController extends Controller
        $day = Days_teachers::where('day_id', $day-1)->first();
        $teacher = $day->teacher_id;
        $validador =  $day_clase = Day_clase::where('day_teacher_id', $day->id)->where('person_id', $persona->id)->where('week_id', $actual_week)->first();
+       
        $day_clase = Day_clase::where('day_teacher_id', $day->id)->where('person_id', $persona->id)->where('week_id', $actual_week)->update([
            'asistencia' => 1,
        ]);
@@ -468,5 +470,34 @@ class FuncionalController extends Controller
      
 
 
+    }
+
+    public function logs(){
+
+        $logs = Log::orderBy('id','desc')->get();
+        return response()->json($logs);
+
+    }
+    public function bajas(){
+
+        $bajas = Person::onlyTrashed()->get();
+
+        return response()->json($bajas);
+
+    }
+
+    public function verifyDay($day){
+
+        $dia = Contador::find(1);
+        $valor = $dia->actual_day;
+        if ( $day != $valor) {
+            Contador::where('id', 1)->update([
+                'actual_day' => $day
+        ]);
+            AsistenciaT::where('asistencia', 1)->update([
+                'asistencia' => 0,
+            ]);
+        }
+        
     }
 }

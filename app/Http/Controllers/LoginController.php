@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User_gudavi;
+use App\Models\Sesion;
 
 
 class LoginController extends Controller
@@ -26,6 +27,12 @@ class LoginController extends Controller
 
             if($users_pass->password === $pass){
                 $confirm_email=true;
+
+                Sesion::where('id',1)->update([
+                    'usuario' => $email,
+                ]);
+
+
                 return response()->json([
                     'user' => $users_pass,
                     'respuesta' => '1'

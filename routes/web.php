@@ -24,6 +24,7 @@ Route::get('person/ShowDays/{id}', [PersonController::class, 'ShowDays'])->name(
 Route::get('person/ShowClasses/{dia_id}/{teacher_id}', [PersonController::class, 'ShowClasses'])->name('ShowClasses');
 Route::get('paseLista/{matricula}', [FuncionalController::class, 'paseLista'])->name('paseLista');
 Route::get('paseListaT/{matricula}', [FuncionalController::class, 'paseListaTeacher'])->name('paseListaTeacher');
+Route::get('verifyDay/{day}', [FuncionalController::class, 'verifyDay'])->name('verifyDay');
 Route::get('getFirstHour', [FuncionalController::class, 'getFirstHour'])->name('getFirstHour');
 Route::get('ListaClases/{valorHora}', [FuncionalController::class, 'ListaClases'])->name('ListaClases');
 

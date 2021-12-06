@@ -31,8 +31,14 @@
                             <router-link exact-active-class="active" to="/pays" class="nav-link">Pagos</router-link>
                         </li>    
                         
-                            <li class="nav-item">
+                        <li class="nav-item">
                             <router-link exact-active-class="active" to="/pendientes" class="nav-link">Clases Pendientes</router-link>
+                        </li>  
+                        <li class="nav-item">
+                            <router-link exact-active-class="active" to="/bajas" class="nav-link">Estudiantes Inactivos</router-link>
+                        </li>  
+                        <li class="nav-item">
+                            <router-link exact-active-class="active" to="/logs" class="nav-link">Actividades</router-link>
                         </li>  
 
                     <li  class="nav-item">
@@ -107,10 +113,12 @@ export default {
         }
 	},
     created(){
+
                 setInterval(this.getNow, 1000);
                 setInterval(this.pasarLista(), 60000);
 
                 this.firstHr();
+                this.verifyDay();
 
         },
     computed: {
@@ -150,6 +158,19 @@ export default {
                const {firstHour} = response.data;
                this.firtsHour = firstHour
                console.log(firstHour)
+
+           }).catch(error => {
+                    console.log(error);
+                });              
+       },
+
+        async verifyDay(){
+        const today = new Date();
+           var hoy = today.getDate();
+              await this.axios.get(`verifyDay/${hoy}`)
+           .then(response => {
+       
+               console.log('Exito')
 
            }).catch(error => {
                     console.log(error);

@@ -13,6 +13,9 @@ use App\Models\Pay;
 use App\Models\Class_pend;
 use App\Models\History;
 use Illuminate\Support\Facades\DB;
+use App\Models\Log;
+use App\Models\Sesion;
+
 
 class PersonController extends Controller
 {
@@ -164,6 +167,13 @@ try {
            
 
         ]);
+
+        $sesion = Sesion::find(1);
+
+        Log::create([
+            'Log' => 'Incripcion de estudiante:  ' . $Person->nombre,
+            'usuario' => $sesion->usuario,
+        ]);
         
 
                 return response()->json([
@@ -209,7 +219,17 @@ try {
      */
     public function update(Request $request, Person $Person)
     {
+
+        
+
         $Person->fill($request->post())->save();
+
+        $sesion = Sesion::find(1);
+
+        Log::create([
+            'Log' => 'Actualizacion de estudiante:  ' . $Person->nombre,
+            'usuario' => $sesion->usuario,
+        ]);
 
         return response()->json($Person);
     }
@@ -226,6 +246,13 @@ try {
 
         $classes = Day_clase::where('person_id', $id)->get();
 
+        $sesion = Sesion::find(1);
+
+        Log::create([
+            'Log' => 'Baja  de estudiante:  ' . $Person->nombre,
+            'usuario' => $sesion->usuario,
+        ]);
+
 
 
         foreach ($classes as $clase ) {
@@ -236,6 +263,9 @@ try {
 
 
         $Person->delete();
+
+   
+
         return response()->json([
 
             'mensaje' =>'Eliminado'
@@ -287,6 +317,13 @@ try {
                 'cantidad' => $cantidad,
                 'fecha_pago' => $date_now,
                 'tipo_tarjeta' => $tarjeta,
+            ]);
+
+            $sesion = Sesion::find(1);
+
+            Log::create([
+                'Log' => 'Registro de pago   ' . $pay->fecha_pago,
+                'usuario' => $sesion->usuario,
             ]);
 
         return response()->json('Guardado');
