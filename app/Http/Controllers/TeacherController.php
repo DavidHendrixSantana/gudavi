@@ -81,6 +81,13 @@ class TeacherController extends Controller
 
         }
        
+        $sesion = Sesion::find(1);
+
+        Log::create([
+            'Log' => 'Creación de profesor:  ' . $Teacher->nombre,
+            'usuario' => $sesion->usuario,
+        ]);
+
 
 
         return response()->json([
@@ -123,7 +130,16 @@ class TeacherController extends Controller
      */
     public function update(Request $request, Teacher $Teacher)
     {
+
+        
         $Teacher->fill($request->post())->save();
+
+        $sesion = Sesion::find(1);
+
+        Log::create([
+            'Log' => 'Actualización  de profesor:  ' . $Teacher->nombre,
+            'usuario' => $sesion->usuario,
+        ]);
 
         return response()->json($Teacher);
     }
@@ -136,6 +152,14 @@ class TeacherController extends Controller
      */
     public function destroy(Teacher $Teacher)
     {
+
+        $sesion = Sesion::find(1);
+
+        Log::create([
+            'Log' => 'Baja  de profesor:  ' . $Teacher->nombre,
+            'usuario' => $sesion->usuario,
+        ]);
+
         $Teacher->delete();
         return response()->json([
 

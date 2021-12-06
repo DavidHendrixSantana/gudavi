@@ -41,6 +41,11 @@ Route::get('pendientes', [FuncionalController::class, 'clasesPendientes'])->name
 Route::get('lastTeachere', [FuncionalController::class, 'lastTeachere'])->name('lastTeachere');
 
 
+Route::get('bajas', [FuncionalController::class, 'bajas'])->name('bajas');
+Route::get('logs', [FuncionalController::class, 'logs'])->name('logs');
+
+
+
 //Cambios
 Route::post('cambio', [FuncionalController::class, 'cambioClase'])->name('cambio');
 Route::post('cambio2', [FuncionalController::class, 'cambioClasePend'])->name('cambio2');

@@ -18,11 +18,13 @@ const Edit_teacher = () => import("./components/teacher/Edit.vue");
 const Index_person = () => import("./components/person/Index.vue");
 const Create_person = () => import("./components/person/Create.vue");
 const Edit_person = () => import("./components/person/Edit.vue");
+const Index_bajas = () => import("./components/person/Bajas.vue");
 
 //componentes pagos
 
 const Index_pay = () => import("./components/pays/Index.vue");
 const Pendientes = () => import("./components/classes/Pendientes.vue");
+const Logs = () => import("./components/Logs.vue");
 
 export const routes = [
 
@@ -83,6 +85,11 @@ export const routes = [
         component: Index_person
     },
     {
+        name: "indexBajas",
+        path: "/bajas",
+        component: Index_bajas
+    },
+    {
         name: "createPerson",
         path: "/createPerson",
         component: Create_person
@@ -104,5 +111,10 @@ export const routes = [
         name: "indexPendientes",
         path: "/pendientes",
         component: Pendientes
+    },
+    {
+        name: "indexLogs",
+        path: "/logs",
+        component: Logs
     }
 ];

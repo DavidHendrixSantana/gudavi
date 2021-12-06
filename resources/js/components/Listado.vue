@@ -1075,7 +1075,7 @@ button {
 .btn-8{
   background: rgba(0, 32, 96);
   color: rgb(255, 255, 255);
-  border: solid;
+
 
 }
 .btn-8:hover {
