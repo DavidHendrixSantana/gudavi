@@ -45,7 +45,8 @@
                         <a  style="padding-left:400px;" href="" id="HoraActual" class="nav-link">Hora: {{timestamp}} </a>
                         </li>   
 
-                   
+                 
+                            
                     </ul>
                 
                     </div>
