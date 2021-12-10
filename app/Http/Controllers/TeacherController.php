@@ -8,6 +8,10 @@ use App\Models\Schedule;
 use App\Models\Days_teachers;
 use App\Models\Teacher_pay;
 use App\Models\AsistenciaT;
+use App\Models\Sesion;
+use App\Models\Log;
+use Illuminate\Support\Facades\DB;
+
 
 class TeacherController extends Controller
 {
@@ -46,7 +50,10 @@ class TeacherController extends Controller
      */
     public function store(Request $request)
     {
-        $teach = Teacher::orderBy('id', 'desc')->first();
+        DB::beginTransaction();
+
+            try {
+                $teach = Teacher::orderBy('id', 'desc')->first();
         if($teach){
             $last_teacher = $teach->id + 1;
             $request['matricula'] = 'TGDV00' . $last_teacher;
@@ -88,11 +95,17 @@ class TeacherController extends Controller
             'usuario' => $sesion->usuario,
         ]);
 
-
-
+        DB::commit();
         return response()->json([
             'Teacher' => $Teacher,
         ]);
+            } catch (\Throwable $th) {
+                DB::rollback();
+
+                return abort(500, $th) ;
+            }
+
+    
     }
 
     /**
@@ -128,20 +141,43 @@ class TeacherController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Teacher $Teacher)
+    public function update($id, Request $request)
     {
+    
 
-        
-        $Teacher->fill($request->post())->save();
+        try {
+        DB::beginTransaction();
+
+
+        $Teacher = Teacher::where('id', $request->id)->update([
+            'nombre'=> $request->nombre,
+            'primer_apellido'=> $request['primer_apellido'],
+            'segundo_apellido'=> $request['segundo_apellido'],
+            'telefono'=> $request['telefono'],
+            'rfc'=> $request['rfc'],
+            'tarjeta'=> $request['tarjeta'],
+            'emergencia'=> $request['emergencia'],
+            'pago_hora'=> $request['pago_hora'],
+            'schedule_id'=> $request['schedule_id'],
+        ]);
 
         $sesion = Sesion::find(1);
 
         Log::create([
-            'Log' => 'Actualización  de profesor:  ' . $Teacher->nombre,
+            'Log' => 'Actualización  de profesor:  ' . $request->nombre,
             'usuario' => $sesion->usuario,
         ]);
+        DB::commit();
 
-        return response()->json($Teacher);
+        return response()->json($request);
+      
+
+        } catch (\Throwable $th) {
+            DB::rollback();
+            return abort(500, $th);
+        }
+
+   
     }
 
     /**

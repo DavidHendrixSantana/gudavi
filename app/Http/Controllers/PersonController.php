@@ -53,8 +53,9 @@ class PersonController extends Controller
     public function store(Request $request)
     {
         
-     
+        DB::beginTransaction();
 try {
+    DB::commit();
     $numero_clases=$request['clases_semanales'];
         $teacher_id=$request['teacher_id'];
 
@@ -179,10 +180,9 @@ try {
                 return response()->json([
                     'Person' => $Person,
                 ]);
-        } catch (Exception $th) {
-            return response()->json([
-                'error' => $th,
-            ]);
+        } catch (\Throwable $th) {
+            DB::rollback();
+            return abort(500, $th);
         }
 
        
@@ -220,18 +220,27 @@ try {
     public function update(Request $request, Person $Person)
     {
 
-        
+        DB::beginTransaction();
 
-        $Person->fill($request->post())->save();
+        try {
+            $Person->fill($request->post())->save();
 
-        $sesion = Sesion::find(1);
+            $sesion = Sesion::find(1);
+    
+            Log::create([
+                'Log' => 'Actualizacion de estudiante:  ' . $Person->nombre,
+                'usuario' => $sesion->usuario,
+            ]);
+    
+            return response()->json($Person);
 
-        Log::create([
-            'Log' => 'Actualizacion de estudiante:  ' . $Person->nombre,
-            'usuario' => $sesion->usuario,
-        ]);
+        DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollback();
+            return abort(500, $th);
+        }
 
-        return response()->json($Person);
+
     }
 
     /**
@@ -303,6 +312,7 @@ try {
 
 
     public function save_pay($id,$forma,$tarjeta, $cantidad){
+        DB::beginTransaction(); 
         try {
             
             $date_now = date('Y/m/d'); 
@@ -328,12 +338,10 @@ try {
 
         return response()->json('Guardado');
 
-          
-        } catch (Throwable $th) {
-
-        return response()->json($th);
-
-           
+        DB::commit();
+        }catch (\Throwable $th) {
+            DB::rollback();
+            return abort(500, $th);
         }
        
 

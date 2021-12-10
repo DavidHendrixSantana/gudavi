@@ -37,6 +37,7 @@ Route::get('ReporteFechas/{forma_pago}/{fecha_inicial}/{fecha_final}', [PdfContr
 
 //Barcode
 Route::get('credencial/{id}', [BarcodeController::class, 'index'])->name('credencial');
+Route::get('credencialT/{id}', [BarcodeController::class, 'credencialT'])->name('credencialT');
 
 
 

@@ -38,7 +38,7 @@
     <br>
     <div >
         <div class="row" style=" padding-top:10px; padding-left:10px;">
-            <div class="col-md-1" v-for="teacher in Teachers" :key="teacher.id" style="padding-left:20px; padding-top:30px;">
+            <div class="col-lg-1 col-md-1 col-sm-12" v-for="teacher in Teachers" :key="teacher.id" style="padding-left:20px; padding-top:30px;">
                 <div class="row">
                     <button
                         type="button"

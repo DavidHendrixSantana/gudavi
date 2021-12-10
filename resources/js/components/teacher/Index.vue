@@ -26,6 +26,7 @@
                                     <td>
                                         <!-- llamamos al componente para Editar     -->
                                         <router-link :to='{name:"editTeacher",params:{id:teacher.id}}' class="btn btn-info"><i class="fas fa-edit"></i></router-link>
+                                          <button  @click="imprimirCredencial(teacher.id)"  type="button" class="btn btn-success">Imprimir credencial</button>
                                        
                                     </td>
                                 </tr>
@@ -80,6 +81,14 @@ export default {
                 console.log(error)
             })
         },
+
+              imprimirCredencial(id){
+            //  window.location.href = `http://127.0.0.1:8000/credencial/${id}`;
+            window.open(`http://127.0.0.1:8000/credencialT/${id}`)
+
+
+
+        }
        
             
         
