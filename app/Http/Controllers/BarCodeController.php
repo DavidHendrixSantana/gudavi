@@ -21,4 +21,7 @@ class BarCodeController extends Controller
         $person =  Teacher::find($id);
         return view('pdf.credencial', compact('person'));
     }
+
+
+
 }

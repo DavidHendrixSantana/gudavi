@@ -118,5 +118,13 @@ class PdfController extends Controller
       
     }
 
+    public function AsistenciasT()
+    {
+        $Teachers =  Teacher::all();
+        return view('pdf.AsistenciasProfesores', compact('Teachers'));
+    }
+
+
+
   
 }

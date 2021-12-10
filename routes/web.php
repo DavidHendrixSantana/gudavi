@@ -27,11 +27,14 @@ Route::get('paseListaT/{matricula}', [FuncionalController::class, 'paseListaTeac
 Route::get('verifyDay/{day}', [FuncionalController::class, 'verifyDay'])->name('verifyDay');
 Route::get('getFirstHour', [FuncionalController::class, 'getFirstHour'])->name('getFirstHour');
 Route::get('ListaClases/{valorHora}', [FuncionalController::class, 'ListaClases'])->name('ListaClases');
+Route::get('CambioMes', [FuncionalController::class, 'CambioMes'])->name('CambioMes');
 
 //PDF
 
 Route::get('QuincenalPersons', [PdfController::class, 'ReporterQuincenal'])->name('Quincenal');
 Route::get('ReporteFechas/{forma_pago}/{fecha_inicial}/{fecha_final}', [PdfController::class, 'ReporteFechas'])->name('ReporteFechas');
+Route::get('AsistenciasT', [PdfController::class, 'AsistenciasT'])->name('AsistenciasT');
+
 // Route::get('ReporteFechas/{tipo}/{fechaInicio}/{fechaFinal}', [PdfController::class, 'prueba'])->name('prueba');
 
 

@@ -123,7 +123,7 @@ class FuncionalController extends Controller
 
             $Classes = DB::select('select days_classes.id as clase_id, classes.id, persons.id as id_person ,persons.nombre ,classes.Clase, days_classes.status from classes  inner join days_classes on classes.id = days_classes.class_id INNER JOIN persons ON days_classes.person_id =persons.id WHERE days_classes.day_teacher_id = ? and days_classes.week_id = ?', [$id_day, $week]);
            
-            $Classes_general = DB::select('select Clase, valor from classes where valor >= ? and valor <= ?',[$classValue, $classValueLast]);
+            $Classes_general = DB::select('select Clase, valor from classes where valor >= ? ',[$classValue]);
             $Classes_grupales = DB::select('select days_classes.id as clase_id, classes.id, persons.id as id_person ,persons.nombre ,classes.Clase, days_classes.status from classes  inner join days_classes on classes.id = days_classes.class_id INNER JOIN persons ON days_classes.person_id =persons.id WHERE days_classes.day_teacher_id =?  and days_classes.week_id =? and days_classes.grupal = 1', [$id_day, $week]);
             $nombres = [];
             $names = '';
@@ -188,10 +188,14 @@ class FuncionalController extends Controller
 
 
             $classValue = 0;
+            $classValueLast =0;
             $firstClass = Day_clase::where('day_teacher_id', $id_day)->first();
 
             $lastClass = Day_clase::orderBy('class_id', 'desc')->where('day_teacher_id', $id_day)->first();
-            $valueLast= $lastClass['class_id'];
+            if($lastClass){
+                $valueLast= $lastClass['class_id'];
+
+            }
 
 
             
@@ -205,7 +209,7 @@ class FuncionalController extends Controller
         }
 
             $Classes = DB::select('	select days_classes.id as clase_id, persons.id as id_person ,classes.id, persons.nombre ,classes.Clase, days_classes.status from classes  inner join days_classes on classes.id = days_classes.class_id INNER JOIN persons ON days_classes.person_id =persons.id inner join week on week.id = days_classes.week_id  inner join month on month.id= week.month_id WHERE days_classes.day_teacher_id = ? and days_classes.week_id = ? and week.month_id = ?', [$id_day, $week, $month_id]);
-            $Classes_general = DB::select('select Clase, valor from classes where valor >= ? and valor <= ?',[$classValue, $classValueLast]);
+            $Classes_general = DB::select('select Clase, valor from classes where valor >= ? ',[$classValue]);
             $Classes_grupales = DB::select('select days_classes.id as clase_id, classes.id, persons.id as id_person ,persons.nombre ,classes.Clase, days_classes.status from classes  inner join days_classes on classes.id = days_classes.class_id INNER JOIN persons ON days_classes.person_id =persons.id inner join week on week.id = days_classes.week_id   WHERE days_classes.day_teacher_id =?  and days_classes.week_id =? and  week.month_id =? and days_classes.grupal = 1', [$id_day, $week, $month_id]);
 
             $nombres = [];
@@ -588,6 +592,25 @@ class FuncionalController extends Controller
                 'asistencia' => 0,
             ]);
         }
-        
     }
+
+        public function CambioMes(){
+            $firstMonth = Day_clase::where('week_id',1)->orwhere('week_id',2)
+            ->orWhere('week_id',3)
+            ->orWhere('week_id',4)
+            ->orWhere('week_id',5)
+            ->get();
+
+            $secondMonth = Day_clase::where('week_id',6)->orwhere('week_id',7)
+            ->orWhere('week_id',8)
+            ->orWhere('week_id',9)
+            ->orWhere('week_id',10)
+            ->get();
+
+        return $secondMonth;
+
+        }
+
+        
+    
 }
