@@ -36,30 +36,32 @@
       </div>
         <br>
     <br>
-    <div >
-        <div class="row" style=" padding-top:10px; padding-left:10px;">
-            <div class="col-lg-1 col-md-1 col-sm-12" v-for="teacher in Teachers" :key="teacher.id" style="padding-left:20px; padding-top:30px;">
-                <div class="row">
-                    <button
-                        type="button"
-                        :value="teacher.id"
-                        :id="teacher.id"
-                        class="btn btn-primary btn-lg"
-                        v-on:click="asignarTeacher(teacher.id)"
-                       data-toggle="button"
-                        aria-pressed="false"
-                        autocomplete="off"
-                    >
-                        {{ teacher.nombre }}
-                    </button>
+    <div  style=" padding-top:30px; width:80%;">
+        <div class="row" style="padding:0px; margin:0px;">
+                <div class="col-lg-2 col-md-3 col-sm-12" v-for="teacher in Teachers" :key="teacher.id" style="padding:0px; margin:0px;">
+                            <div class="row" style="padding-top:10px; padding-bottom:10px;">
+                                    <button
+                                    style=" width:80%;" 
+                                    type="button"
+                                    :value="teacher.id"
+                                    :id="teacher.id"
+                                    class="btn btn-primary btn-lg"
+                                    v-on:click="asignarTeacher(teacher.id)"
+                                data-toggle="button"
+                                    aria-pressed="false"
+                                    autocomplete="off">
+                                    {{ teacher.nombre }}
+                                </button>
+
+                            </div>
+                        
                 </div>
-            </div>
-        </div><br>
+        </div>
+    </div><br>
 
         <!-- <div class="btn-group" role="group" aria-label="Basic radio toggle button group" v-for="teacher in Teachers" :key="teacher.id">
         <input type="radio" class="btn-check" name="btnradio"   v-on:click="cargar_clases($event)" v-model="teacher_id" :id="teacher.id" autocomplete="off">
         <label class="btn btn-outline-primary" for="teacher.id">{{teacher.nombre}}</label> -->
-
 
       <div class="row" style="padding-left:3%;">
                 
@@ -570,6 +572,7 @@ export default {
                            await this.axios
                 .get(`/paseListaT/${matriculaT}`)
                 .then(response => {
+         
                     console.log('Pase Exitoso')
                 })
                 .catch(error => {
@@ -578,6 +581,8 @@ export default {
 
 
              }
+                    this.pasarLista = false
+
        
         },
 
@@ -791,6 +796,7 @@ export default {
             const {clase} =response.data;
             console.log(clase);
                     this.cargar_clases(this.week_id,this.month_id, this.first_day, this.last_day);
+                    this.showModal = false
 
           })
             .catch(error => {
@@ -803,6 +809,7 @@ export default {
             const {respuesta} =response.data;
             console.log(respuesta);
                     this.cargar_clases(this.week_id,this.month_id, this.first_day, this.last_day);
+                    this.showModal = false
 
           })
             .catch(error => {
