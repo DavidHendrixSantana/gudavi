@@ -6,6 +6,7 @@
 
         <div>
             <span style="font-size:23px ">Quincenal -</span>     <router-link to="/QuincenalPersons" target="_blank" type="button" class="btn btn-success">Generar Reporte</router-link>
+            <span style="font-size:23px ">Asistencias Mensual -</span>     <router-link to="/AsistenciasT" target="_blank" type="button" class="btn btn-success">Ver asistencias</router-link>
 
 
             <hr>

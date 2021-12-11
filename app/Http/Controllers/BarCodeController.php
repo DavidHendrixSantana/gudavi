@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Person;
+use App\Models\Teacher;
 
 
 class BarCodeController extends Controller
@@ -13,4 +14,14 @@ class BarCodeController extends Controller
         $person =  Person::find($id);
         return view('pdf.credencial', compact('person'));
     }
+
+
+    public function credencialT($id)
+    {
+        $person =  Teacher::find($id);
+        return view('pdf.credencial', compact('person'));
+    }
+
+
+
 }

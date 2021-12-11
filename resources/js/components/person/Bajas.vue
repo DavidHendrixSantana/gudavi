@@ -25,7 +25,8 @@
                                 {{ baja.created_at.substr(0, 10) }}
                             </td>
                             <td>
-                              Acciones
+                            <router-link :to='{name:"editPerson",params:{id:baja.id}}' class="btn btn-info"><i class="fas fa-edit"></i></router-link>
+
                             </td>
 
                         </tr>

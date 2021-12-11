@@ -248,7 +248,9 @@ export default {
 
         },
         imprimirCredencial(id){
-             window.location.href = `http://127.0.0.1:8000/credencial/${id}`;
+            //  window.location.href = `http://127.0.0.1:8000/credencial/${id}`;
+            window.open(`http://127.0.0.1:8000/credencial/${id}`)
+
 
 
         }

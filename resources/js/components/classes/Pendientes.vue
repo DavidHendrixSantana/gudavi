@@ -352,16 +352,14 @@ export default {
          async realizarCambio(){
           await this.axios.post("/api/cambio2", this.person)
           .then(response =>{
-            const {clase} =response.data;
-            console.log(clase);
-            this.cargar_clases2() ;
-            this.showModal =false
-        this.mostrarPendientes();
-
-          })
-            .catch(error => {
+                 
+            },
+          ).catch(error => {
                 console.log(error);
             });
+
+            this.showModal =false
+        this.mostrarPendientes();
         },
 
     },
