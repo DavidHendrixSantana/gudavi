@@ -8,6 +8,8 @@ use App\Models\Schedule;
 use App\Models\Days_teachers;
 use App\Models\Teacher_pay;
 use App\Models\AsistenciaT;
+use App\Models\Sesion;
+use App\Models\Log;
 
 class TeacherController extends Controller
 {
