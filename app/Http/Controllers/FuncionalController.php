@@ -123,7 +123,7 @@ class FuncionalController extends Controller
 
             $Classes = DB::select('select days_classes.id as clase_id, classes.id, persons.id as id_person ,persons.nombre ,classes.Clase, days_classes.status from classes  inner join days_classes on classes.id = days_classes.class_id INNER JOIN persons ON days_classes.person_id =persons.id WHERE days_classes.day_teacher_id = ? and days_classes.week_id = ?', [$id_day, $week]);
            
-            $Classes_general = DB::select('select Clase, valor from classes ');
+            $Classes_general = DB::select('select Clase, valor from classes  where valor > 12.5');
             $Classes_grupales = DB::select('select days_classes.id as clase_id, classes.id, persons.id as id_person ,persons.nombre ,classes.Clase, days_classes.status from classes  inner join days_classes on classes.id = days_classes.class_id INNER JOIN persons ON days_classes.person_id =persons.id WHERE days_classes.day_teacher_id =?  and days_classes.week_id =? and days_classes.grupal = 1', [$id_day, $week]);
             $nombres = [];
             $names = '';
@@ -209,7 +209,7 @@ class FuncionalController extends Controller
         }
 
             $Classes = DB::select('	select days_classes.id as clase_id, persons.id as id_person ,classes.id, persons.nombre ,classes.Clase, days_classes.status from classes  inner join days_classes on classes.id = days_classes.class_id INNER JOIN persons ON days_classes.person_id =persons.id inner join week on week.id = days_classes.week_id  inner join month on month.id= week.month_id WHERE days_classes.day_teacher_id = ? and days_classes.week_id = ? and week.month_id = ?', [$id_day, $week, $month_id]);
-            $Classes_general = DB::select('select Clase, valor from classes ');
+            $Classes_general = DB::select('select Clase, valor from classes where valor > 13.5');
             $Classes_grupales = DB::select('select days_classes.id as clase_id, classes.id, persons.id as id_person ,persons.nombre ,classes.Clase, days_classes.status from classes  inner join days_classes on classes.id = days_classes.class_id INNER JOIN persons ON days_classes.person_id =persons.id inner join week on week.id = days_classes.week_id   WHERE days_classes.day_teacher_id =?  and days_classes.week_id =? and  week.month_id =? and days_classes.grupal = 1', [$id_day, $week, $month_id]);
 
             $nombres = [];
@@ -375,35 +375,71 @@ class FuncionalController extends Controller
     }
 
     public function paseLista($matricula){
+
+        try {
+            DB::beginTransaction();
+
+            
+        date_default_timezone_set('America/Mexico_City');
+        $dia_actual = date("j");
+        $day = date("N");
+
+
+        //Calcular los días pasados del ultimo mes con el actual
+        $dia = Contador::find(1);
+        $last_month_day= $dia->last_month_day;
+        $fecha_actual = strtotime(date("d-m-Y"));
+        $siguiente_mes = date("d-m-Y", strtotime("-1 month", $fecha_actual));
+        $total_days = date('t', strtotime($siguiente_mes));
+        $dias_pasados = $total_days-($last_month_day-1);
+        $dia_actual += $dias_pasados;
      
        $persona= Person::where('matricula', $matricula)->first();
-       $dia_actual = date("d");
-       $day = date("N");
+   
         $actual_week = intdiv($dia_actual, 7);
         $actual_week += 1;
 
        $week = Week::where('description', $actual_week)->where('month_id', 1)->first();
-       $day = Days_teachers::where('day_id', $day-1)->first();
-       $teacher = $day->teacher_id;
+
+       $day_teacher = DB::select('select dt.teacher_id from days_classes as dc
+       inner JOIN days_teachers as dt on dc.day_teacher_id = dt.id  
+       inner JOIN days as d on dt.day_id = d.id 
+       WHERE dc.week_id=? 
+       and dc.person_id =?
+       and d.id= ?
+       GROUP BY dt.teacher_id ' , [$actual_week, $persona->id, $day]);
+       $day_teacher = $day_teacher[0]->teacher_id;
+       $day = Days_teachers::where('teacher_id',$day_teacher)->where('day_id',$day)->first();
+
        $validador =  $day_clase = Day_clase::where('day_teacher_id', $day->id)->where('person_id', $persona->id)->where('week_id', $actual_week)->first();
        
        $day_clase = Day_clase::where('day_teacher_id', $day->id)->where('person_id', $persona->id)->where('week_id', $actual_week)->update([
            'asistencia' => 1,
        ]);
+       $asistencia = AsistenciaT::where('teacher_id', $day_teacher)->first();
 
-       if ( $validador->asistencia == 0) {
-        $asistencia = AsistenciaT::where('teacher_id', $teacher)->first();
+
         if ($asistencia->asistencia == 1) {
-            
-            $pay_teacher = Teacher_pay::where('teacher_id', $teacher)->first();
+            $pay_teacher = Teacher_pay::where('teacher_id', $day_teacher)->first();
+
             $number = $pay_teacher->total_classes  + 1;
-            Teacher_pay::where('teacher_id', $teacher)->update([
+
+             $update_pay=  Teacher_pay::where('teacher_id', $day_teacher)->update([
                     'total_classes' => $number,
             ]);
-          
-        }
+            
 
-       }
+        }
+            DB::commit();
+    
+            return response()->json();
+    
+           } catch (\Throwable $th) {
+                DB::rollback();
+                return abort(500, $th);
+          }
+
+
 
     }
 
