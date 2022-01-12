@@ -21,13 +21,21 @@
               </div>
              
         </div>
+        <div class="col-md-4" style="padding-left:40px; padding-top:30px;" >
+              <div class="row">
+         
+               <input type="text" name="nombre" id="nombre" class="gui-input" autofocus>
+
+              </div>
+             
+        </div>
            
     <br>
       <div class="row" style=" padding-top:30px;">
        
             <div class="col-md-4" v-for="month in months" :key="month.id" style="padding-left:40px;" >
               <div class="row">
-                <button type="button" class="btn btn-info " data-bs-toggle="button" v-on:click="asignarMes(month.id)" >Mes de: {{month.description}}</button>
+                <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="button" v-on:click="asignarMes(month.id)" >Mes de: {{month.description}}</button>
 
               </div>
              
@@ -44,10 +52,10 @@
                                     style=" width:80%;" 
                                     type="button"
                                     :value="teacher.id"
-                                    :id="teacher.id"
-                                    class="btn btn-primary btn-lg"
+                                    :id="'teacher-'+teacher.id"
+                                    class="button-teacher"
                                     v-on:click="asignarTeacher(teacher.id)"
-                                data-toggle="button"
+                                    data-toggle="button"
                                     aria-pressed="false"
                                     autocomplete="off">
                                     {{ teacher.nombre }}
@@ -539,6 +547,7 @@ export default {
             clases: [],
             months: [],
             weeks: [],
+            lastId: '',
 
         };
     },
@@ -548,6 +557,8 @@ export default {
         this.mostrarSemanas(1);
         this.mostrarDatos(2,1);
         this.lastTeacher()
+
+
 
     },
     methods: {
@@ -587,14 +598,31 @@ export default {
         },
 
         asignarTeacher(teacher){
+        var id ='teacher-'+this.lastId
+        if(this.lastId != ''){
+            document.getElementById(`${id}`).classList.remove('button-teacher-t')
+            document.getElementById(`${id}`).classList.add('button-teacher')
+        }else{
+             var id ='teacher-'+this.teacher_id
+            document.getElementById(`${id}`).classList.remove('button-teacher-t')
+            document.getElementById(`${id}`).classList.add('button-teacher')
+            
+        }
+
         this.teacher_id = teacher
            if(this.month_id === 2){
             this.week_id = 6
           }else if(this.month_id === 1){
             this.week_id = 1
           }
-          console.log(this.week_id, this.month_id)
-        this.cargar_clases(this.week_id, this.month_id, this.first_day, this.last_day);
+
+        document.getElementById("teacher-"+teacher).classList.toggle('button-teacher-t')
+        this.lastId = teacher
+
+
+         this.cargar_clases(this.week_id, this.month_id, this.first_day, this.last_day);
+
+
         },
         asignarMes(month_id){
         this.month_id = month_id
@@ -727,6 +755,9 @@ export default {
                     const { teacher } = response.data;
                     console.log('lasteacher:', teacher)
                     this.teacher_id = teacher;
+                var id ='teacher-'+teacher
+                document.getElementById(`${id}`).classList.remove('button-teacher')
+                document.getElementById(`${id}`).classList.add('button-teacher-t')
                 
                 })
                 .catch(error => {
@@ -1111,6 +1142,76 @@ button {
 }
 
 
+
+/* CSS */
+.button-teacher {
+  align-items: center;
+  background-clip: padding-box;
+  background-color: #095270;
+  border: 1px solid transparent;
+  border-radius: .25rem;
+  box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: system-ui,-apple-system,system-ui,"Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  justify-content: center;
+  line-height: 1.25;
+  margin: 0;
+  min-height: 3rem;
+  padding: calc(.875rem - 1px) calc(1.5rem - 1px);
+  position: relative;
+  text-decoration: none;
+  transition: all 250ms;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: baseline;
+  width: auto;
+}
+
+
+.button-teacher:hover {
+  transform: translateY(-1px);
+}
+
+.button-teacher:active {
+  background-color: #c85000;
+  box-shadow: rgba(0, 0, 0, .06) 0 2px 4px;
+  transform: translateY(0);
+}
+
+.button-teacher-t {
+  align-items: center;
+  background-clip: padding-box;
+  background-color: #fa6400;
+  border: 1px solid transparent;
+  border-radius: .25rem;
+  box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: system-ui,-apple-system,system-ui,"Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  justify-content: center;
+  line-height: 1.25;
+  margin: 0;
+  min-height: 3rem;
+  padding: calc(.875rem - 1px) calc(1.5rem - 1px);
+  position: relative;
+  text-decoration: none;
+  transition: all 250ms;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: baseline;
+  width: auto;
+}
 
 
 

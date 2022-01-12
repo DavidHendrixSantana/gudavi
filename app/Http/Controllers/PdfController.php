@@ -58,12 +58,6 @@ class PdfController extends Controller
     
             }
 
-            // dd($Classes_month);
-         
-
-            
-   
-
        
         $pdf = \PDF::loadView('pdf.QuincenalTeachers', compact('Classes_month'));
         
