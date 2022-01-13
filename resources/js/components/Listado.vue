@@ -4,31 +4,6 @@
 
     </header>
         <div class="row" style="padding-left:2%;">
-       
-        <div class="col-md-4" style="padding-left:40px; padding-top:30px;" >
-              <div class="row">
-                <button type="button" class="btn btn-dark btn-lg" data-bs-toggle="button" v-on:click="pasarLista=true, lista_tea=false ,lista_al=true" >Pasar lista</button>
-           
-
-              </div>
-             
-        </div>
-        <div class="col-md-4" style="padding-left:40px; padding-top:30px;" >
-              <div class="row">
-         
-                <button type="button" class="btn btn-dark btn-lg" data-bs-toggle="button" v-on:click="pasarLista=true, lista_al=false, lista_tea=true" >Pasar lista Maestro</button>
-
-              </div>
-             
-        </div>
-        <div class="col-md-4" style="padding-left:40px; padding-top:30px;" >
-              <div class="row">
-         
-               <input type="text" name="nombre" id="nombre" class="gui-input" autofocus>
-
-              </div>
-             
-        </div>
            
     <br>
       <div class="row" style=" padding-top:30px;">
@@ -41,7 +16,7 @@
 
              
         </div>
-                <input type="text" id="last-barcode" name="last-barcode">
+           
 
            
       </div>

@@ -42,7 +42,7 @@ class FuncionalController extends Controller
 
     public function listado_week($month_id){
         $weeks = Week::where('month_id', $month_id)->get();
-        $first_day=29;
+        $first_day=2;
         $last_day_month= 0;
 
         if ($month_id == 1) {
