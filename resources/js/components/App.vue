@@ -115,10 +115,11 @@ export default {
     created(){
 
                 setInterval(this.getNow, 1000);
-                setInterval(this.pasarLista(), 60000);
-
+                setInterval(this.takeMinutes, 60000);
                 this.firstHr();
                 this.verifyDay();
+  
+            	
 
         },
         mounted(){
@@ -182,23 +183,22 @@ export default {
    
    methods: {
 
-       async pasarLista(){
+    
+       takeMinutes: function(){
+           this.pasarLista()
+       },
 
-        //    var minutes = this.giveMinutes()
+       async pasarLista(){
         var minutes = this.giveMinutes()
            var hour = this.giveHours()
-
            if(minutes === '30' || minutes === '00' ){
-               var valorHora = `10:${minutes}`
-               this.axios.get(`ListaClases/${valorHora}`).then(
+               var valorHora = `${hour}:${minutes}`
+            await this.axios.get(`ListaClases/${valorHora}`).then(
                    console.log('exitoso')
             ).catch( error =>{
                 console.log(error)
             })
-
            }
-
-
        },
 
          
@@ -219,14 +219,17 @@ export default {
         async verifyDay(){
         const today = new Date();
            var hoy = today.getDate();
+                if(hoy === 15 || hoy === 30){
+               const win = window.open('http://127.0.0.1:8000/QuincenalPersons', '_blank');
+                }
               await this.axios.get(`verifyDay/${hoy}`)
            .then(response => {
-       
-               console.log('Exito')
-
+                 
            }).catch(error => {
                     console.log(error);
                 });              
+
+     
        },
 
        giveTime(){
@@ -302,9 +305,6 @@ export default {
                             hora= '0'+ hora;
                             return hora;
                         }
-
-                       
-
                         this.timestamp = time;
                     },
             verificarRol(){

@@ -178,8 +178,8 @@
                                         <option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
-                                        <option value="5">4</option>
-                                        <option value="4">5</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
                                         <option value="6">6</option>
                                       
                                         >
@@ -448,7 +448,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div id="show2" v-if="person.clases_semanales == 5">
+                            <div id="show2" v-if="person.clases_semanales >= 5">
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="form-group">
@@ -644,6 +644,10 @@ export default {
                     this.person.clases_precio =(meses* 850) + 200;
                 } else if (dias == 3) {
                     this.person.clases_precio =(meses* 1150) + 200;
+                } else if (dias == 4) {
+                    this.person.clases_precio =(meses* 1450) + 200;
+                } else if (dias == 5) {
+                    this.person.clases_precio =(meses* 1750) + 200;
                 }
             }
             if (this.nivel_nado === "Grupales") {
