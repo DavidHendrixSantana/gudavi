@@ -121,6 +121,55 @@ export default {
                 this.verifyDay();
 
         },
+        mounted(){
+            var barcode = '';
+            var interval;
+            document.addEventListener('keydown', function(evt) {
+                if (interval)
+                    clearInterval(interval);
+                if (evt.code == 'Enter') {
+                    if (barcode)
+                       
+                    paseLista(barcode)
+
+                    barcode = '';
+                    return;
+                }
+                if (evt.key != 'Shift')
+                    barcode += evt.key;
+                interval = setInterval(() => barcode = '', 20);
+            });
+
+          async  function  paseLista(matricula) {
+
+            await axios
+                .get(`/paseListaT/${matricula}`)
+                .then(response => {
+                    Swal.fire({
+                        title: 'Pase de lista exitoso',
+                        text: 'Se ha realizado el pase de lista de manera exitosa',
+                        icon: 'success',
+                        confirmButtonText: 'Aceptar'
+                        })
+         
+                    console.log(response)
+                })
+                .catch(error => {
+                    console.log(error);
+                    Swal.fire({
+                        title: 'No se encontraron coindicencias',
+                        text: 'Verifique que el alumno y el día sean correctos',
+                        icon: 'error',
+                        confirmButtonText: 'Aceptar'
+                        })
+                });
+             
+                    this.pasarLista = false
+
+       
+        }
+
+        },
     computed: {
 		isShake: function(){
 			console.log(this.shake);
@@ -151,6 +200,9 @@ export default {
 
 
        },
+
+         
+
 
        async firstHr(){
               await this.axios.get(`getFirstHour`)

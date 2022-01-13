@@ -30,8 +30,11 @@
                 <button type="button" class="btn btn-info " data-bs-toggle="button" v-on:click="asignarMes(month.id)" >Mes de: {{month.description}}</button>
 
               </div>
+
              
         </div>
+                <input type="text" id="last-barcode" name="last-barcode">
+
            
       </div>
         <br>
@@ -549,7 +552,10 @@ export default {
         this.mostrarDatos(2,1);
         this.lastTeacher()
 
+          
+
     },
+ 
     methods: {
 
          async paseLista() {
