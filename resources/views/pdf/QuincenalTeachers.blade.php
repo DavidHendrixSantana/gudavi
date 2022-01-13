@@ -92,7 +92,7 @@ $fpdf->Rect(18,32, 270, 100);
    
     
 
-    // $fpdf->Output('D','ReporteQuincenal.pdf');
-    $fpdf->Output();
+    $fpdf->Output('D','ReporteQuincenal.pdf');
+    // $fpdf->Output();
     exit;
 ?>
