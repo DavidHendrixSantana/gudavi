@@ -28,10 +28,10 @@ Route::get('login/{email}/{pass}', [LoginController::class, 'login'])->name('log
 
 
 
-Route::get('listado/{teacher}/{week}', [FuncionalController::class, 'listado_clases'])->name('listado_clases');
+Route::get('listado/{teacher}/{week}/{turno}', [FuncionalController::class, 'listado_clases'])->name('listado_clases');
 Route::get('meses', [FuncionalController::class, 'listado_month'])->name('meses');
 Route::get('semanas/{month_id}', [FuncionalController::class, 'listado_week'])->name('semanas');
-Route::get('listado_teacher/{teacher}/{week}/{month}/{first}/{last}', [FuncionalController::class, 'listado_teacher'])->name('listado_teacher');
+Route::get('listado_teacher/{teacher}/{week}/{month}/{first}/{last}/{turno}', [FuncionalController::class, 'listado_teacher'])->name('listado_teacher');
 Route::get('pago/{id}', [PersonController::class, 'consult_pay'])->name('consult_pay');
 Route::get('realizarPago/{id}/{forma}/{tarjeta}/{cantidad}', [PersonController::class, 'save_pay'])->name('realizarPago');
 

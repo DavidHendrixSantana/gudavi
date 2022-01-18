@@ -3,24 +3,31 @@
     <header>
 
     </header>
-        <div class="row" style="padding-left:2%;">
+<div class="row" style="padding-left:2%;">
            
     <br>
-      <div class="row" style=" padding-top:30px;">
+      <div class="row" style=" padding-top:30px; width:80%;">
        
-            <div class="col-md-4" v-for="month in months" :key="month.id" style="padding-left:40px;" >
-              <div class="row">
-                <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="button" v-on:click="asignarMes(month.id)" >Mes de: {{month.description}}</button>
-
+            <div class="col-md-6" v-for="month in months" :key="month.id" style="padding-left:60px; width:80%;" >
+              <div class="row" style=" width:80%;">
+                <div class="col-12" style=" width:80%;">
+                    <button type="button" style=" width:100%;" class="btn btn-primary btn-lg" data-bs-toggle="button" v-on:click="asignarMes(month.id)" >Mes de: {{month.description}}</button>
+                </div>
               </div>
-
-             
+            </div>       
         </div>
-           
-
-           
-      </div>
         <br>
+
+        <div class="row" style=" padding-top:30px; width:80%;">
+       
+            <div class="col-md-6"  style="padding-left:60px; width:80%;" >
+                    <button type="button" style=" width:100%;" class="btn btn-primary btn-lg" data-bs-toggle="button" v-on:click=" mostrarDatos(2,1,'M')" >Matutino</button>
+            </div>      
+            <div class="col-md-6"  style="padding-left:60px; width:80%;" >
+                    <button type="button" style=" width:100%;" class="btn btn-primary btn-lg" data-bs-toggle="button" v-on:click=" mostrarDatos(2,1,'V')" >Vespertino</button>
+            </div>      
+
+        </div>
     <br>
     <div  style="padding-left:70px; padding-top:30px; width:80%;">
         <div class="row" style="padding:0px; margin:0px;">
@@ -49,13 +56,13 @@
         <input type="radio" class="btn-check" name="btnradio"   v-on:click="cargar_clases($event)" v-model="teacher_id" :id="teacher.id" autocomplete="off">
         <label class="btn btn-outline-primary" for="teacher.id">{{teacher.nombre}}</label> -->
 
-      <div class="row" style="padding-left:3%;">
+      <div class="row" style=" width:100%;" >
                 
-              <div class="col-md-2" v-for="week in weeks" :key="week.id"  style="padding-left:20px;"> 
-                  <div class="row">
+              <div class="col-md-2" v-for="week in weeks" :key="week.id"  style="padding-left:5%; width:100%;"> 
+                  <div class="row" style=" width:100%;">
                 <button type="button"
-                  v-on:click="cargar_clases(week.id, week.id, week.first_day, week.last_day)"
-                class="btn btn-success "   > Semana de : {{week.description}}</button>
+                  v-on:click="cargar_clases(week.id, week.id, week.first_day, week.last_day, turno)"
+                class="btn btn-success " style=" width:200px; height:60px;"  > Semana de : {{week.description}}</button>
 
                 </div>
               
@@ -508,6 +515,7 @@ export default {
               grupal: '',
             claseG: '',
             showGrupal: false,
+            turno: "V",
             
             person:{
               $first_id:"",
@@ -533,7 +541,7 @@ export default {
     mounted() {
         this.mostrarMeses();
         this.mostrarSemanas(1);
-        this.mostrarDatos(2,1);
+        this.mostrarDatos(2,1,'V');
         this.lastTeacher()
     },
  
@@ -596,7 +604,7 @@ export default {
         this.lastId = teacher
 
 
-         this.cargar_clases(this.week_id, this.month_id, this.first_day, this.last_day);
+         this.cargar_clases(this.week_id, this.month_id, this.first_day, this.last_day, this.turno);
 
 
         },
@@ -609,7 +617,7 @@ export default {
           }
           console.log(this.week_id, this.month_id)
 
-        this.cargar_clases(this.week_id,this.month_id, this.first_day, this.last_day);
+        this.cargar_clases(this.week_id,this.month_id, this.first_day, this.last_day,this.turno);
         this.mostrarSemanas(month_id)
         },
 
@@ -637,9 +645,10 @@ export default {
                 });
         },
 
-            async mostrarDatos(teacher, week) {
+            async mostrarDatos(teacher, week,turno) {
+                this.turno = turno
             await this.axios
-                .get(`/api/listado/${teacher}/${week}`)
+                .get(`/api/listado/${teacher}/${week}/${this.turno }`)
                 .then(response => {
                     const { Days, Teachers } = response.data;
                     this.Days = Days;
@@ -650,13 +659,13 @@ export default {
                 });
         },
 
-        async cargar_clases(week,month, first, last) {
+        async cargar_clases(week,month, first, last,turno) {
             month =this.month_id
             var teacher = this.teacher_id
             console.log(teacher)
             console.log(week)
             await this.axios
-                .get(`/api/listado_teacher/${teacher}/${week}/${month}/${first}/${last}`)
+                .get(`/api/listado_teacher/${teacher}/${week}/${month}/${first}/${last}/${turno}`)
                 .then(response => {
                     const { Days } = response.data;
                     this.Days = Days;
@@ -802,7 +811,7 @@ export default {
           .then(response =>{
             const {clase} =response.data;
             console.log(clase);
-                    this.cargar_clases(this.week_id,this.month_id, this.first_day, this.last_day);
+                    this.cargar_clases(this.week_id,this.month_id, this.first_day, this.last_day,this.turno);
                     this.showModal = false
 
           })
@@ -815,7 +824,7 @@ export default {
           .then(response =>{
             const {respuesta} =response.data;
             console.log(respuesta);
-                    this.cargar_clases(this.week_id,this.month_id, this.first_day, this.last_day);
+                    this.cargar_clases(this.week_id,this.month_id, this.first_day, this.last_day,this.turno);
                     this.showModal = false
 
           })
