@@ -422,7 +422,7 @@ class FuncionalController extends Controller
         if ($asistencia->asistencia == 1) {
             $pay_teacher = Teacher_pay::where('teacher_id', $day_teacher)->first();
 
-            $number = $pay_teacher->total_classes  + 1;
+            $number = $pay_teacher->total_classes  + 0.5;
 
              $update_pay=  Teacher_pay::where('teacher_id', $day_teacher)->update([
                     'total_classes' => $number,
@@ -451,6 +451,8 @@ class FuncionalController extends Controller
 
 
         try {
+        date_default_timezone_set('America/Mexico_City');
+
             DB::beginTransaction();
 
             #ASISTENCIA DE Profesor

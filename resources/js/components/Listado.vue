@@ -22,7 +22,7 @@
       </div>
         <br>
     <br>
-    <div  style=" padding-top:30px; width:80%;">
+    <div  style="padding-left:70px; padding-top:30px; width:80%;">
         <div class="row" style="padding:0px; margin:0px;">
                 <div class="col-lg-2 col-md-3 col-sm-12" v-for="teacher in Teachers" :key="teacher.id" style="padding:0px; margin:0px;">
                             <div class="row" style="padding-top:10px; padding-bottom:10px;">
@@ -80,7 +80,7 @@
                             <td v-for="day in Days" :key="day.id" >
                               <div v-for="clase in day.Clases"  :key="clase.id">
                                 <div v-if="clase.status == 1"  >
-                                  <button style="display: block; width:250px;  height: 70px;"
+                                  <button style="display: block; width:300px;  height: 70px;"
                                       type="button"
                                       class="custom-btn btn-1"
                                       @click="show_modal(clase.nombre, clase.id_person, clase.clase_id)">
@@ -89,7 +89,7 @@
                                   </button>
                                 </div>
                                  <div v-else-if="clase.status == 3"  >
-                                  <button style="display: block; width:250px;  height: 70px;"
+                                  <button style="display: block; width:300px;  height: 70px;"
                                       type="button"
                                       class="custom-btn btn-3"
                                       @click="show_modal(clase.nombre, clase.id_person, clase.clase_id)">
@@ -98,7 +98,7 @@
                                   </button>
                                 </div>
                                  <div v-else-if="clase.status == 4"  >
-                                  <button style="display: block; width:250px;  height: 70px;"
+                                  <button style="display: block; width:300px;  height: 70px;"
                                       type="button"
                                       class="custom-btn btn-4"
                                       @click="show_modal(clase.nombre, clase.id_person, clase.clase_id)"
@@ -108,7 +108,7 @@
                                   </button>
                                 </div>
                                 <div v-else-if="clase.status == 5"  >
-                                  <button style="display: block; width:250px;  height: 70px;"
+                                  <button style="display: block; width:300px;  height: 70px;"
                                       type="button"
                                       class="custom-btn btn-5"
                                       
@@ -119,7 +119,7 @@
                                 </div>
 
                             <div v-else-if="clase.status == 7"  >
-                                  <button style="display: block; width:250px;  height: 70px;"
+                                  <button style="display: block; width:300px;  height: 70px;"
                                       type="button"
                                       class="custom-btn btn-7"
                                   
@@ -131,7 +131,7 @@
                                   </button>
                             </div>
                             <div v-else-if="clase.status == 8"  >
-                                  <button style="display: block; width:250px;  height: 70px;"
+                                  <button style="display: block; width:300px;  height: 70px;"
                                       type="button"
                                       class="custom-btn btn-8"
                                       show_modal_grupal
@@ -144,7 +144,7 @@
                             </div>
                                
                                 <div v-else >
-                                  <button style="display: block; width:250px; height: 70px;"
+                                  <button style="display: block; width:300px; height: 70px;"
                                       type="button"
                                       class="custom-btn btn-9"
                                  
@@ -535,8 +535,6 @@ export default {
         this.mostrarSemanas(1);
         this.mostrarDatos(2,1);
         this.lastTeacher()
-
-
     },
  
     methods: {
