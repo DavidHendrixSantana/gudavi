@@ -560,8 +560,6 @@ export default {
         this.mostrarSemanas(1);
         this.mostrarDatos(2,1);
         this.lastTeacher()
-
-
     },
  
     methods: {
