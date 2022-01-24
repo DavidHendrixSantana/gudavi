@@ -122,6 +122,7 @@
                                         type="date"
                                         class="form-control"
                                         v-model="person.fecha_inicio"
+                                        value="2021-01-01"
                                     />
                                 </div>
                             </div>
@@ -532,10 +533,10 @@ export default {
                 nombre_emergencia: "",
                 clases_semanales: "",
                 telefono_emergencia: "",
-                mesesPagados: '',
-                fecha_inicio: "",
+                mesesPagados: '1',
+                fecha_inicio: "2021-01-01",
                 enfermedad: "",
-                nivel: "",
+                nivel: "Mayor2",
                 clases_precio: 200,
                 day_id_1: "",
                 day_id_2: "",
