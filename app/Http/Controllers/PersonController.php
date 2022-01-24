@@ -90,7 +90,6 @@ try {
 
             $clase_id=$request['clase_id_'.$x];
             $day_id=$request['day_id_'.$x];
-
             $nivel = $request['nivel'];
 
          
@@ -196,6 +195,22 @@ try {
      */
     public function show(Person $Person)
     {
+        $clases_person = Day_clase::select('class_id','day_teacher_id')->where('person_id', $Person->id)->distinct()->get();
+       
+            for($x=0; $x<sizeof($clases_person); $x++){
+                    $teacher_id = Days_teachers::select('teacher_id')->where('id', $clases_person[$x]->day_teacher_id)->first();
+                    $y = $x+1;
+                    $clase = "clase_id_".$y;
+                    $dia = "day_id_".$y;
+                    $teacher = "teacher_id_".$y;
+                    $Person[$clase]=$clases_person[$x]->class_id;
+                    $Person[$dia]=$clases_person[$x]->day_teacher_id;
+                    $Person[$teacher]=$teacher_id->teacher_id;
+                }
+
+        // $teacher=  Teacher::where();
+        $pago = Pay::where('person_id', $Person->id)->first();
+        $Person['clases_precio'] = $pago->cantidad;
         return response()->json($Person);
     }
 
