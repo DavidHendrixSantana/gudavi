@@ -629,6 +629,7 @@ export default {
     data() {
         return {
             person: {
+                id:"",
                 nombre: "",
                 fecha_nacimiento: "",
                 edad: "",
@@ -681,7 +682,7 @@ export default {
     mounted() {
         this.mostrarTeachers();
         this.mostrarperson()
-        this.mostrarDias(this.teacher_id_1)
+
     },
     methods: {
         async mostrarTeachers() {
@@ -698,13 +699,8 @@ export default {
         },
 
         async mostrarDias(event) {
-            if(isset(event.target.value)){
-                var value = event.target.value
-            }else{
-                var value = event
-            }
             await this.axios
-                .get(`/person/ShowDays/${value}`)
+                .get(`/person/ShowDays/${event.target.value}`)
                 .then(response => {
                     const { days } = response.data;
                     this.days_1 = days;
@@ -852,6 +848,149 @@ export default {
           
         },
 
+        
+        async CargarDias() {
+        var teacher = this.person.teacher_id_1
+            await this.axios
+                .get(`/person/ShowDays/${teacher}`)
+                .then(response => {
+                    const { days } = response.data;
+                    this.days_1 = days;
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        },
+        async CargarDias2() {
+             var teacher = this.person.teacher_id_2
+
+            await this.axios
+                .get(`/person/ShowDays/${teacher}`)
+                .then(response => {
+                    const { days } = response.data;
+                    this.days_2 = days;
+
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        },
+        async CargarDias3() {
+             var teacher = this.person.teacher_id_3
+
+            await this.axios
+                .get(`/person/ShowDays/${teacher}`)
+                .then(response => {
+                    const { days } = response.data;
+                    this.days_3 = days;
+
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        },
+        async CargarDias4() {
+             var teacher = this.person.teacher_id_4
+             await this.axios
+                .get(`/person/ShowDays/${teacher}`)
+                .then(response => {
+                    const { days } = response.data;
+                    this.days_4 = days;
+
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        },
+        async CargarDias5() {
+             var teacher = this.person.teacher_id_5            
+            await this.axios
+                .get(`/person/ShowDays/${teacher}`)
+                .then(response => {
+                    const { days } = response.data;
+                    this.days_5 = days;
+
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        },
+
+            async CargarClases() {
+            var dia_id = this.person.clase_id_1
+            var id_1 = this.person.teacher_id_1
+            await this.axios
+                .get(`/person/ShowClasses/${dia_id}/${id_1}`)
+                .then(response => {
+                    const { clases } = response.data;
+                    this.clases_1 = clases;
+                    console.log(clases);
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        },
+        async CargarClases2(event, id_1) {
+        var dia_id = this.person.clase_id_2
+            var id_1 = this.person.teacher_id_2
+
+            await this.axios
+                .get(`/person/ShowClasses/${dia_id}/${id_1}`)
+                .then(response => {
+                    const { clases } = response.data;
+                    this.clases_2 = clases;
+                    console.log(clases);
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        },
+            async CargarClases3(event, id_1) {
+
+        var dia_id = this.person.clase_id_3
+            var id_1 = this.person.teacher_id_3
+            await this.axios
+                .get(`/person/ShowClasses/${dia_id}/${id_1}`)
+                .then(response => {
+                    const { clases } = response.data;
+                    this.clases_3 = clases;
+                    console.log(clases);
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        },
+            async CargarClases4(event, id_1) {
+          var dia_id = this.person.clase_id_4
+            var id_1 = this.person.teacher_id_4
+
+            await this.axios
+                .get(`/person/ShowClasses/${dia_id}/${id_1}`)
+                .then(response => {
+                    const { clases } = response.data;
+                    this.clases_4 = clases;
+                    console.log(clases);
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        },
+        async CargarClases5() {
+            var dia_id = this.person.clase_id_5
+            var id_1 = this.person.teacher_id_5
+            await this.axios
+                .get(`/person/ShowClasses/${dia_id}/${id_1}`)
+                .then(response => {
+                    const { clases } = response.data;
+                    this.clases_5 = clases;
+                    console.log(clases);
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        },
+
+
         nivel_precio(event) {
             this.nivel_nado = event.target.value;
             this.clase_precio()
@@ -902,7 +1041,9 @@ export default {
 
         async mostrarperson(){
             await this.axios.get(`/api/person/${this.$route.params.id}`).then(response=>{
-                const { nombre,
+                const { 
+                id,
+                nombre,
                 fecha_nacimiento,
                 edad,
                 nombre_papa,
@@ -935,6 +1076,7 @@ export default {
                 clase_id_4,
                 clase_id_5,
                 } = response.data
+                this.person.id =id 
                 this.person.nombre =nombre 
                 this.person.fecha_nacimiento =fecha_nacimiento 
                 this.person.edad =edad 
@@ -967,13 +1109,24 @@ export default {
                 this.person.clase_id_3=clase_id_3
                 this.person.clase_id_4=clase_id_4
                 this.person.clase_id_5=clase_id_5
-              
+
+        this.CargarDias()
+        this.CargarDias2()
+        this.CargarDias3()
+        this.CargarDias4()
+        this.CargarDias5()
+        this.CargarClases()
+        this.CargarClases2()
+        this.CargarClases3()
+        this.CargarClases4()
+        this.CargarClases5()
+    
             }).catch(error=>{
                 console.log(error)
             })
         },
         async actualizar(){
-            await this.axios.put(`/api/person/${this.$route.params.id}`,this.person).then(response=>{
+            await this.axios.put(`/api/person/`,this.person).then(response=>{
                 this.$router.push({name:"indexPerson"})
             }).catch(error=>{
                 console.log(error)

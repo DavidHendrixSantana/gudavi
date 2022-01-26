@@ -238,7 +238,24 @@ try {
         DB::beginTransaction();
 
         try {
-            $Person->fill($request->post())->save();
+
+            $Persona= Person::where('id', $Person['id'])->update([
+                'nombre' =>$Person['nombre'],
+                'fecha_nacimiento' =>$Person['fecha_nacimiento'],
+                'nombre_papa' =>$Person['nombre_papa'],
+                'edad' =>$Person['edad'],
+                'telefono_papa' =>$Person['telefono_papa'],
+                'nombre_mama' =>$Person['nombre_mama'],
+                'telefono_mama' =>$Person['telefono_mama'],
+                'correo_electronico' =>$Person['correo_electronico'],
+                'nombre_emergencia' =>$Person['nombre_emergencia'],
+                'telefono_emergencia' =>$Person['telefono_emergencia'],
+                'fecha_inicio' =>$Person['fecha_inicio'],
+                'enfermedad' =>$Person['enfermedad'],
+                'nivel' =>$Person['nivel'],
+                'clases_semanales' =>$Person['clases_semanales'],
+                'matricula' =>$Person['matricula'],
+            ]);
 
             $sesion = Sesion::find(1);
     
@@ -246,10 +263,10 @@ try {
                 'Log' => 'Actualizacion de estudiante:  ' . $Person->nombre,
                 'usuario' => $sesion->usuario,
             ]);
+            DB::commit();
     
-            return response()->json($Person);
+            return response()->json($Persona);
 
-        DB::commit();
         } catch (\Throwable $th) {
             DB::rollback();
             return abort(500, $th);
