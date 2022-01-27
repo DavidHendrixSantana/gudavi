@@ -5,7 +5,7 @@
             <div class="card">
                 <div class="card-header"><h4>Editar Alumno:</h4></div>
                 <div class="card-body">
-                    <form @submit.prevent="crear">
+                    <form @submit.prevent="actualizar">
                         <div class="row">
                             <div class="col-4 mb-2">
                                 <div class="form-group">
@@ -611,7 +611,7 @@
                                     type="submit"
                                     class="btn btn-primary btn-lg"
                                 >
-                                    Guardar
+                                    actualizar
                                 </button>
                             </div>
                         </div>
@@ -1126,7 +1126,7 @@ export default {
             })
         },
         async actualizar(){
-            await this.axios.put(`/api/person/`,this.person).then(response=>{
+            await this.axios.put(`/api/actualizarPersona`,this.person).then(response=>{
                 this.$router.push({name:"indexPerson"})
             }).catch(error=>{
                 console.log(error)

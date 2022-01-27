@@ -232,35 +232,90 @@ try {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Person $Person)
+    public function actualizarPersona(Request $request)
     {
-
         DB::beginTransaction();
-
         try {
+         
 
-            $Persona= Person::where('id', $Person['id'])->update([
-                'nombre' =>$Person['nombre'],
-                'fecha_nacimiento' =>$Person['fecha_nacimiento'],
-                'nombre_papa' =>$Person['nombre_papa'],
-                'edad' =>$Person['edad'],
-                'telefono_papa' =>$Person['telefono_papa'],
-                'nombre_mama' =>$Person['nombre_mama'],
-                'telefono_mama' =>$Person['telefono_mama'],
-                'correo_electronico' =>$Person['correo_electronico'],
-                'nombre_emergencia' =>$Person['nombre_emergencia'],
-                'telefono_emergencia' =>$Person['telefono_emergencia'],
-                'fecha_inicio' =>$Person['fecha_inicio'],
-                'enfermedad' =>$Person['enfermedad'],
-                'nivel' =>$Person['nivel'],
-                'clases_semanales' =>$Person['clases_semanales'],
-                'matricula' =>$Person['matricula'],
+            $Persona= Person::where('id', $request['id'])->update([
+                'nombre' =>$request['nombre'],
+                'fecha_nacimiento' =>$request['fecha_nacimiento'],
+                'nombre_papa' =>$request['nombre_papa'],
+                'edad' =>$request['edad'],
+                'telefono_papa' =>$request['telefono_papa'],
+                'nombre_mama' =>$request['nombre_mama'],
+                'telefono_mama' =>$request['telefono_mama'],
+                'correo_electronico' =>$request['correo_electronico'],
+                'nombre_emergencia' =>$request['nombre_emergencia'],
+                'telefono_emergencia' =>$request['telefono_emergencia'],
+                'fecha_inicio' =>$request['fecha_inicio'],
+                'enfermedad' =>$request['enfermedad'],
+                'nivel' =>$request['nivel'],
+                'clases_semanales' =>$request['clases_semanales'],
+                'matricula' =>$request['matricula'],
+                'categoria'=>$request['categoria']
             ]);
+
+            $classes = Day_clase::where('person_id', $request['id'])->get();
+    
+            foreach ($classes as $clase ) {
+                Day_clase::destroy($clase->id);
+    
+                Class_pend::where('id', $clase->id)->delete();
+            }
+    
+            $numero_clases =$request['clases_semanales'];
+            
+        for($x=1; $x<=$numero_clases; $x++){
+
+            $clase_id=$request['clase_id_'.$x];
+            $day_id=$request['day_id_'.$x];
+            $nivel = $request['nivel'];
+
+         for ($i=1; $i <13 ; $i++) { 
+      
+            if($nivel == 'Grupales'){
+         
+
+                Day_clase::create([
+                    'day_teacher_id' => $day_id,
+                    'class_id' =>  $clase_id,
+                    'person_id' => $request['id'],
+                    'status' => 8,
+                    'week_id' => $i,
+                    'grupal' => 1,
+                    'asistencia' => 0,
+    
+                ]);
+
+                Day_clase::create([
+                    'day_teacher_id' => $day_id,
+                    'class_id' =>  $clase_id +1,
+                    'person_id' => $request['id'],
+                    'status' => 8,
+                    'week_id' => $i,
+                    'grupal' => 1,
+                    'asistencia' => 0,
+                ]);
+            } else {
+                Day_clase::create([
+                    'day_teacher_id' => $day_id,
+                    'class_id' =>  $clase_id,
+                    'person_id' => $request['id'],
+                    'status' => 1,
+                    'week_id' => $i,
+                    'grupal' => 0,
+                    'asistencia' => 0,
+                ]);
+            }
+         } 
+        }
 
             $sesion = Sesion::find(1);
     
             Log::create([
-                'Log' => 'Actualizacion de estudiante:  ' . $Person->nombre,
+                'Log' => 'Actualizacion de estudiante:  ' . $request->nombre,
                 'usuario' => $sesion->usuario,
             ]);
             DB::commit();

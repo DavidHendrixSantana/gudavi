@@ -50,7 +50,7 @@ Route::get('logs', [FuncionalController::class, 'logs'])->name('logs');
 Route::post('cambio', [FuncionalController::class, 'cambioClase'])->name('cambio');
 Route::post('cambio2', [FuncionalController::class, 'cambioClasePend'])->name('cambio2');
 Route::post('falta', [FuncionalController::class, 'faltaClase'])->name('falta');
-
+Route::put('actualizarPersona', [PersonController::class, 'actualizarPersona'])->name('actualizar');
 
 
 Route::resource('schedule', App\Http\Controllers\SchedulesController::class)->only(['index','create','store','show','update','destroy']);;
