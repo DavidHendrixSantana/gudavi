@@ -680,6 +680,7 @@ class FuncionalController extends Controller
     public function verifyDay($day){
         date_default_timezone_set('America/Mexico_City');
         $dias = date('t');
+        $fechaActual = date('d-m-Y');
         $dia = Contador::find(1);
         $valor = $dia->actual_day;
         if ( $day != $valor) {
@@ -695,6 +696,11 @@ class FuncionalController extends Controller
                 'total_classes' => 0,
                 'porcentuales' => 0
             ]);
+            if($day==$dias){
+                Pay::where('feacha_vencimiento','<=', $fechaActual)->update([
+                    'status'=>0
+                ]);
+            }
         }
     }
 

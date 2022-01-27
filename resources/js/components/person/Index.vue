@@ -13,8 +13,6 @@
                                     <th>Id</th>
                                     <th>Nombre</th>
                                     <th>Acciones</th>
-                                   
-                         
                                 </tr>
                             </thead>
                             <tbody>
@@ -222,10 +220,6 @@ export default {
                     if(this.status === 0 ){
                         this.showPayValue =true
                     }
-                   
-
-
-
                 })
                 .catch(error => {
                     console.log(error);

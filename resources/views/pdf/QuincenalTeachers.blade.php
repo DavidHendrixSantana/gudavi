@@ -9,7 +9,7 @@ $fpdf->setFillColor(222, 222, 222);
 
 $number_of_teachers = count($Classes_month);
 $fpdf->Rect(10,5, 282, 195);
-$fpdf->Rect(18,32, 270, 100);
+$fpdf->Rect(18,32, 270, 150);
 
     $fpdf->Image('images/logo.jpg',20,10,40,20);
 
@@ -57,7 +57,7 @@ $fpdf->Rect(18,32, 270, 100);
         $fpdf->SetFont('Arial', 'B', 11);
         $fpdf->SetY($i);
         $fpdf->SetX(125);
-        $fpdf->Cell(0,5, $teacher[0]->number,0,1,'L',1);
+        $fpdf->Cell(0,5, $teacher[0]->number/6,0,1,'L',1);
         
 
 

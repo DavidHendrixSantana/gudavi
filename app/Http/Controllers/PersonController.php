@@ -196,7 +196,6 @@ try {
     public function show(Person $Person)
     {
         $clases_person = Day_clase::select('class_id','day_teacher_id')->where('person_id', $Person->id)->distinct()->get();
-       
             for($x=0; $x<sizeof($clases_person); $x++){
                     $teacher_id = Days_teachers::select('teacher_id')->where('id', $clases_person[$x]->day_teacher_id)->first();
                     $y = $x+1;
