@@ -93,7 +93,7 @@ try {
             $nivel = $request['nivel'];
 
          
-         for ($i=1; $i <13 ; $i++) { 
+         for ($i=1; $i <11 ; $i++) { 
       
             if($nivel == 'Grupales'){
          
@@ -272,7 +272,7 @@ try {
             $day_id=$request['day_id_'.$x];
             $nivel = $request['nivel'];
 
-         for ($i=1; $i <13 ; $i++) { 
+         for ($i=1; $i <11 ; $i++) { 
       
             if($nivel == 'Grupales'){
          

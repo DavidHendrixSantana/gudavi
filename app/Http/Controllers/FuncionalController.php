@@ -42,7 +42,8 @@ class FuncionalController extends Controller
 
     public function listado_week($month_id){
         $weeks = Week::where('month_id', $month_id)->get();
-        $first_day=2;
+        $contador = Contador::where('id', 1)->first();
+        $first_day= $contador->last_month_day + 1;
         $last_day_month= 0;
 
         if ($month_id == 1) {
@@ -56,7 +57,6 @@ class FuncionalController extends Controller
             $last_day_month= date('t');
             $ultimo_dia = Contador::where('id', 1)->first();
             $first_day = $ultimo_dia->last_day + 1; 
-
         }
 
         foreach ($weeks as $wek => $value) {
@@ -678,6 +678,8 @@ class FuncionalController extends Controller
     }
 
     public function verifyDay($day){
+        
+        
         date_default_timezone_set('America/Mexico_City');
         $dias = date('t');
         $fechaActual = date('d-m-Y');
@@ -701,6 +703,95 @@ class FuncionalController extends Controller
                     'status'=>0
                 ]);
             }
+        }elseif($day == 1){
+          
+
+            //Cambio del primer mes para respaldar
+            $segundoMes= Day_clase::where('month_id', 1)
+            ->update([
+                'month_id' => 3
+            ]);
+            $segundoMes = Day_clase::where('week_id', 1)
+            -where('status', 1)
+            ->update([
+                'week_id' => 11
+            ]);
+            $segundoMes = Day_clase::where('week_id', 2)
+            -where('status', 1)
+            ->update([
+                'week_id' => 12
+            ]);
+            $segundoMes = Day_clase::where('week_id', 3)
+            -where('status', 1)
+            ->update([
+                'week_id' => 13
+            ]);
+            $segundoMes = Day_clase::where('week_id', 4)
+            -where('status', 1)
+            ->update([
+                'week_id' => 14
+            ]);
+            $segundoMes = Day_clase::where('week_id', 5)
+            -where('status', 1)
+            ->update([
+                'week_id' => 15
+            ]);
+
+            //Cambio del segundo mes al primer mes
+            $segundoMes = Day_clase::where('week_id', 6)
+            ->update([
+                'week_id' => 1
+            ]);
+            $segundoMes = Day_clase::where('week_id', 7)
+            ->update([
+                'week_id' => 2
+            ]);
+            $segundoMes = Day_clase::where('week_id', 8)
+            ->update([
+                'week_id' => 3
+            ]);
+            $segundoMes = Day_clase::where('week_id', 9)
+            ->update([
+                'week_id' => 4
+            ]);
+            $segundoMes = Day_clase::where('week_id', 10)
+            ->update([
+                'week_id' => 5
+            ]);
+
+            $segundoMes = Day_clase::where('month_id', 2)
+            ->update([
+                'month_id' => 1
+            ]);
+
+            //Acomodo del segundo mes
+
+            $segundoMes = Day_clase::where('week_id', 11)
+            ->update([
+                'week_id' => 6
+            ]);
+            $segundoMes = Day_clase::where('week_id', 12)
+            ->update([
+                'week_id' => 7
+            ]);
+            $segundoMes = Day_clase::where('week_id', 13)
+            ->update([
+                'week_id' => 8
+            ]);
+            $segundoMes = Day_clase::where('week_id', 14)
+            ->update([
+                'week_id' => 9
+            ]);
+            $segundoMes = Day_clase::where('week_id', 15)
+            ->update([
+                'week_id' => 10
+            ]);
+            $segundoMes = Day_clase::where('month_id', 3)
+            ->update([
+                'month_id' => 2
+            ]);
+
+
         }
     }
 

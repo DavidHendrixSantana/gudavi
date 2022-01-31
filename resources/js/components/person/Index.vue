@@ -88,7 +88,7 @@
                                         </select>
                                         </div>
                                         <label for="cantidad">Cantidad:</label>
-                                        <input class="form-control" id="cantidad" type="text" v-model="cantidad" disabled>
+                                        <input class="form-control" id="cantidad" type="text" v-model="cantidad" >
                                             <br>
                                             <br>
                                             
