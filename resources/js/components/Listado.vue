@@ -154,6 +154,7 @@
                                   <button style="display: block; width:300px; height: 70px;"
                                       type="button"
                                       class="custom-btn btn-9"
+                                      @click="modal_clase_muestra(clase.clase_id)"
                                  
                                     >
                                       {{ clase.Clase }}
@@ -480,6 +481,56 @@
                         </div>
                     </transition>
          </div>
+         <div v-if="showMuestra">
+                    <transition name="modal">
+                        <div class="modal-mask">
+                            <div class="modal-wrapper">
+                                <div class="modal-dialog"  role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">
+                                              Clase muestra
+                                            </h5>
+                                            <button
+                                                type="button"
+                                                class="close"
+                                                data-dismiss="modal"
+                                                aria-label="Close"
+                                               
+
+                                            >
+                                                <span
+                                                    aria-hidden="true"
+                                                    @click="showMuestra = false"
+                                                    >&times;</span
+                                                >
+                                            </button>
+                                        </div>
+                                        <div class="container" style="margin:10px;">
+                                                Nombre de la persona .
+                                                
+                                                <input v-model="this.PersonaPrueba" type="text"></input>
+                                                <br>
+                                                <hr>
+                                                <button
+                                                type="button"
+                                                class="btn btn-primary"
+                                                @click="GuardarClaseMuestra()"
+                                            >Guardar Clase
+                                                </button>
+                                        </div>
+                                              
+                                        
+
+                                        <div class="modal-footer">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </transition>
+         </div>
         </div>
 
 
@@ -516,6 +567,7 @@ export default {
             claseG: '',
             showGrupal: false,
             turno: "V",
+            showMuestra:false,
             
             person:{
               $first_id:"",
@@ -527,6 +579,8 @@ export default {
               semana_id:"",
               month_id:"",
               motivo: '',
+              claseMuestra:'',
+              PersonaPrueba:'',
             },
             teachers: [],
             days: [],
@@ -819,6 +873,12 @@ export default {
                 console.log(error);
             });
         },
+
+        modal_clase_muestra(clase_id){
+            this.claseMuestra=clase_id
+            this.showMuestra = true
+        },
+
          async presentarFalta(){
           await this.axios.post("/api/falta", this.person)
           .then(response =>{
@@ -831,6 +891,16 @@ export default {
             .catch(error => {
                 console.log(error);
             });
+        },
+        async GuardarClaseMuestra(){
+            await this.axios.post( `/guardarClaseMuestra/${this.teacher_id}/${this.claseMuestra}/${this.PersonaPrueba}`)
+            .then(response =>{
+                const {respuesta} = response.data
+            })
+            .catch(error =>{
+                console.log(error)
+            })
+
         }
     }
 };

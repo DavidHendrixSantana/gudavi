@@ -240,7 +240,7 @@
                                             type="text"
                                             class="form-control"
                                             v-model="person.clases_precio"
-                                            disabled
+                                            
                                             
                                         />
                                     </div>
