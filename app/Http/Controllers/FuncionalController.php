@@ -18,6 +18,7 @@ use App\Models\Teacher_pay;
 use App\Models\AsistenciaT;
 use App\Models\Log;
 use App\Models\MonthAsi;
+use App\Models\ClasseMuestra;
 use Illuminate\Support\Facades\DB;
 use \stdClass;
 
@@ -810,6 +811,27 @@ class FuncionalController extends Controller
             ->get();
 
         return $secondMonth;
+
+        }
+
+
+        public function guardarClaseMuestra($teacher, $clase, $persona){
+            try {
+                DB::beginTransaction();
+                ClasseMuestra::create([]);
+
+
+
+
+
+
+                DB::commit();   
+                //code...
+            } catch (\Throwable $th) {
+                DB::rollback();
+                return abort(500, $th);
+            }
+
 
         }
 

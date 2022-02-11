@@ -509,7 +509,7 @@
                                         <div class="container" style="margin:10px;">
                                                 Nombre de la persona .
                                                 
-                                                <input v-model="this.PersonaPrueba" type="text"></input>
+                                                <input v-model="this.PersonaPrueba" type="text">
                                                 <br>
                                                 <hr>
                                                 <button
@@ -531,7 +531,7 @@
                         </div>
                     </transition>
          </div>
-        </div>
+        
 
 
     </div>
