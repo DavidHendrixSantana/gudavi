@@ -47,15 +47,19 @@ class FuncionalController extends Controller
         $contador = Contador::where('id', 1)->first();
         $first_day= $contador->last_month_day + 1;
         $last_day_month= 0;
+        $last_month=true;
 
         if ($month_id == 1) {
             $total_days= date('t');
-
+            $fecha_actual_formato = strtotime(date("d-m-Y"));
+            $mesAnterior = date("d-m-Y", strtotime("-1 month", $fecha_actual_formato));
+            $total_days_before = date('t', strtotime($mesAnterior));
         } else{                        
             $fecha_actual = strtotime(date("d-m-Y"));
             //sumo 1 mes
             $siguiente_mes = date("d-m-Y", strtotime("+1 month", $fecha_actual));
             $total_days = date('t', strtotime($siguiente_mes));
+            $total_days_before = date('t');
             $last_day_month= date('t');
             $ultimo_dia = Contador::where('id', 1)->first();
             $first_day = $ultimo_dia->last_day + 1; 
@@ -63,9 +67,13 @@ class FuncionalController extends Controller
 
         foreach ($weeks as $wek => $value) {
             $last_day = $first_day +6;
-            if ($last_day > $total_days) {
+            if ( $last_day > $total_days_before && $last_month) {
+                $residuo = $last_day - $total_days_before;
+                $last_day = $residuo ;
+                $last_month=false; 
+            }elseif($last_day > $total_days){
                 $residuo = $last_day - $total_days;
-                $last_day = $residuo ; 
+                $last_day = $residuo ;
             }
             $value['description'] = $first_day . '-'. $last_day ;
             $value['first_day'] = $first_day  ;
@@ -125,7 +133,7 @@ class FuncionalController extends Controller
 
             $Classes = DB::select('select days_classes.id as clase_id, classes.id, persons.id as id_person ,persons.nombre ,classes.Clase, days_classes.status from classes  inner join days_classes on classes.id = days_classes.class_id INNER JOIN persons ON days_classes.person_id =persons.id WHERE days_classes.day_teacher_id = ? and days_classes.week_id = ?', [$id_day, $week]);
            if($turno == "M"){
-            $Classes_general = DB::select('select Clase, valor from classes  where valor > 9.0 and  valor <13');
+            $Classes_general = DB::select('select Clase, valor from classes  where valor > 8.0 and  valor <13');
            }else if($turno  == "V"){
              $Classes_general = DB::select('select Clase, valor from classes  where valor > 12.5');
            }
@@ -815,17 +823,38 @@ class FuncionalController extends Controller
         }
 
 
-        public function guardarClaseMuestra($teacher, $clase, $persona){
+        public function guardarClaseMuestra(Request $request){
             try {
                 DB::beginTransaction();
-                ClasseMuestra::create([]);
+                $teacher_id= $request['teacher_id'];
+                $day_id= $request['day_id'];
+                $clase_id= $request['clase_id'];
+                $week_id= $request['semana_id'];
+                $nombrePrueba= $request['nombrePrueba'];
 
+                $person= Person::create([
+                    'nombre' => $nombrePrueba,
+                    'fecha_inicio' => '2022-02-14',
+                    'nivel' => 'Ninguno',
+                    'clases_semanales' => 1
+                ]);
+        
 
-
-
-
-
-                DB::commit();   
+         
+                
+                $clase = Day_clase::create([
+                        'day_teacher_id' => $day_id,
+                        'class_id' =>  $clase_id,
+                        'person_id' => $person->id,
+                        'week_id' => $week_id,
+                        'status' => 7
+                    ]);
+                
+                    DB::commit();   
+        
+             return response()->json([
+                    'clase' => $clase ,
+                ]) ;
                 //code...
             } catch (\Throwable $th) {
                 DB::rollback();

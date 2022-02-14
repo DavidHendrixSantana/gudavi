@@ -4,17 +4,24 @@
 
     </header>
 <div class="row" style="padding-left:2%;">
+    <br>
+        <div style="padding-left:300px; padding-top:20px; width:80%;">
+                <button type="button" style=" width:50%; font-size:26px;" class="btn-10 "  @click="modal_clase_muestra()" data-bs-toggle="button" >Clase Muestra</button>
+        </div>
            
     <br>
       <div class="row" style=" padding-top:30px; width:80%;">
-       
+         
+
+          <br>
             <div class="col-md-6" v-for="month in months" :key="month.id" style="padding-left:60px; width:80%;" >
               <div class="row" style=" width:80%;">
                 <div class="col-12" style=" width:80%;">
                     <button type="button" style=" width:100%;" class="btn btn-primary btn-lg" data-bs-toggle="button" v-on:click="asignarMes(month.id)" >Mes de: {{month.description}}</button>
                 </div>
               </div>
-            </div>       
+            </div> 
+
         </div>
         <br>
 
@@ -126,13 +133,9 @@
                                 </div>
 
                             <div v-else-if="clase.status == 7"  >
-                                  <button style="display: block; width:300px;  height: 70px;"
+                                  <button style="display: block; width:300px;  height:70px;"
                                       type="button"
-                                      class="custom-btn btn-7"
-                                  
-
-                                      
-                                      >
+                                      class="custom-btn btn-7">
                                       {{ clase.Clase }}
                                       {{ clase.nombre }}
                                   </button>
@@ -154,7 +157,6 @@
                                   <button style="display: block; width:300px; height: 70px;"
                                       type="button"
                                       class="custom-btn btn-9"
-                                      @click="modal_clase_muestra(clase.clase_id)"
                                  
                                     >
                                       {{ clase.Clase }}
@@ -482,55 +484,183 @@
                     </transition>
          </div>
          <div v-if="showMuestra">
-                    <transition name="modal">
-                        <div class="modal-mask">
-                            <div class="modal-wrapper">
-                                <div class="modal-dialog"  role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title">
-                                              Clase muestra
-                                            </h5>
-                                            <button
-                                                type="button"
-                                                class="close"
-                                                data-dismiss="modal"
-                                                aria-label="Close"
-                                               
+            <transition name="modal">
+                <div class="modal-mask">
+                    <div class="modal-wrapper">
+                        <div class="modal-dialog"  role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">
+                                        Agregar Clase Muestra:
+                                    </h5>
+                                    <button
+                                        type="button"
+                                        class="close"
+                                        data-dismiss="modal"
+                                        aria-label="Close"
+                                    >
+                                        <span
+                                            aria-hidden="true"
+                                            @click="showMuestra = false"
+                                            >&times;</span
+                                        >
+                                    </button>
+                                </div>
+                                <div class="container" > 
 
+                    <div class="row">
+                            <div class="col-6 mb-2">
+                             <div class="form-group">
+                                          <label>Mes </label>
+
+                                          <select
+                                              v-model="person.month_id"
+                                              class="form-control"
+                                              name="mes_id"
+                                              id="mes_id"
+                                              @change="mostrarSemanas($event.target.value)"
+                                          >
+                                              <option value="" selected
+                                                  >Seleccione el Mes</option
+                                              >
+                                              <option
+                                                  v-for="month in months"
+                                                  :value="month.id"
+                                                  :key="month.id"
+                                                  >{{ month.description }}
+                                              </option>
+                                          </select>
+                                      </div>
+                            </div>
+                            <div class="col-6 mb-2">
+                                <div class="form-group">
+                                          <label>Semana </label>
+
+                                          <select
+                                              v-model="person.semana_id"
+                                              class="form-control"
+                                              name="semana_id"
+                                              id="semana_id"
+                                          >
+                                              <option value="" selected
+                                                  >Seleccione  La semana</option
+                                              >
+                                              <option
+                                                  v-for="week in weeks"
+                                                  :value="week.id"
+                                                  :key="week.id"
+                                                  >{{ week.description }}
+                                              </option>
+                                          </select>
+                                      </div>
+
+                            </div>
+                    </div>
+                                   
+
+                                       
+
+                                      <div class="form-group">
+                                          <label>Profesor </label>
+
+                                          <select
+                                              v-model="person.teacher_id"
+                                              class="form-control"
+                                              name="teacher_id"
+                                              id="teacher_id"
+                                              @change="mostrarDias($event)"
+
+                                          >
+                                              <option value="" selected
+                                                  >Seleccione el profesor</option
+                                              >
+                                              <option
+                                                  v-for="teacher in teachers"
+                                                  :value="teacher.id"
+                                                  :key="teacher.id"
+                                                  >{{ teacher.nombre }}
+                                              </option>
+                                          </select>
+                                      </div>
+                                     
+
+                                    <div class="row">
+                                 <div class="col-6 mb-2">
+                                     <div class="form-group">
+                                            <label>Días </label>
+
+                                            <select
+                                                v-model="person.day_id"
+                                                class="form-control"
+                                                @change="mostrarClases($event)"
                                             >
-                                                <span
-                                                    aria-hidden="true"
-                                                    @click="showMuestra = false"
-                                                    >&times;</span
+                                                <option value="" selected
+                                                    >Seleccione el Día</option
                                                 >
-                                            </button>
-                                        </div>
-                                        <div class="container" style="margin:10px;">
-                                                Nombre de la persona .
-                                                
-                                                <input v-model="this.PersonaPrueba" type="text">
-                                                <br>
-                                                <hr>
-                                                <button
-                                                type="button"
-                                                class="btn btn-primary"
-                                                @click="GuardarClaseMuestra()"
-                                            >Guardar Clase
-                                                </button>
-                                        </div>
-                                              
+                                                <option
+                                                    v-for="day in days"
+                                                    :value="day.id"
+                                                    :key="day.id"
+                                                    >{{ day.Dia }}
+                                                </option>
+                                            </select>
+                                      </div>
+
                                         
+                                        </div> 
+                                 <div class="col-6 mb-2">
+                                       <div class="form-group">
+                                            <label>Hora de clase: </label>
 
-                                        <div class="modal-footer">
-
+                                            <select
+                                                class="form-control"
+                                                v-model="person.clase_id"
+                                            >
+                                                <option value="" selected
+                                                    >Seleccione la clase</option
+                                                >
+                                                <option
+                                                    v-for="clase in clases"
+                                                    :value="clase.id"
+                                                    :key="clase.id"
+                                                    >{{ clase.Clase }}
+                                                </option>
+                                            </select>
                                         </div>
-                                    </div>
+
+                                        </div> 
+                                        </div> 
+                                      
+                                    
+
+                                        
+                                      <div class="form-group">
+                                          <label>Nombre de la persona </label>
+                                        <br>
+                                        <input type="text" style="width:100%;" name="nombrePrueba" v-model="person.nombrePrueba" id="nombrePrueba">
+                                      </div>
+                                     
+
+                                         <button
+                                        type="button"
+                                        class="btn btn-success"
+                                        @click="saludo()"
+
+                                    >
+                                       Guardar Cambio
+                                    </button>
+
+                                </div>
+
+                                <div class="modal-footer">
+
                                 </div>
                             </div>
                         </div>
-                    </transition>
-         </div>
+                    </div>
+                </div>
+            </transition>
+        </div>
         
 
 
@@ -579,9 +709,18 @@ export default {
               semana_id:"",
               month_id:"",
               motivo: '',
-              claseMuestra:'',
-              PersonaPrueba:'',
+              nombrePrueba: "",
+
             },
+            claseMuestra:{
+                teacher_id: "",
+                day_id: "",
+                clase_id: "",
+                semana_id:"",
+                 month_id:"",
+
+              },
+            PersonaPrueba:'',
             teachers: [],
             days: [],
             clases: [],
@@ -600,6 +739,24 @@ export default {
     },
  
     methods: {
+        async saludo(){
+            console.log(this.person.nombrePrueba);
+        await this.axios.post(`/guardarClaseMuestra`, this.person)
+          .then(response =>{
+            const {clase} =response.data;
+                    this.cargar_clases(this.week_id,this.month_id, this.first_day, this.last_day,this.turno);
+                    this.showModal = false
+
+          })
+            .catch(error => {
+                console.log(error);
+            });
+
+        },
+
+        async GuardarClaseMuestra(){
+
+        },
 
          async paseLista() {
              var matricula = this.matricula
@@ -874,9 +1031,10 @@ export default {
             });
         },
 
-        modal_clase_muestra(clase_id){
-            this.claseMuestra=clase_id
+        modal_clase_muestra(){
             this.showMuestra = true
+            this.mostrarTeachers();
+
         },
 
          async presentarFalta(){
@@ -892,16 +1050,7 @@ export default {
                 console.log(error);
             });
         },
-        async GuardarClaseMuestra(){
-            await this.axios.post( `/guardarClaseMuestra/${this.teacher_id}/${this.claseMuestra}/${this.PersonaPrueba}`)
-            .then(response =>{
-                const {respuesta} = response.data
-            })
-            .catch(error =>{
-                console.log(error)
-            })
 
-        }
     }
 };
 </script>
@@ -1195,7 +1344,35 @@ button {
    7px 7px 20px 0px #0002,
    4px 4px 5px 0px #0001;
 }
+.btn-10{
+  background: rgba(56, 20, 80, 0.959);
+  color: rgb(255, 255, 255);
+  border: solid;
+  border-color: rgb(0, 0, 0);
 
+}
+.btn-10:hover {
+  background: rgb(109, 60, 106);
+  color: rgb(255, 255, 255);
+   box-shrgb(218, 218, 218):
+   -7px -7px 20px 0px #fff9,
+   -4px -4px 5px 0px #fff9,
+   7px 7px 20px 0px #0002,
+   4px 4px 5px 0px #0001;
+}
+
+.custom-btn2 {
+
+  padding: 10px 25px;
+  border: 2px solid #000;
+  font-family: 'Lato', sans-serif;
+  font-weight: 500;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+}
 
 
 /* CSS */

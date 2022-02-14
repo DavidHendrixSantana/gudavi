@@ -28,7 +28,7 @@ Route::get('verifyDay/{day}', [FuncionalController::class, 'verifyDay'])->name('
 Route::get('getFirstHour', [FuncionalController::class, 'getFirstHour'])->name('getFirstHour');
 Route::get('ListaClases/{valorHora}', [FuncionalController::class, 'ListaClases'])->name('ListaClases');
 Route::get('CambioMes', [FuncionalController::class, 'CambioMes'])->name('CambioMes');
-Route::get('guardarClaseMuestra', [FuncionalController::class, 'guardarClaseMuestra'])->name('guardarClaseMuestra');
+Route::post('guardarClaseMuestra', [FuncionalController::class, 'guardarClaseMuestra'])->name('guardarClaseMuestra');
 
 //PDF
 
