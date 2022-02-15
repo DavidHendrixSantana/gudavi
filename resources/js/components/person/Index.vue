@@ -106,12 +106,6 @@
                                     >
                                         Cerrar
                                     </button>
-                                    <button
-                                        type="button"
-                                        class="btn btn-primary"
-                                    >
-                                        Aceptar
-                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -219,6 +213,8 @@ export default {
                    
                     if(this.status === 0 ){
                         this.showPayValue =true
+                    }if(this.status ===1 ){
+                        this.showPayValue =false
                     }
                 })
                 .catch(error => {
@@ -234,6 +230,7 @@ export default {
             console.log(this.PayHistory)
             await this.axios.get(`/api/realizarPago/${this.id_person}/${this.formaPago}/${this.tarjetaPago}/${this.cantidad}`).then(response=>{
                const { respuesta }= response.data
+               this.showModal = false
                  console.log(respuesta)
             }).catch(error=>{
                 console.log(error)

@@ -76,7 +76,7 @@ $fpdf->Rect(18,32, 270, 150);
         $fpdf->SetFont('Arial', 'B', 11);
         $fpdf->SetY($i);
         $fpdf->SetX(245);
-        $pago_porcentual=($teacher[1]->pago_hora*0.8)*$teacher[2]->pendientes;
+        $pago_porcentual=($teacher[1]->pago_hora*1)*$teacher[2]->pendientes;
         $pago_total=$teacher[1]->pago_hora *$teacher[1]->total_classes;
         $pago_total+=$pago_porcentual;
         $fpdf->Cell(0,5, '$'.$pago_total,0,1,'L');

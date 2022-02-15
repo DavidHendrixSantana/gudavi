@@ -418,13 +418,13 @@ try {
             $sesion = Sesion::find(1);
 
             Log::create([
-                'Log' => 'Registro de pago   ' . $pay->fecha_pago,
+                'Log' => 'Registro de pago   ' . $date_now,
                 'usuario' => $sesion->usuario,
             ]);
+            DB::commit();
 
         return response()->json('Guardado');
 
-        DB::commit();
         }catch (\Throwable $th) {
             DB::rollback();
             return abort(500, $th);

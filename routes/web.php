@@ -28,12 +28,13 @@ Route::get('verifyDay/{day}', [FuncionalController::class, 'verifyDay'])->name('
 Route::get('getFirstHour', [FuncionalController::class, 'getFirstHour'])->name('getFirstHour');
 Route::get('ListaClases/{valorHora}', [FuncionalController::class, 'ListaClases'])->name('ListaClases');
 Route::get('CambioMes', [FuncionalController::class, 'CambioMes'])->name('CambioMes');
+Route::post('guardarClaseMuestra', [FuncionalController::class, 'guardarClaseMuestra'])->name('guardarClaseMuestra');
 
 //PDF
 
 Route::get('QuincenalPersons', [PdfController::class, 'ReporterQuincenal'])->name('Quincenal');
 Route::get('ReporteFechas/{forma_pago}/{fecha_inicial}/{fecha_final}', [PdfController::class, 'ReporteFechas'])->name('ReporteFechas');
-Route::get('AsistenciasT', [PdfController::class, 'AsistenciasT'])->name('AsistenciasT');
+Route::get('AsistenciasT/{teacher/{clase}/{persona}', [PdfController::class, 'AsistenciasT'])->name('AsistenciasT');
 
 // Route::get('ReporteFechas/{tipo}/{fechaInicio}/{fechaFinal}', [PdfController::class, 'prueba'])->name('prueba');
 
