@@ -28,10 +28,10 @@
         <div class="row" style=" padding-top:30px; width:80%;">
        
             <div class="col-md-6"  style="padding-left:60px; width:80%;" >
-                    <button type="button" style=" width:100%;" class="btn btn-primary btn-lg" data-bs-toggle="button" v-on:click=" mostrarDatos(2,1,'M')" >Matutino</button>
+                    <button type="button" style=" width:100%;" class="btn btn-primary btn-lg" data-bs-toggle="button" v-on:click=" cargar_horario('M')" >Matutino</button>
             </div>      
             <div class="col-md-6"  style="padding-left:60px; width:80%;" >
-                    <button type="button" style=" width:100%;" class="btn btn-primary btn-lg" data-bs-toggle="button" v-on:click=" mostrarDatos(2,1,'V')" >Vespertino</button>
+                    <button type="button" style=" width:100%;" class="btn btn-primary btn-lg" data-bs-toggle="button" v-on:click=" cargar_horario('V')" >Vespertino</button>
             </div>      
 
         </div>
@@ -826,7 +826,7 @@ export default {
           }else if(this.month_id === 1){
             this.week_id = 1
           }
-          console.log(this.week_id, this.month_id)
+       
 
         this.cargar_clases(this.week_id,this.month_id, this.first_day, this.last_day,this.turno);
         this.mostrarSemanas(month_id)
@@ -858,8 +858,9 @@ export default {
 
             async mostrarDatos(teacher, week,turno) {
                 this.turno = turno
+                var teacher_act = this.teacher_id
             await this.axios
-                .get(`/api/listado/${teacher}/${week}/${this.turno }`)
+                .get(`/api/listado/${teacher_act}/${week}/${this.turno }`)
                 .then(response => {
                     const { Days, Teachers } = response.data;
                     this.Days = Days;
@@ -873,8 +874,7 @@ export default {
         async cargar_clases(week,month, first, last,turno) {
             month =this.month_id
             var teacher = this.teacher_id
-            console.log(teacher)
-            console.log(week)
+            
             await this.axios
                 .get(`/api/listado_teacher/${teacher}/${week}/${month}/${first}/${last}/${turno}`)
                 .then(response => {
@@ -895,6 +895,13 @@ export default {
                 .catch(error => {
                     console.log(error);
                 });
+        },
+        cargar_horario(horario){
+            this.turno = horario
+         this.cargar_clases(this.week_id, this.month_id, this.first_day, this.last_day, this.turno);
+
+
+
         },
 
         show_modal(nombre,id_person, id) {

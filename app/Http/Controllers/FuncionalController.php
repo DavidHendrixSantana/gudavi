@@ -99,7 +99,7 @@ class FuncionalController extends Controller
     }
 
     public function listado_clases($teacher, $week, $turno ){
-        $get_last_teacher = DB::select('select Min(id) as id from teachers');
+        $get_last_teacher = DB::select('select Min(id) as id from teachers ');
         $last_teacher=  $get_last_teacher[0]->id;
         $Teachers =Teacher::all();
         $Horarios = DB::select('select schedules_teachers.Hora_inicio, schedules_teachers.Hora_final FROM teachers inner join schedules_teachers on schedules_teachers.id = teachers.schedule_id  WHERE teachers.id = ?', [$last_teacher]);

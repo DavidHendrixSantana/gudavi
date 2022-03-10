@@ -252,7 +252,6 @@ try {
                 'enfermedad' =>$request['enfermedad'],
                 'nivel' =>$request['nivel'],
                 'clases_semanales' =>$request['clases_semanales'],
-                'matricula' =>$request['matricula'],
                 'categoria'=>$request['categoria']
             ]);
 
