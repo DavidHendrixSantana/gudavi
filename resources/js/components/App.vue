@@ -1,5 +1,10 @@
 <template>
 <div>
+    <audio id="audio" controls>
+        <source type="audio/mp3" src="images/Timbre.mp3">
+        </audio>
+
+
     <div v-if="navbar">
             <nav style="background-color: #006699 "  class="navbar navbar-expand-lg navbar-dark ">
                 <div class="container-fluid">
@@ -118,6 +123,7 @@ export default {
                 setInterval(this.takeMinutes, 60000);
                 this.firstHr();
                 this.verifyDay();
+               
   
             	
 
@@ -183,15 +189,26 @@ export default {
    
    methods: {
 
+
     
        takeMinutes: function(){
            this.pasarLista()
+          this.alarma()
+       },
+       alarma(){
+           console.log("entrando")
+           var audio = document.getElementById("audio");
+
+            audio.play();
        },
 
        async pasarLista(){
+
         var minutes = this.giveMinutes()
            var hour = this.giveHours()
            if(minutes === '30' || minutes === '00' ){
+
+
                var valorHora = `${hour}:${minutes}`
             await this.axios.get(`ListaClases/${valorHora}`).then(
                    console.log('exitoso')
