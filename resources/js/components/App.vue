@@ -193,7 +193,6 @@ export default {
     
        takeMinutes: function(){
            this.pasarLista()
-          this.alarma()
        },
        alarma(){
            console.log("entrando")
@@ -206,8 +205,9 @@ export default {
 
         var minutes = this.giveMinutes()
            var hour = this.giveHours()
-           if(minutes === '30' || minutes === '00' ){
+           if(minutes == '30' || minutes == '00' ){
 
+          this.alarma()
 
                var valorHora = `${hour}:${minutes}`
             await this.axios.get(`ListaClases/${valorHora}`).then(
