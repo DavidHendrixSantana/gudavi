@@ -205,11 +205,9 @@ export default {
 
             var minutes = this.giveMinutes()
            var hour = this.giveHours()
-           console.log(minutes);
+           if(minutes == '30' || minutes == '00' ){
 
-           if(minutes == '00' || minutes == '30' ){            
-
-                 this.alarma()
+          this.alarma()
 
                var valorHora = `${hour}:${minutes}`
             await this.axios.get(`ListaClases/${valorHora}`).then(
