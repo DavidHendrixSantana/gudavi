@@ -675,7 +675,7 @@ class FuncionalController extends Controller
 
     public function logs(){
 
-        $logs = Log::orderBy('id','desc')->get();
+        $logs = Log::orderBy('created_at', 'desc')->get();
         return response()->json($logs);
 
     }

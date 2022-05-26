@@ -122,7 +122,7 @@
                                         type="date"
                                         class="form-control"
                                         v-model="person.fecha_inicio"
-                                        value="2021-01-01"
+                                        value="2021-05-01"
                                     />
                                 </div>
                             </div>
@@ -641,10 +641,10 @@ export default {
                 clases_semanales: "1",
                 telefono_emergencia: "",
                 mesesPagados: '1',
-                fecha_inicio: "2021-01-01",
+                fecha_inicio: "2022-05-01",
                 enfermedad: "",
-                nivel: "Mayor2",
-                clases_precio: 200,
+                nivel: "",
+                clases_precio: "",
                 teacher_id_1: "",
                 teacher_id_2: "",
                 teacher_id_3: "",
@@ -857,36 +857,36 @@ export default {
             if (this.nivel_nado === "Bebes") {
 
                 if (dias == 1) {
-                    this.person.clases_precio =(meses* 650) + 200;
+                    this.person.clases_precio =(meses* 650);
 
                 } else if (dias == 2) {
-                    this.person.clases_precio =(meses* 1150) + 200;
+                    this.person.clases_precio =(meses* 1150);
                 } else if (dias == 3) {
-                    this.person.clases_precio =(meses* 1550) + 200;
+                    this.person.clases_precio =(meses* 1550);
                 }
             }
             if (this.nivel_nado === "Mayor2") {
                 if (dias == 1) {
-                    this.person.clases_precio =(meses* 550) + 200;
+                    this.person.clases_precio =(meses* 550);
                 } else if (dias == 2) {
-                    this.person.clases_precio =(meses* 850) + 200;
+                    this.person.clases_precio =(meses* 850);
                 } else if (dias == 3) {
-                    this.person.clases_precio =(meses* 1150) + 200;
+                    this.person.clases_precio =(meses* 1150);
                 } else if (dias == 4) {
-                    this.person.clases_precio =(meses* 1450) + 200;
+                    this.person.clases_precio =(meses* 1450);
                 } else if (dias == 5) {
-                    this.person.clases_precio =(meses* 1750) + 200;
+                    this.person.clases_precio =(meses* 1750);
                 }
             }
             if (this.nivel_nado === "Grupales") {
                 if (dias=== 1) {
-                    this.person.clases_precio = (meses*600) + 200;
+                    this.person.clases_precio = (meses*600);
                 } else if (dias == 2) {
-                    this.person.clases_precio =(meses*790) + 200;
+                    this.person.clases_precio =(meses*790);
                 } else if (dias == 3) {
-                    this.person.clases_precio = (meses*850) + 200;
+                    this.person.clases_precio = (meses*850);
                 } else if (dias == 5) {
-                    this.person.clases_precio =(meses* 1200) + 200;
+                    this.person.clases_precio =(meses* 1200);
                 }
             }
         

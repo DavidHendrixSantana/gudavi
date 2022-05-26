@@ -1,8 +1,5 @@
 <template>
 <div>
-    <audio id="audio" controls>
-        <source type="audio/mp3" src="images/Timbre.mp3">
-        </audio>
 
 
     <div v-if="navbar">
@@ -56,6 +53,10 @@
                 
                     </div>
                 </div>
+                <audio id="audio" controls>
+                <source type="audio/mp3" src="images/Timbre.mp3">
+                </audio>
+
             </nav>
             <div style="margin:0px; pading:0px;">
                 <router-view></router-view>
@@ -193,10 +194,8 @@ export default {
     
        takeMinutes: function(){
            this.pasarLista()
-          this.alarma()
        },
        alarma(){
-           console.log("entrando")
            var audio = document.getElementById("audio");
 
             audio.play();
@@ -204,10 +203,13 @@ export default {
 
        async pasarLista(){
 
-        var minutes = this.giveMinutes()
+            var minutes = this.giveMinutes()
            var hour = this.giveHours()
-           if(minutes === '30' || minutes === '00' ){
+           console.log(minutes);
 
+           if(minutes == '00' || minutes == '30' ){            
+
+                 this.alarma()
 
                var valorHora = `${hour}:${minutes}`
             await this.axios.get(`ListaClases/${valorHora}`).then(

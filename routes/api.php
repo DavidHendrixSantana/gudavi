@@ -34,6 +34,8 @@ Route::get('semanas/{month_id}', [FuncionalController::class, 'listado_week'])->
 Route::get('listado_teacher/{teacher}/{week}/{month}/{first}/{last}/{turno}', [FuncionalController::class, 'listado_teacher'])->name('listado_teacher');
 Route::get('pago/{id}', [PersonController::class, 'consult_pay'])->name('consult_pay');
 Route::get('realizarPago/{id}/{forma}/{tarjeta}/{cantidad}', [PersonController::class, 'save_pay'])->name('realizarPago');
+Route::get('reembolso/{id}', [PersonController::class, 'reembolso'])->name('reembolso');
+
 
 Route::get('pay', [PayController::class, 'listar_pago'])->name('listar_pago');
 Route::get('clasesMonth', [ReportesController::class, 'consult_month'])->name('clasesMonth');

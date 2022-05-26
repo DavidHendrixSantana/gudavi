@@ -56,7 +56,9 @@ export default {
                 .then(response => {
                     this.logs = response.data;
                           $(document).ready( function () {
-                    $('#logs_table').DataTable();
+                    $('#logs_table').DataTable({
+                         order: [[0, 'desc']],
+                    });
                 } );
               
                 })

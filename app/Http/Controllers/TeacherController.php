@@ -158,7 +158,6 @@ class TeacherController extends Controller
             'tarjeta'=> $request['tarjeta'],
             'emergencia'=> $request['emergencia'],
             'pago_hora'=> $request['pago_hora'],
-            'schedule_id'=> $request['schedule_id'],
         ]);
 
         $sesion = Sesion::find(1);

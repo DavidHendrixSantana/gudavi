@@ -4,38 +4,37 @@
     <div class="row">
       
 
-        <div class="row">
-            <div class="col-lg-12"> <h2> Reportes por fechas</h2> </div>
-            <div class="row">
-                <div class="col-lg-2"> 
+        <div class="col-lg-12"> <h2> Reportes por fechas</h2> </div>
+
+                <div class="col-lg-4"> 
                     <h4>Tipo de pagos :</h4>  
                 
                 </div>
-                <div class="col-lg-2"> 
-                    <select v-model="tipo_pago" name="" id="">
-                        <option value="Ambos">Ambos</option>
-                        <option value="Efectivo">Efectivo</option>
-                        <option value="Tarjeta">Tarjeta</option>
-                    </select> 
-                </div>
-            </div>
+                
+
             <div class="col-lg-4">
-            <label for=""> <h4> Fecha Inicio </h4> </label>
-            <input v-model="fecha_inicio" type="date" name="" id="">
+                <label for=""> <h4> Fecha Inicio </h4> </label>
+                <input v-model="fecha_inicio" type="date" name="" id="">
             </div>
 
             <div class="col-lg-4">
-            <label for=""> <h4> Fecha Final </h4> </label>
-            <input v-model="fecha_final" type="date" name="" id="">
+                <label for=""> <h4> Fecha Final </h4> </label>
+                <input v-model="fecha_final" type="date" name="" id="">
             </div>
-
-            <div class="col-lg-4">
-                 <button to="/QuincenalPersons" @click="reporteFechas" type="button" class="btn btn-success">Generar Reporte</button>
+            <div class="col-lg-6"> 
+                        <select v-model="tipo_pago" name="" id="">
+                            <option value="Ambos">Ambos</option>
+                            <option value="Efectivo">Efectivo</option>
+                            <option value="Tarjeta">Tarjeta</option>
+                        </select> 
             </div>
-
-            <br><br>
+            <div class="col-lg-6">
+                    <button to="/QuincenalPersons" @click="reporteFechas" type="button" class="btn btn-success">Generar Reporte</button>
+            </div>
 
         </div>
+
+            <br><br>
 
        
 
@@ -77,9 +76,9 @@
                                    <button style="display: block; height:50px;"
                                     class="btn btn-danger"
                                     type="button"
-                                    @click="show_modal($event)"
+                                    @click="rembolso(pay.id)"
                                     :value="pay.id"
-                                >
+                                    >
                                    Reembolsar
                                 </button>
                            
@@ -97,10 +96,88 @@
                     <span>Reporte Historico</span> <router-link to="/QuincenalPersons" target="_blank" type="button" class="btn btn-success">Generar Reporte</router-link>
                     
                     </div>
+        </div>
+
+        <div v-if="showReembolso">
+            <transition name="modal">
+                <div class="modal-mask">
+                    <div class="modal-wrapper">
+                        <div class="modal-dialog"  role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">
+                                        Reembolsar pago
+                                    </h5>
+                                    <button
+                                        type="button"
+                                        class="close"
+                                        data-dismiss="modal"
+                                        aria-label="Close"
+                                    >
+                                        <span
+                                            aria-hidden="true"
+                                            @click="showReembolso = false"
+                                            >&times;</span
+                                        >
+                                    </button>
+                                </div>
+                                <div class="container" > 
+                             <div class="form-group">
+
+                                    <label for="">Motivo:</label>
+                                    <br>
+                                   <input style="width:100%;" type="text" name="motivo" id="motivo" v-model="motivo" >
+                                        
+                                </div>
+                                
+                                    
+                                         <button
+                                        type="button"
+                                        class="btn btn-success"
+                                        @click="generarReemboloso()">
+                                       Rembolsar Pago
+                                    </button>
+
+                                </div>
+
+                                <div class="modal-footer">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+            </transition>
+        </div>
     </div>
-    </div>
+
 </template>
+
+<style>
+.modal-mask {
+    position: fixed;
+    z-index: 9998;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: table;
+    transition: opacity 0.3s ease;
+}
+
+.modal-wrapper {
+    display: table-cell;
+    vertical-align: middle;
+    width: 500px;
+
+}
+
+.modal-body{
+    width: 500px;
+
+}
+</style>
 
 <script>
 export default {
@@ -113,6 +190,8 @@ export default {
             tipo_pago: 'Ambos',
             fecha_inicio: '',
             fecha_final: '',
+            showReembolso: false,
+            motivo: ''
         };
     },
     mounted() {
@@ -158,6 +237,21 @@ export default {
         generarReporte(){
             this.axios.get('Quincenal')
             .then();
+        },
+
+        rembolso(id){
+            this.showReembolso = true
+            this.pago = id
+        },
+
+
+         generarReemboloso(){
+         this.axios.get(`/api/reembolso/${this.pago}`)
+          .then()
+            .catch(error => {
+                console.log(error);
+            });
+
         },
     
     }

@@ -80,27 +80,6 @@
                                     />
                                 </div>
                             </div>
-                            <div class="col-4 mb-2">
-                                <div class="form-group">
-                                    <label>Horario </label>
-
-                                    <select
-                                    class="form-control"
-                                        v-model="teacher.schedule_id"
-                                        name="teacher_id"
-                                        id="teacher_id"
-                                    >
-                                        <option
-                                            v-for="schedule in schedules"
-                                            :value="schedule.id"
-                                            :key="schedule.id"
-                                            >{{ schedule.Dia_inicio +'  - '+  schedule.Dia_final }}
-                                           
-                                            </option
-                                        >
-                                    </select>
-                                </div>
-                            </div>
                              <div class="col-4 mb-2">
                                 <div class="form-group">
                                     <label>Pago por hora </label>
@@ -186,7 +165,7 @@ export default {
                 this.teacher.telefono = telefono
                 this.teacher.emergencia = emergencia
                 this.teacher.pago_hora = pago_hora
-                this.teacher.schedule_id =  schedule_id
+
                 
             }).catch(error=>{
                 console.log(error)

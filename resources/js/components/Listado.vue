@@ -3,29 +3,37 @@
     <header>
 
     </header>
-<div class="row" style="padding-left:2%;">
-    <br>
-        <div style="padding-left:300px; padding-top:20px; width:80%;">
-                <button type="button" style=" width:50%; font-size:26px;" class="btn-10 "  @click="modal_clase_muestra()" data-bs-toggle="button" >Clase Muestra</button>
-        </div>
+<div  class="row" style="padding-left:2%;" >
+    <div  style="width:90%;">
+
            
-    <br>
       <div class="row" style=" padding-top:30px; width:80%;">
          
-
-          <br>
-            <div class="col-md-6" v-for="month in months" :key="month.id" style="padding-left:60px; width:80%;" >
+            <div class="col-md-4" style="padding-left:60px; width:80%;" >
               <div class="row" style=" width:80%;">
                 <div class="col-12" style=" width:80%;">
-                    <button type="button" style=" width:100%;" class="btn btn-primary btn-lg" data-bs-toggle="button" v-on:click="asignarMes(month.id)" >Mes de: {{month.description}}</button>
+                <button type="button"  style=" width:100%;  font-size:22px;" class="btn btn-dark btn-lg "  @click="modal_clase_muestra()" data-bs-toggle="button" >Clase Muestra</button>
+                </div>
+              </div>
+            </div> 
+            <div class="col-md-4"  style="padding-left:60px; width:80%;" >
+              <div class="row" style=" width:80%;">
+                <div class="col-12" style=" width:80%;">
+                    <button type="button" style=" width:100%;" class="btn btn-primary btn-lg" data-bs-toggle="button" v-on:click="asignarMes(1)" >Mes de: {{month_description}}</button>
+                </div>
+              </div>
+            </div> 
+            <div class="col-md-4"  style="padding-left:60px; width:80%;" >
+              <div class="row" style=" width:80%;">
+                <div class="col-12" style=" width:80%;">
+                    <button type="button" style=" width:100%;" class="btn btn-primary btn-lg" data-bs-toggle="button" v-on:click="asignarMes(2)" >Mes de: {{month_description2}}</button>
                 </div>
               </div>
             </div> 
 
         </div>
-        <br>
 
-        <div class="row" style=" padding-top:30px; width:80%;">
+        <div class="row" style=" padding-top:10px; width:80%;">
        
             <div class="col-md-6"  style="padding-left:60px; width:80%;" >
                     <button type="button" style=" width:100%;" class="btn btn-primary btn-lg" data-bs-toggle="button" v-on:click=" cargar_horario('M')" >Matutino</button>
@@ -35,6 +43,7 @@
             </div>      
 
         </div>
+    </div>    
     <br>
     <div  style="padding-left:70px; padding-top:30px; width:80%;">
         <div class="row" style="padding:0px; margin:0px;">
@@ -727,6 +736,8 @@ export default {
             months: [],
             weeks: [],
             lastId: '',
+            month_description:'',
+            month_description2:'',
 
         };
     },
@@ -736,9 +747,68 @@ export default {
         this.mostrarSemanas(1);
         this.mostrarDatos(2,1,'V');
         this.lastTeacher()
+        this.mostrarmes()
     },
  
     methods: {
+
+        mostrarmes(){
+            var date = new Date()
+            var mes = date.getMonth()
+            mes +=1 
+            switch(mes) {
+            case 1:
+                this.month_description= "Enero"
+            this.month_description2= "Febrero"
+                break;
+            case 2:
+                this.month_description= "Febrero"
+            this.month_description2= "Marzo"
+                break;
+            case 3:
+                this.month_description= "Marzo"
+            this.month_description2= "Abril"
+                break;
+            case 4:
+                this.month_description= "Abril"
+            this.month_description2= "Mayo"
+                break;
+            case 5:
+                this.month_description= "Mayo"
+            this.month_description2= "Junio"
+                break;
+            case 6:
+                this.month_description= "Junio"
+            this.month_description2= "Julio"
+                break;
+            case 7:
+                this.month_description= "Julio"
+            this.month_description2= "Agosto"
+                break;
+            case 8:
+                this.month_description= "Agosto"
+            this.month_description2= "Septiembre"
+                break;
+            case 9:
+                this.month_description= "Septiembre"
+            this.month_description2= "Octubre"
+                break;
+            case 10:
+                this.month_description= "Octubre"
+            this.month_description2= "Noviembre"
+                break;
+            case 11:
+                this.month_description= "Noviembre"
+            this.month_description2= "Diciembre"
+                break;
+            case 12:
+                this.month_description= "Diciembre"
+                this.month_description2= "Enero"
+                break;
+
+            }
+
+        },
         async saludo(){
             console.log(this.person.nombrePrueba);
         await this.axios.post(`/guardarClaseMuestra`, this.person)
@@ -1063,6 +1133,10 @@ export default {
 </script>
 
 <style>
+#first_nav{
+    background-color:#000000;
+}
+
 .fondo{
   background: rgba(1, 75, 44, 0.356);
 }
@@ -1352,10 +1426,9 @@ button {
    4px 4px 5px 0px #0001;
 }
 .btn-10{
-  background: rgba(56, 20, 80, 0.959);
+  background: #5912cac4;
   color: rgb(255, 255, 255);
-  border: solid;
-  border-color: rgb(0, 0, 0);
+  border-radius: 10px;
 
 }
 .btn-10:hover {

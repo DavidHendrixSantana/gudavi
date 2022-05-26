@@ -431,4 +431,26 @@ try {
        
 
     }
+
+    public function reembolso($id){
+        $sesion = Sesion::find(1);
+
+        try {
+            $history= History::where('id', $id)->first();
+            $cantidad  = $history->cantidad;
+            $history->forceDelete();
+            Log::create([
+                'Log' => 'Pago eliminado '.  $cantidad,
+                'usuario' => $sesion->usuario,
+            ]);
+            return response()->json('Guardado');
+    
+        } catch (\Throwable $th) {
+            return abort(500, $th);
+
+        }
+
+    }
+
+    
 }
