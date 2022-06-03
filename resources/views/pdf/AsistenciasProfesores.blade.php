@@ -3,14 +3,14 @@
     use App\Models\MonthAsi;
 
 
-    $fpdf = new Fpdf('L');
+    $fpdf = new Fpdf('L','pt','Legal');
     $fpdf->AddPage();
-    $fpdf->AddFont('Times');
-    $fpdf->SetFont('Times', 'B', 18);
-    $fpdf->SetY(5);
-	$fpdf->SetX(100);
+    $fpdf->AddFont('helvetica');
+    $fpdf->SetFont('helvetica', 'B', 18);
+    $fpdf->SetY(15);
+	$fpdf->SetX(400);
     $fpdf->Cell(0,5,'- Asistencias Mensuales-',0,1,'L');
-    $fpdf->SetFont('Times', 'B',12);
+    $fpdf->SetFont('helvetica', 'B',12);
     $fpdf->setFillColor(222, 222, 222);
 
 
@@ -24,30 +24,37 @@
     $fpdf->SetX(130);
     $fpdf->cell(0,5, 'Dias', 0,1,'L');
 
-    $fpdf->SetFont('Times', 'B',8);
+    $fpdf->SetFont('helvetica', 'B',14);
     
-    $y = 30;
+    $y = 60;
     $x = 35;
     foreach($Teachers as $teacher){
         $x = 10;
         $fpdf->SetY($y);
         $fpdf->SetX($x);
-        $fpdf->cell(0,8, $teacher->nombre, 0,1,'L',1);
+        $fpdf->SetFont('helvetica', 'B',12);
+        $fpdf->cell(0,35, $teacher->nombre, 0,1,'L',1);
 
         $TeacherAsis= MonthAsi::where('teacher_id', $teacher->id)->get();
+        $cont = 0;
         foreach ($TeacherAsis as $asis ) {
-            $x+=15;
-            $fpdf->SetY($y);
+            if($cont == 0){
+            $x+=80;
+            }
+            $x+=30;
+            $cont++;
+            $fpdf->SetY($y +5);
             $fpdf->SetX($x);
+            $fpdf->SetFont('helvetica', 'B',8);
             $w= $y;
-            $w+=3;
+            $w+=17;
             $fpdf->cell(0,5, $asis->day, 0,1,'L');
             $fpdf->SetY($w);
             $fpdf->SetX($x);
             $fpdf->cell(0,5,  substr($asis->hour, 0, 5), 0,1,'L');
             
         }
-        $y+=10;
+        $y+=40;
 
     }
 

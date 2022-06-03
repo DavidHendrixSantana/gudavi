@@ -227,7 +227,7 @@ export default {
           console.log(tipo)
           var fecha_inicio =this.fecha_inicio
           var fecha_final =this.fecha_final
-               window.location.href = `http://127.0.0.1:8000/ReporteFechas/${tipo}/${fecha_inicio}/${fecha_final}`;
+               window.location.href = `ReporteFechas/${tipo}/${fecha_inicio}/${fecha_final}`;
                 
                     
           

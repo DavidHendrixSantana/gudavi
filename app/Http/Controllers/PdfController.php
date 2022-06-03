@@ -94,13 +94,13 @@ class PdfController extends Controller
     public function ReporteFechas($formaPago, $fechaInicio, $fechaFinal){
 
         try {
-            $pagos = History::select('forma_pago','fecha_pago','tipo_tarjeta','folio','person_id')->whereDate('created_at', '>=', $fechaInicio)->whereDate('created_at', '<=', $fechaFinal)->get(); 
+            $pagos = History::select('forma_pago', 'cantidad', 'fecha_pago','tipo_tarjeta','folio','person_id')->whereDate('created_at', '>=', $fechaInicio)->whereDate('created_at', '<=', $fechaFinal)->get(); 
             foreach($pagos as $pago){
                 $persona =Person::where('id', $pago->person_id)->first();
                 $pago['nombre']=$persona->nombre;
             }
             $Consult = $pagos;
-                $pdf = \PDF::loadView('pdf.QuincelPagosPersons', compact('Consult'));
+                $pdf = \PDF::loadView('pdf.QuincelPagosPersons', compact('Consult', 'fechaInicio', 'fechaFinal' ));
                 return $pdf->download('QuincenalPagosPersons.pdf');
                 
         } catch (Throwable $th) {

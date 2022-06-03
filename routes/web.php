@@ -34,7 +34,7 @@ Route::post('guardarClaseMuestra', [FuncionalController::class, 'guardarClaseMue
 
 Route::get('QuincenalPersons', [PdfController::class, 'ReporterQuincenal'])->name('Quincenal');
 Route::get('ReporteFechas/{forma_pago}/{fecha_inicial}/{fecha_final}', [PdfController::class, 'ReporteFechas'])->name('ReporteFechas');
-Route::get('AsistenciasT/{teacher/{clase}/{persona}', [PdfController::class, 'AsistenciasT'])->name('AsistenciasT');
+Route::get('AsistenciasT', [PdfController::class, 'AsistenciasT'])->name('AsistenciasT');
 
 // Route::get('ReporteFechas/{tipo}/{fechaInicio}/{fechaFinal}', [PdfController::class, 'prueba'])->name('prueba');
 
