@@ -15,6 +15,13 @@ class BarCodeController extends Controller
         return view('pdf.credencial', compact('person'));
     }
 
+    public function printAll(){
+        $persons = Person::all();
+       
+            return view('pdf.credenciales', compact('persons'));
+    
+    }
+
 
     public function credencialT($id)
     {

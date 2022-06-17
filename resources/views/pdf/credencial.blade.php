@@ -57,7 +57,11 @@
            
             
         
-            // $fpdf->Output('D','Credencial.pdf');
-            $fpdf->Output();
+   
+                // $fpdf->Output();
+            $fpdf->Output('D','Credencial.pdf');
+
+                
+        
             exit;
         ?>

@@ -240,6 +240,7 @@ export default {
         },
         imprimirCredencial(id){
             //  window.location.href = `http://localhost/credencial/${id}`;
+            const window = window.location.href
             window.open(`http://localhost/credencial/${id}`)
 
 
