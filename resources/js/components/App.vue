@@ -130,6 +130,8 @@ export default {
 
         },
         mounted(){
+            var currentLocation = window.location.host;
+            console.log(currentLocation)
             var barcode = '';
             var interval;
             document.addEventListener('keydown', function(evt) {
@@ -160,7 +162,7 @@ export default {
                         confirmButtonText: 'Aceptar'
                         })
          
-                    console.log(response)
+                    
                 })
                 .catch(error => {
                     console.log(error);
@@ -185,7 +187,7 @@ export default {
 				return 'shake'
 			}
 			return 'none'
-		}
+		} 
 	},
    
    methods: {
@@ -237,7 +239,8 @@ export default {
         const today = new Date();
            var hoy = today.getDate();
                 if(hoy === 15 || hoy === 30){
-               const win = window.open('http://127.0.0.1:8000/QuincenalPersons', '_blank');
+                    
+               const win = window.open(`${currentLocation}:80/QuincenalPersons`, '_blank');
                 }
               await this.axios.get(`verifyDay/${hoy}`)
            .then(response => {

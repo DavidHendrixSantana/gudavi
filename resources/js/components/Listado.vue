@@ -256,10 +256,12 @@
                                                   >Seleccione el Mes</option
                                               >
                                               <option
-                                                  v-for="month in months"
-                                                  :value="month.id"
-                                                  :key="month.id"
-                                                  >{{ month.description }}
+                                                  value="1"
+                                                  >{{month_description}}
+                                              </option>
+                                              <option
+                                                  value="2"
+                                                  >{{month_description2}}
                                               </option>
                                           </select>
                                       </div>
@@ -533,10 +535,12 @@
                                                   >Seleccione el Mes</option
                                               >
                                               <option
-                                                  v-for="month in months"
-                                                  :value="month.id"
-                                                  :key="month.id"
-                                                  >{{ month.description }}
+                                                  value="1"
+                                                  >{{month_description}}
+                                              </option>
+                                              <option
+                                                  value="2"
+                                                  >{{month_description2}}
                                               </option>
                                           </select>
                                       </div>

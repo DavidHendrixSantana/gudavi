@@ -99,7 +99,7 @@ export default {
 
         imprimirCredencial(id) {
             //  window.location.href = `http://localhost/credencial/${id}`;
-            window.open(`http://localhost/credencialT/${id}`);
+            window.open(`credencialT/${id}`);
         }
     }
 };
