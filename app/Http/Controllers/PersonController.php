@@ -375,8 +375,11 @@ try {
     }
 
     public function ShowClasses($id_day,$id_teacher){
+
         $Horarios = DB::select('select schedules_teachers.Hora_inicio, schedules_teachers.Hora_final FROM teachers inner join schedules_teachers on schedules_teachers.id = teachers.schedule_id  WHERE teachers.id = ?', [$id_teacher]);
+      
         $hora_inicio = $Horarios[0]->Hora_inicio-1;
+        
         $hora_final = $Horarios[0]->Hora_final+2;
 
       
