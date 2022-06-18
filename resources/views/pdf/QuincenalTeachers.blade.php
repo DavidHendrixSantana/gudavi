@@ -57,7 +57,7 @@ $fpdf->Rect(18,32, 270, 150);
         $fpdf->SetFont('Arial', 'B', 11);
         $fpdf->SetY($i);
         $fpdf->SetX(125);
-        $fpdf->Cell(0,5, $teacher[0]->number/6,0,1,'L',1);
+        $fpdf->Cell(0,5, $teacher[0]->number/12,0,1,'L',1);
         
 
 

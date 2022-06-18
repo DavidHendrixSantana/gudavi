@@ -7,6 +7,7 @@
         <div>
             <span style="font-size:23px ">Quincenal -</span>     <router-link to="/QuincenalPersons" target="_blank" type="button" class="btn btn-success">Generar Reporte</router-link>
             <span style="font-size:23px ">Asistencias Mensual -</span>     <router-link to="/AsistenciasT" target="_blank" type="button" class="btn btn-success">Ver asistencias</router-link>
+            <span style="font-size:23px ">Imprimir Credenciales -</span>     <router-link to="/printAll" target="_blank" type="button" class="btn btn-success">Imprimir Credenciales</router-link>
 
 
             <hr>
@@ -23,7 +24,7 @@
                 <tr v-for="valor in result1" :key="valor.index">
                 
                 <td>{{valor[0].name}}</td>
-                <td>{{Math.round(valor[0].number/10)}} </td>
+                <td>{{valor[0].number/12}} </td>
                 <td>{{0}} </td>
                 <td>{{valor[1].total_classes}} </td>
                
