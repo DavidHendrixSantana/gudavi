@@ -547,28 +547,29 @@ class FuncionalController extends Controller
                
                $day = Days_teachers::where('teacher_id',$day_teacher)->where('day_id',$day)->first();
         
-               $validador =  $day_clase = Day_clase::where('day_teacher_id', $day->id)->where('person_id', $persona->id)->where('week_id', $actual_week)->first();
-               
+                $day_clase = Day_clase::where('day_teacher_id', $day->id)->where('person_id', $persona->id)->where('week_id', $actual_week)->first();
+               $validador= $day_clase->asistencia;
 
                $day_clase = Day_clase::where('day_teacher_id', $day->id)->where('person_id', $persona->id)->where('week_id', $actual_week)->update([
                    'asistencia' => 1,
                ]);
 
-
                $asistencia = AsistenciaT::where('teacher_id', $day_teacher)->first();
-        
+               
 
                 if ($asistencia->asistencia == 1) {
 
-                    if($validador->asistencia == 0){
+                    if($validador == 0){
                         $pay_teacher = Teacher_pay::where('teacher_id', $day_teacher)->first();
-        
                         $number = $pay_teacher->total_classes  + 1;
-            
                          $update_pay=  Teacher_pay::where('teacher_id', $day_teacher)->update([
                                 'total_classes' => $number,
                         ]);
-
+                DB::commit();
+                        return $update_pay;
+                        $acutalzacion = "Alumno";
+                    
+        
                     }else{
                         return  response()->json([
                             'Asistencia' => 'Ya registrada'
@@ -577,12 +578,14 @@ class FuncionalController extends Controller
                         );
                     }
 
-                }
-                    DB::commit();
+                }              
+                       
+                return response()->json([
+                    'Asistencia' => $acutalzacion
+                ]); 
+
             
-                    return response()->json([
-                        'Asistencia' => 'Alumno'
-                    ]); 
+            
                 
             }
            

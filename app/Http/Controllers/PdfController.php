@@ -59,8 +59,7 @@ class PdfController extends Controller
             }
 
        
-        return $Classes_month;
-            // $pdf = \PDF::loadView('pdf.QuincenalTeachers', compact('Classes_month'));
+         $pdf = \PDF::loadView('pdf.QuincenalTeachers', compact('Classes_month'));
         
         
         // return $pdf->download('ReporteQuincenal.pdf');
