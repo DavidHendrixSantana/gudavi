@@ -9,24 +9,31 @@
            
       <div class="row" style=" padding-top:30px; width:80%;">
          
-            <div class="col-md-4" style="padding-left:60px; width:80%;" >
+            <div class="col-md-3" style="padding-left:60px; width:80%;" >
               <div class="row" style=" width:80%;">
                 <div class="col-12" style=" width:80%;">
                 <button type="button"  style=" width:100%;  font-size:22px;" class="btn btn-dark btn-lg "  @click="modal_clase_muestra()" data-bs-toggle="button" >Clase Muestra</button>
                 </div>
               </div>
             </div> 
-            <div class="col-md-4"  style="padding-left:60px; width:80%;" >
+            <div class="col-md-3"  style="padding-left:20px; width:80%;" >
               <div class="row" style=" width:80%;">
                 <div class="col-12" style=" width:80%;">
                     <button type="button" style=" width:100%;" class="btn btn-primary btn-lg" data-bs-toggle="button" v-on:click="asignarMes(1)" >Mes de: {{month_description}}</button>
                 </div>
               </div>
             </div> 
-            <div class="col-md-4"  style="padding-left:60px; width:80%;" >
+            <div class="col-md-3"  style="padding-left:20px; width:80%;" >
               <div class="row" style=" width:80%;">
                 <div class="col-12" style=" width:80%;">
                     <button type="button" style=" width:100%;" class="btn btn-primary btn-lg" data-bs-toggle="button" v-on:click="asignarMes(2)" >Mes de: {{month_description2}}</button>
+                </div>
+              </div>
+            </div> 
+            <div class="col-md-3"  style="padding-left:20px; width:80%;" >
+              <div class="row" style=" width:80%;">
+                <div class="col-12" style=" width:80%;">
+                   <h1 style="font-weight:bold; font-size:22px;  " > Semana seleccionada: del {{weeks[week-1].first_day}} al {{weeks[week-1].last_day}} </h1>
                 </div>
               </div>
             </div> 
@@ -742,6 +749,7 @@ export default {
             lastId: '',
             month_description:'',
             month_description2:'',
+            week:'',
 
         };
     },
@@ -749,7 +757,11 @@ export default {
     mounted() {
         this.mostrarMeses();
         this.mostrarSemanas(1);
-        this.mostrarDatos(2,1,'V');
+            var date = new Date()
+            var week = parseInt(date.getDate()/7) +1
+            this.week = week 
+      
+        this.mostrarDatos(2,week,'V');
         this.lastTeacher()
         this.mostrarmes()
     },
@@ -889,7 +901,7 @@ export default {
         this.lastId = teacher
 
 
-         this.cargar_clases(this.week_id, this.month_id, this.first_day, this.last_day, this.turno);
+         this.cargar_clases(this.week, this.month_id, this.first_day, this.last_day, this.turno);
 
 
         },
@@ -902,7 +914,7 @@ export default {
           }
        
 
-        this.cargar_clases(this.week_id,this.month_id, this.first_day, this.last_day,this.turno);
+        this.cargar_clases(this.week,this.month_id, this.first_day, this.last_day,this.turno);
         this.mostrarSemanas(month_id)
         },
 
@@ -948,6 +960,7 @@ export default {
         async cargar_clases(week,month, first, last,turno) {
             month =this.month_id
             var teacher = this.teacher_id
+            this.week = week
             
             await this.axios
                 .get(`/api/listado_teacher/${teacher}/${week}/${month}/${first}/${last}/${turno}`)
@@ -972,7 +985,7 @@ export default {
         },
         cargar_horario(horario){
             this.turno = horario
-         this.cargar_clases(this.week_id, this.month_id, this.first_day, this.last_day, this.turno);
+         this.cargar_clases(this.week, this.month_id, this.first_day, this.last_day, this.turno);
 
 
 

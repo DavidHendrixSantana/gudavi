@@ -549,22 +549,34 @@ class FuncionalController extends Controller
         
                $validador =  $day_clase = Day_clase::where('day_teacher_id', $day->id)->where('person_id', $persona->id)->where('week_id', $actual_week)->first();
                
+
                $day_clase = Day_clase::where('day_teacher_id', $day->id)->where('person_id', $persona->id)->where('week_id', $actual_week)->update([
                    'asistencia' => 1,
                ]);
+
+
                $asistencia = AsistenciaT::where('teacher_id', $day_teacher)->first();
         
-        
+
                 if ($asistencia->asistencia == 1) {
-                    $pay_teacher = Teacher_pay::where('teacher_id', $day_teacher)->first();
+
+                    if($validador->asistencia == 0){
+                        $pay_teacher = Teacher_pay::where('teacher_id', $day_teacher)->first();
         
-                    $number = $pay_teacher->total_classes  + 1;
-        
-                     $update_pay=  Teacher_pay::where('teacher_id', $day_teacher)->update([
-                            'total_classes' => $number,
-                    ]);
-                    
-        
+                        $number = $pay_teacher->total_classes  + 1;
+            
+                         $update_pay=  Teacher_pay::where('teacher_id', $day_teacher)->update([
+                                'total_classes' => $number,
+                        ]);
+
+                    }else{
+                        return  response()->json([
+                            'Asistencia' => 'Ya registrada'
+
+                        ]
+                        );
+                    }
+
                 }
                     DB::commit();
             
@@ -664,7 +676,7 @@ class FuncionalController extends Controller
   
                    
             }
-            return 'entrando';
+            return 'Pase exitoso';
         } catch (\Throwable $th) {
          return $th;
         }
