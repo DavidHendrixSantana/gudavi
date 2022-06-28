@@ -1109,6 +1109,7 @@ export default {
                 this.person.clase_id_3=clase_id_3
                 this.person.clase_id_4=clase_id_4
                 this.person.clase_id_5=clase_id_5
+                console.log(response.data)
 
         this.CargarDias()
         this.CargarDias2()

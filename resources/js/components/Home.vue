@@ -24,7 +24,7 @@
                 <tr v-for="valor in result1" :key="valor.index">
                 
                 <td>{{valor[0].name}}</td>
-                <td>{{valor[0].number/12}} </td>
+                <td>{{valor[0].number/10}} </td>
                 <td>{{0}} </td>
                 <td>{{valor[1].total_classes}} </td>
                
