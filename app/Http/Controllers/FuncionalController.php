@@ -848,12 +848,10 @@ class FuncionalController extends Controller
                     'nombre' => $nombrePrueba,
                     'fecha_inicio' => '2022-02-14',
                     'nivel' => 'Ninguno',
-                    'clases_semanales' => 1
+                    'clases_semanales' => 1,
+                    'estatus' => 0,
                 ]);
-        
 
-         
-                
                 $clase = Day_clase::create([
                         'day_teacher_id' => $day_id,
                         'class_id' =>  $clase_id,

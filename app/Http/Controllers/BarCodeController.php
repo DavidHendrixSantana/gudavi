@@ -16,7 +16,7 @@ class BarCodeController extends Controller
     }
 
     public function printAll(){
-        $persons = Person::all();
+        $persons = Person::where('estatus', null)->get();
        
             return view('pdf.credenciales', compact('persons'));
     

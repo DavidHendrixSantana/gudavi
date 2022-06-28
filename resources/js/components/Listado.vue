@@ -826,7 +826,6 @@ export default {
 
         },
         async saludo(){
-            console.log(this.person.nombrePrueba);
         await this.axios.post(`/guardarClaseMuestra`, this.person)
           .then(response =>{
             const {clase} =response.data;
