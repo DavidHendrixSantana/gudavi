@@ -111,6 +111,7 @@ export default {
       passwordLogin: "",
       user:[],
       showPays:false,
+      barCodeReader:true,
       showTeachersP:false,
       hrNow:"",
       tiempo:"",
@@ -131,24 +132,27 @@ export default {
         },
         mounted(){
             var currentLocation = window.location.host;
-            console.log(currentLocation)
             var barcode = '';
             var interval;
+            if(this.barCodeReader){
             document.addEventListener('keydown', function(evt) {
                 if (interval)
                     clearInterval(interval);
                 if (evt.code == 'Enter') {
-                    if (barcode)
-                       
-                    paseLista(barcode)
+                    this.barCodeReader == false
 
+                    if (barcode)
+                    paseLista(barcode)
                     barcode = '';
+                    
                     return;
                 }
                 if (evt.key != 'Shift')
                     barcode += evt.key;
                 interval = setInterval(() => barcode = '', 20);
             });
+            }
+
 
           async  function  paseLista(matricula) {
 
@@ -161,11 +165,11 @@ export default {
                         icon: 'success',
                         confirmButtonText: 'Aceptar'
                         })
-         
+                    this.barCodeReader == true
                     
                 })
                 .catch(error => {
-                    console.log(error);
+                  
                     Swal.fire({
                         title: 'No se encontraron coindicencias',
                         text: 'Verifique que el alumno y el día sean correctos',

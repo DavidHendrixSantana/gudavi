@@ -12,7 +12,7 @@
             <div class="col-md-3" style="padding-left:60px; width:80%;" >
               <div class="row" style=" width:80%;">
                 <div class="col-12" style=" width:80%;">
-                <button type="button"  style=" width:100%;  font-size:22px;" class="btn btn-dark btn-lg "  @click="modal_clase_muestra()" data-bs-toggle="button" >Clase Muestra</button>
+                <button type="button"  style=" width:100%;  font-size:16px;" class="btn btn-dark btn-lg "  @click="showPaseModal()" data-bs-toggle="button" >Clase Muestra</button>
                 </div>
               </div>
             </div> 
@@ -110,7 +110,7 @@
                             <td v-for="day in Days" :key="day.id" >
                               <div v-for="clase in day.Clases"  :key="clase.id">
                                 <div v-if="clase.status == 1"  >
-                                  <button style="display: block; width:300px;  height: 70px;"
+                                  <button style="display: block; width:200px;  height: 70px;"
                                       type="button"
                                       class="custom-btn btn-1"
                                       @click="show_modal(clase.nombre, clase.id_person, clase.clase_id)">
@@ -119,7 +119,7 @@
                                   </button>
                                 </div>
                                  <div v-else-if="clase.status == 3"  >
-                                  <button style="display: block; width:300px;  height: 70px;"
+                                  <button style="display: block; width:200px;  height: 70px;"
                                       type="button"
                                       class="custom-btn btn-3"
                                       @click="show_modal(clase.nombre, clase.id_person, clase.clase_id)">
@@ -128,7 +128,7 @@
                                   </button>
                                 </div>
                                  <div v-else-if="clase.status == 4"  >
-                                  <button style="display: block; width:300px;  height: 70px;"
+                                  <button style="display: block; width:200px;  height: 70px;"
                                       type="button"
                                       class="custom-btn btn-4"
                                       @click="show_modal(clase.nombre, clase.id_person, clase.clase_id)"
@@ -138,7 +138,7 @@
                                   </button>
                                 </div>
                                 <div v-else-if="clase.status == 5"  >
-                                  <button style="display: block; width:300px;  height: 70px;"
+                                  <button style="display: block; width:200px;  height: 70px;"
                                       type="button"
                                       class="custom-btn btn-5"
                                       
@@ -149,7 +149,7 @@
                                 </div>
 
                             <div v-else-if="clase.status == 7"  >
-                                  <button style="display: block; width:300px;  height:70px;"
+                                  <button style="display: block; width:200px;  height:70px;"
                                       type="button"
                                       class="custom-btn btn-7">
                                       {{ clase.Clase }}
@@ -157,7 +157,7 @@
                                   </button>
                             </div>
                             <div v-else-if="clase.status == 8"  >
-                                  <button style="display: block; width:300px;  height: 70px;"
+                                  <button style="display: block; width:200px;  height: 70px;"
                                       type="button"
                                       class="custom-btn btn-8"
                                       show_modal_grupal
@@ -170,7 +170,7 @@
                             </div>
                                
                                 <div v-else >
-                                  <button style="display: block; width:300px; height: 70px;"
+                                  <button style="display: block; width:200px; height: 70px;"
                                       type="button"
                                       class="custom-btn btn-9"
                                  
@@ -701,7 +701,7 @@ export default {
             cambioClase:false,
             noPresente:false,
             pasarLista:false,
-            lista_al: false,
+            lista_al: true,
             lista_tea:false,
             week_id:1,
             month_id:1,
@@ -842,7 +842,9 @@ export default {
         async GuardarClaseMuestra(){
 
         },
-
+        showPaseModal(){
+            this.pasarLista = true
+        },
          async paseLista() {
              var matricula = this.matricula
              var matriculaT = this.matriculaT
@@ -907,9 +909,13 @@ export default {
         asignarMes(month_id){
         this.month_id = month_id
           if(this.month_id === 2){
-            this.week_id = 6
+            this.week = 6
+            this.month_id = 6
           }else if(this.month_id === 1){
-            this.week_id = 1
+            var date = new Date()
+            var week = parseInt(date.getDate()/7) +1
+            this.week = week 
+      
           }
        
 
@@ -935,9 +941,10 @@ export default {
                 .then(response => {
                     const { Weeks } = response.data;
                     this.weeks =Weeks;
+                    console.log("week"+this.week)
                 })
                 .catch(error => {
-                    console.log(error);
+                    console.log( error);
                 });
         },
 
@@ -1166,7 +1173,7 @@ export default {
 	cursor:pointer;
 	color:#ffffff;
 	font-family:Arial;
-	font-size:15px;
+	font-size:10px;
 	font-weight:bold;
 	padding:6px 24px;
 	text-decoration:none;
@@ -1223,7 +1230,7 @@ export default {
     cursor: pointer;
     color: #ffffff;
     font-family: Arial;
-    font-size: 15px;
+    font-size: 10px;
     padding: 12px 37px;
     text-decoration: none;
     text-shadow: 0px 1px 0px #263666;
@@ -1247,7 +1254,7 @@ export default {
     cursor: pointer;
     color: #ffffff;
     font-family: Arial;
-    font-size: 15px;
+    font-size: 10px;
     padding: 12px 37px;
     text-decoration: none;
     text-shadow: 0px 1px 0px #263666;
@@ -1290,12 +1297,13 @@ button {
   outline: none;
 }
 .custom-btn {
-  width: 130px;
+  width: 80px;
   height: 40px;
   padding: 10px 25px;
   border: 2px solid #000;
   font-family: 'Lato', sans-serif;
   font-weight: 500;
+  font-size: 10px;
   background: transparent;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -1306,6 +1314,8 @@ button {
 .btn-1{
   background: rgb(8, 51, 92);
   color: rgb(255, 255, 255);
+  font-size: 10px;
+
 
 }
 .btn-1:hover {

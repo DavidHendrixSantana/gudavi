@@ -221,6 +221,10 @@ class FuncionalController extends Controller
             $classValueLast = $classValueLast['valor'];
         }
 
+            if($month_id == 2){
+                $week +=5 ;
+            }
+
             $Classes = DB::select('	select days_classes.id as clase_id, persons.id as id_person ,classes.id, persons.nombre ,classes.Clase, days_classes.status from classes  inner join days_classes on classes.id = days_classes.class_id INNER JOIN persons ON days_classes.person_id =persons.id inner join week on week.id = days_classes.week_id  inner join month on month.id= week.month_id WHERE days_classes.day_teacher_id = ? and days_classes.week_id = ? and week.month_id = ?', [$id_day, $week, $month_id]);
             if($turno == "M"){
                 $Classes_general = DB::select('select Clase, valor from classes  where valor >= 9.0 and  valor <13');

@@ -84,7 +84,7 @@
                                     <div class="form-group">
                                           <label>Mes </label>
 
-                                          <select
+                                        <select
                                               v-model="person.month_id"
                                               class="form-control"
                                               name="mes_id"
@@ -95,10 +95,12 @@
                                                   >Seleccione el Mes</option
                                               >
                                               <option
-                                                  v-for="month in months"
-                                                  :value="month.id"
-                                                  :key="month.id"
-                                                  >{{ month.description }}
+                                                  value="1"
+                                                  >{{month_description}}
+                                              </option>
+                                              <option
+                                                  value="2"
+                                                  >{{month_description2}}
                                               </option>
                                           </select>
                                       </div>
@@ -247,17 +249,76 @@ export default {
               semana_id:"",
               month_id:"",
               motivo: '',
+            month_description:'',
+            month_description2:'',
             },
         };
     },
     mounted() {
         this.mostrarPendientes();
         this.mostrarTeachers()
-        this.mostrarMeses();
+        this.mostrarmes();
 
     
     },
     methods: {
+             mostrarmes(){
+            var date = new Date()
+            var mes = date.getMonth()
+            mes +=1 
+            switch(mes) {
+            case 1:
+                this.month_description= "Enero"
+            this.month_description2= "Febrero"
+                break;
+            case 2:
+                this.month_description= "Febrero"
+            this.month_description2= "Marzo"
+                break;
+            case 3:
+                this.month_description= "Marzo"
+            this.month_description2= "Abril"
+                break;
+            case 4:
+                this.month_description= "Abril"
+            this.month_description2= "Mayo"
+                break;
+            case 5:
+                this.month_description= "Mayo"
+            this.month_description2= "Junio"
+                break;
+            case 6:
+                this.month_description= "Junio"
+            this.month_description2= "Julio"
+                break;
+            case 7:
+                this.month_description= "Julio"
+            this.month_description2= "Agosto"
+                break;
+            case 8:
+                this.month_description= "Agosto"
+            this.month_description2= "Septiembre"
+                break;
+            case 9:
+                this.month_description= "Septiembre"
+            this.month_description2= "Octubre"
+                break;
+            case 10:
+                this.month_description= "Octubre"
+            this.month_description2= "Noviembre"
+                break;
+            case 11:
+                this.month_description= "Noviembre"
+            this.month_description2= "Diciembre"
+                break;
+            case 12:
+                this.month_description= "Diciembre"
+                this.month_description2= "Enero"
+                break;
+
+            }
+
+        },
         mostrarPendientes() {
             this.axios
                 .get("/api/pendientes")
