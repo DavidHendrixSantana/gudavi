@@ -30,8 +30,8 @@
                                             :value="person.id "
                                         >Realizar pago.
                                      </button>
-                                <button type="button" class="btn btn-warning">Dar de baja Temporal</button>
-                                <button type="button" @click="borrarPerson(person.id)" class="btn btn-danger">Dar de baja</button>
+                                <button type="button" @click="borrarPerson(person.id)" class="btn btn-warning">Dar de baja Temporal</button>
+                                <!-- <button type="button"  class="btn btn-danger">Dar de baja</button> -->
                                           <button  @click="imprimirCredencial(person.id)"  type="button" class="btn btn-success">Imprimir credencial</button>
 
 

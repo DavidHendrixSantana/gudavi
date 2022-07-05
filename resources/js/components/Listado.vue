@@ -33,7 +33,7 @@
             <div class="col-md-3"  style="padding-left:20px; width:80%;" >
               <div class="row" style=" width:80%;">
                 <div class="col-12" style=" width:80%;">
-                   <h1 style="font-weight:bold; font-size:22px;  " > Semana seleccionada: del {{weeks[week-1].first_day}} al {{weeks[week-1].last_day}} </h1>
+                   <!-- <h1 style="font-weight:bold; font-size:22px;  " > Semana seleccionada: del {{weeks[week-1].first_day}} al {{weeks[week-1].last_day}} </h1> -->
                 </div>
               </div>
             </div> 
@@ -84,7 +84,7 @@
               <div class="col-md-2" v-for="week in weeks" :key="week.id"  style="padding-left:5%; width:100%;"> 
                   <div class="row" style=" width:100%;">
                 <button type="button"
-                  v-on:click="cargar_clases(week.id, week.id, week.first_day, week.last_day, turno)"
+                  v-on:click="cargar_clases(week.id, week.description, week.first_day, week.last_day, turno)"
                 class="btn btn-success " style=" width:200px; height:60px;"  > Semana de : {{week.description}}</button>
 
                 </div>
@@ -909,8 +909,8 @@ export default {
         asignarMes(month_id){
         this.month_id = month_id
           if(this.month_id === 2){
-            this.week = 6
-            this.month_id = 6
+            
+            this.week = 1
           }else if(this.month_id === 1){
             var date = new Date()
             var week = parseInt(date.getDate()/7) +1
@@ -941,7 +941,7 @@ export default {
                 .then(response => {
                     const { Weeks } = response.data;
                     this.weeks =Weeks;
-                    console.log("week"+this.week)
+                    console.log("week"+this.Weeks)
                 })
                 .catch(error => {
                     console.log( error);
@@ -964,6 +964,7 @@ export default {
         },
 
         async cargar_clases(week,month, first, last,turno) {
+            console.log('datos'+ week +month+first+last+turno)
             month =this.month_id
             var teacher = this.teacher_id
             this.week = week
