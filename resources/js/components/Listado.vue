@@ -909,17 +909,13 @@ export default {
         asignarMes(month_id){
         this.month_id = month_id
           if(this.month_id === 2){
-            
-            this.week = 1
+            this.week_id = 6
           }else if(this.month_id === 1){
-            var date = new Date()
-            var week = parseInt(date.getDate()/7) +1
-            this.week = week 
-      
+            this.week_id = 1
           }
        
 
-        this.cargar_clases(this.week,this.month_id, this.first_day, this.last_day,this.turno);
+        this.cargar_clases(this.week_id,this.month_id, this.first_day, this.last_day,this.turno);
         this.mostrarSemanas(month_id)
         },
 
@@ -964,16 +960,15 @@ export default {
         },
 
         async cargar_clases(week,month, first, last,turno) {
-            console.log('datos'+ week +month+first+last+turno)
             month =this.month_id
             var teacher = this.teacher_id
-            this.week = week
-            
+
             await this.axios
                 .get(`/api/listado_teacher/${teacher}/${week}/${month}/${first}/${last}/${turno}`)
                 .then(response => {
                     const { Days } = response.data;
                     this.Days = Days;
+                    console.log(Days)
                 })
                 .catch(error => {
                     console.log(error);
@@ -992,7 +987,7 @@ export default {
         },
         cargar_horario(horario){
             this.turno = horario
-         this.cargar_clases(this.week, this.month_id, this.first_day, this.last_day, this.turno);
+         this.cargar_clases(this.week_id, this.month_id, this.first_day, this.last_day, this.turno);
 
 
 
