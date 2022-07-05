@@ -186,13 +186,16 @@ class FuncionalController extends Controller
           
         ]) ;
     }
+
+
     public function listado_teacher($id, $week, $month_id, $first, $last, $turno){
 
       
         $last_teacher=  $id;
         $Days= DB::select('select days_teachers.id, days.Dia from days inner join days_teachers on days.id = days_teachers.day_id where days_teachers.teacher_id=?',[$last_teacher]);
         $number_of_days = count($Days);
-        $Horarios = DB::select('select schedules_teachers.Hora_inicio, schedules_teachers.Hora_final FROM teachers inner join schedules_teachers on schedules_teachers.id = teachers.schedule_id  WHERE teachers.id = ?', [$last_teacher]);
+        $Horarios = DB::select('select schedules_teachers.Hora_inicio, schedules_teachers.Hora_final FROM teachers inner join schedules_teachers on schedules_teachers.id = teachers.schedule_id
+          WHERE teachers.id = ?', [$last_teacher]);
         $hora_inicio = $Horarios[0]->Hora_inicio -0.5;
         $hora_final = $Horarios[0]->Hora_final +1;
    
@@ -220,10 +223,6 @@ class FuncionalController extends Controller
             $classValueLast = Clase::find($valueLast);
             $classValueLast = $classValueLast['valor'];
         }
-
-            if($month_id == 2){
-                $week +=5 ;
-            }
 
             $Classes = DB::select('	select days_classes.id as clase_id, persons.id as id_person ,classes.id, persons.nombre ,classes.Clase, days_classes.status from classes  inner join days_classes on classes.id = days_classes.class_id INNER JOIN persons ON days_classes.person_id =persons.id inner join week on week.id = days_classes.week_id  inner join month on month.id= week.month_id WHERE days_classes.day_teacher_id = ? and days_classes.week_id = ? and week.month_id = ?', [$id_day, $week, $month_id]);
             if($turno == "M"){

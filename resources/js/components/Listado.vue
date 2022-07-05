@@ -33,7 +33,7 @@
             <div class="col-md-3"  style="padding-left:20px; width:80%;" >
               <div class="row" style=" width:80%;">
                 <div class="col-12" style=" width:80%;">
-                   <!-- <h1 style="font-weight:bold; font-size:22px;  " > Semana seleccionada: del {{weeks[week-1].first_day}} al {{weeks[week-1].last_day}} </h1> -->
+                   <h1 style="font-weight:bold; font-size:22px;  " > Semana seleccionada: del {{firtsValue}} al {{lastValue}} </h1>
                 </div>
               </div>
             </div> 
@@ -749,7 +749,7 @@ export default {
             lastId: '',
             month_description:'',
             month_description2:'',
-            week:'',
+            
 
         };
     },
@@ -757,11 +757,12 @@ export default {
     mounted() {
         this.mostrarMeses();
         this.mostrarSemanas(1);
-            var date = new Date()
-            var week = parseInt(date.getDate()/7) +1
-            this.week = week 
+        var dat = new Date()
+        dat = dat.getDate()
+        this.week_id = parseInt(dat/30) + 1
+        console.log(this.week_id)
       
-        this.mostrarDatos(2,week,'V');
+        this.mostrarDatos(2,this.week_id,'V');
         this.lastTeacher()
         this.mostrarmes()
     },
@@ -902,7 +903,7 @@ export default {
         this.lastId = teacher
 
 
-         this.cargar_clases(this.week, this.month_id, this.first_day, this.last_day, this.turno);
+         this.cargar_clases(this.week_id, this.month_id, this.first_day, this.last_day, this.turno);
 
 
         },
@@ -937,7 +938,10 @@ export default {
                 .then(response => {
                     const { Weeks } = response.data;
                     this.weeks =Weeks;
-                    console.log("week"+this.Weeks)
+                    this.firtsValue = Weeks[0].first_day
+                    this.lastValue = Weeks[0].last_day
+                    
+
                 })
                 .catch(error => {
                     console.log( error);
@@ -963,6 +967,16 @@ export default {
             month =this.month_id
             var teacher = this.teacher_id
 
+
+         
+            for (let index = 0; index < this.weeks.length; index++) {
+                var verify = this.weeks[index].id
+                if(week === verify){
+                    this.firtsValue =this.weeks[index].first_day 
+                    this.lastValue =this.weeks[index].last_day 
+                }
+                
+            }
             await this.axios
                 .get(`/api/listado_teacher/${teacher}/${week}/${month}/${first}/${last}/${turno}`)
                 .then(response => {
