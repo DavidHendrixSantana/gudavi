@@ -512,7 +512,6 @@ class FuncionalController extends Controller
 
                 #ASISTENCIA DE PERSONA
             }else if($person){
-                DB::beginTransaction();
 
             
                 date_default_timezone_set('America/Mexico_City');
