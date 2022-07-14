@@ -306,9 +306,10 @@ export default {
                         this.navbar=true
                         this.verificarRol()
                     }else if(respuesta == 0){
-                        alert('Contraseña incorrecta')
+                       $.notify("CONTRASEÑA INCORRECTA", "error");
                     }else if(respuesta == 3){
-                        alert('Usuario incorrecto')
+                     $.notify(" USUARIO INCORRECTO", "error");
+
                     }
                 })
                 .catch(error => {
@@ -332,7 +333,6 @@ export default {
                         this.timestamp = time;
                     },
             verificarRol(){
-                console.log('verificando')
                 if(this.user.rol === 1){
                     this.showPays=true
                 this.showTeachersP=true

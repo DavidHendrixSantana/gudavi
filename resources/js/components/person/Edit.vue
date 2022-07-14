@@ -843,7 +843,8 @@ export default {
                       this.$router.push({ name: "indexPerson" })
                 })
                 .catch(error => {
-                    console.log(error);
+                     $.notify("ERROR AL EDITAR VERIFIQUE LOS CAMPOS OBLIGATORIOS", "error");
+
                 });
           
         },

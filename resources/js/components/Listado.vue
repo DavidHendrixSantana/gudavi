@@ -12,7 +12,7 @@
             <div class="col-md-3" style="padding-left:60px; width:80%;" >
               <div class="row" style=" width:80%;">
                 <div class="col-12" style=" width:80%;">
-                <button type="button"  style=" width:100%;  font-size:16px;" class="btn btn-dark btn-lg "  @click="showPaseModal()" data-bs-toggle="button" >Clase Muestra</button>
+                <button type="button"  style=" width:100%;  font-size:16px;" class="btn btn-dark btn-lg "  @click="modal_clase_muestra()" data-bs-toggle="button" >Clase Muestra</button>
                 </div>
               </div>
             </div> 
@@ -433,10 +433,11 @@
                                         <div v-if="lista_al" class="modal-body">
                         
 
-                                            <form v-on:submit.prevent="paseLista()" >
-                                                <label for="">Pase de lista Alumno:</label>
+                                            <form  >
+                                                <label for="">Pase de lista Alumnos:</label>
                                                 <input v-model="matricula" type="text">
                                             </form>
+                                            <button class="btn btn-primary" @click="paseLista()" > Pasar Lista</button>
                                         
                                         </div>
                                         <div v-if="lista_tea" class="modal-body">
@@ -822,22 +823,18 @@ export default {
                 this.month_description= "Diciembre"
                 this.month_description2= "Enero"
                 break;
-
             }
-
         },
         async saludo(){
         await this.axios.post(`/guardarClaseMuestra`, this.person)
           .then(response =>{
             const {clase} =response.data;
                     this.cargar_clases(this.week_id,this.month_id, this.first_day, this.last_day,this.turno);
-                    this.showModal = false
-
+                    this.showMuestra = false
           })
             .catch(error => {
-                console.log(error);
+             $.notify("ERROR AL GUARDAR VERIFIQUE QUE HAYA SELECCIONADO TODOS LOS CAMPOS", "error");
             });
-
         },
 
         async GuardarClaseMuestra(){
@@ -853,7 +850,7 @@ export default {
 
              if(this.lista_al){
                       await this.axios
-                .get(`/paseLista/${matricula}`)
+                .get(`/paseListaT/${matricula}`)
                 .then(response => {
                     console.log('Pase Exitoso')
                 })
@@ -1008,9 +1005,6 @@ export default {
         },
 
         show_modal(nombre,id_person, id) {
-          console.log(nombre)
-          console.log(id_person)
-          console.log(id)
             this.person_name=nombre
             this.person.first_id = id;
             this.person.person_id = id_person;

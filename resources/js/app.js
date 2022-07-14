@@ -1,11 +1,15 @@
 require('./bootstrap');
+import notify from './notify.min.js'
 import vue from 'vue'
 import JQuery  from 'jquery'
 import DataTable from 'datatables.net-bs4'
 import Swal from 'sweetalert2'
+import toastr from 'toastr'
 window.Vue = vue;
 window.$ = JQuery
 window.Swal = Swal
+window.notify = notify
+window.toastr = toastr
 window.DataTable = DataTable;
 
 import App from './components/App.vue';
