@@ -168,7 +168,7 @@
                                             <select
                                                 v-model="person.categoria"
                                                 class="form-control"
-                                        
+                                            @change="clase_precio()"
                                                 name="categoria"
                                                 id="categoria"
                                             >
@@ -857,36 +857,37 @@ export default {
             if (this.nivel_nado === "Bebes") {
 
                 if (dias == 1) {
-                    this.person.clases_precio =(meses* 650);
-
+                    this.person.clases_precio =(meses* 700);
                 } else if (dias == 2) {
-                    this.person.clases_precio =(meses* 1150);
+                    this.person.clases_precio =(meses* 1200);
                 } else if (dias == 3) {
-                    this.person.clases_precio =(meses* 1550);
+                    this.person.clases_precio =(meses* 1600);
                 }
             }
             if (this.nivel_nado === "Mayor2") {
                 if (dias == 1) {
-                    this.person.clases_precio =(meses* 550);
+                    this.person.clases_precio =(meses* 600);
                 } else if (dias == 2) {
-                    this.person.clases_precio =(meses* 850);
+                    this.person.clases_precio =(meses* 900);
                 } else if (dias == 3) {
-                    this.person.clases_precio =(meses* 1150);
+                    this.person.clases_precio =(meses* 1200);
                 } else if (dias == 4) {
-                    this.person.clases_precio =(meses* 1450);
+                    this.person.clases_precio =(meses* 1500);
                 } else if (dias == 5) {
-                    this.person.clases_precio =(meses* 1750);
+                    this.person.clases_precio =(meses* 1800);
                 }
             }
             if (this.nivel_nado === "Grupales") {
                 if (dias=== 1) {
-                    this.person.clases_precio = (meses*600);
+                    this.person.clases_precio = (meses*635);
                 } else if (dias == 2) {
-                    this.person.clases_precio =(meses*790);
+                    this.person.clases_precio =(meses*825);
                 } else if (dias == 3) {
-                    this.person.clases_precio = (meses*850);
-                } else if (dias == 5) {
-                    this.person.clases_precio =(meses* 1200);
+                    this.person.clases_precio = (meses*1140);
+                } else if (dias == 4) {
+                    this.person.clases_precio =(meses* 1340);
+                }else if (dias == 5) {
+                    this.person.clases_precio =(meses* 1540);
                 }
             }
         

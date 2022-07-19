@@ -760,8 +760,7 @@ export default {
         this.mostrarSemanas(1);
         var dat = new Date()
         dat = dat.getDate()
-        this.week_id = parseInt(dat/30) + 1
-        console.log(this.week_id)
+        this.week_id = parseInt(dat/7)
       
         this.mostrarDatos(2,this.week_id,'V');
         this.lastTeacher()
@@ -935,8 +934,8 @@ export default {
                 .then(response => {
                     const { Weeks } = response.data;
                     this.weeks =Weeks;
-                    this.firtsValue = Weeks[0].first_day
-                    this.lastValue = Weeks[0].last_day
+                    this.firtsValue = Weeks[this.week_id].first_day
+                    this.lastValue = Weeks[this.week_id].last_day
                     
 
                 })
