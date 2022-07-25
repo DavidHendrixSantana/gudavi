@@ -11,4 +11,6 @@ class Teacher_pay extends Model
     use HasFactory;
     protected $table = 'teachers_pay';
     protected $guarded = [];
+    protected $fillable = ['total_classes', 'porcentuales'];
+
 }

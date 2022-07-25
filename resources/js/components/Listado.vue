@@ -54,14 +54,14 @@
     <br>
     <div  style="padding-left:70px; padding-top:30px; width:80%;">
         <div class="row" style="padding:0px; margin:0px;">
-                <div class="col-lg-2 col-md-3 col-sm-12" v-for="teacher in Teachers" :key="teacher.id" style="padding:0px; margin:0px;">
+                <div class="col-lg-2 col-md-3 col-sm-12" v-for="(teacher, index) in Teachers" :key="teacher.id" style="padding:0px; margin:0px;">
                             <div class="row" style="padding-top:10px; padding-bottom:10px;">
                                     <button
                                     style=" width:80%;" 
                                     type="button"
                                     :value="teacher.id"
                                     :id="'teacher-'+teacher.id"
-                                    class="button-teacher"
+                                    :class=" index===0 ? 'button-teacher-t' : 'button-teacher'"
                                     v-on:click="asignarTeacher(teacher.id)"
                                     data-toggle="button"
                                     aria-pressed="false"
@@ -851,7 +851,7 @@ export default {
                       await this.axios
                 .get(`/paseListaT/${matricula}`)
                 .then(response => {
-                    console.log('Pase Exitoso')
+                    console.log(response.data)
                 })
                 .catch(error => {
                     console.log(error);
@@ -889,17 +889,16 @@ export default {
         }
 
         this.teacher_id = teacher
-           if(this.month_id === 2){
-            this.week_id = 6
-          }else if(this.month_id === 1){
-            this.week_id = 1
-          }
+        //    if(this.month_id === 2){
+        //     this.week_id = 6
+        //   }else if(this.month_id === 1){
+        //     this.week_id = 1
+        //   }
 
         document.getElementById("teacher-"+teacher).classList.toggle('button-teacher-t')
         this.lastId = teacher
-
-
-         this.cargar_clases(this.week_id, this.month_id, this.first_day, this.last_day, this.turno);
+        var weekVal =  this.week_id + 1
+        this.cargar_clases(weekVal, this.month_id, this.first_day, this.last_day, this.turno);
 
 
         },
@@ -907,9 +906,10 @@ export default {
         this.month_id = month_id
           if(this.month_id === 2){
             this.week_id = 6
-          }else if(this.month_id === 1){
-            this.week_id = 1
           }
+        //   else if(this.month_id === 1){
+        //     this.week_id = 1
+        //   }
        
 
         this.cargar_clases(this.week_id,this.month_id, this.first_day, this.last_day,this.turno);
@@ -978,7 +978,6 @@ export default {
                 .then(response => {
                     const { Days } = response.data;
                     this.Days = Days;
-                    console.log(Days)
                 })
                 .catch(error => {
                     console.log(error);
@@ -1041,7 +1040,6 @@ export default {
                 .then(response => {
                     const { teachers } = response.data;
                     this.teachers = teachers;
-                    console.log(teachers);
                 })
                 .catch(error => {
                     console.log(error);
@@ -1135,8 +1133,8 @@ export default {
         },
 
         modal_clase_muestra(){
-            this.showMuestra = true
-            this.mostrarTeachers();
+            this.pasarLista = true
+            // this.mostrarTeachers();
 
         },
 

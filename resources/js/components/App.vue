@@ -217,7 +217,9 @@ export default {
 
                var valorHora = `${hour}:${minutes}`
             await this.axios.get(`ListaClases/${valorHora}`).then(
-                   console.log('exitoso')
+                   response =>{
+                    console.log(response);
+                   }
             ).catch( error =>{
                 console.log(error)
             })
