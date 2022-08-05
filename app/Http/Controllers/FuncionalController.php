@@ -45,6 +45,7 @@ class FuncionalController extends Controller
     public function listado_week($month_id){
         $weeks = Week::where('month_id', $month_id)->get();
         $contador = Contador::where('id', 1)->first();
+     
         $first_day= $contador->last_month_day + 1;
         $last_day_month= 0;
         $last_month=true;
@@ -62,6 +63,7 @@ class FuncionalController extends Controller
             $total_days_before = date('t');
             $last_day_month= date('t');
             $ultimo_dia = Contador::where('id', 1)->first();
+           
             $first_day = $ultimo_dia->last_day + 1; 
         }
 
@@ -74,6 +76,10 @@ class FuncionalController extends Controller
             }elseif($last_day > $total_days){
                 $residuo = $last_day - $total_days;
                 $last_day = $residuo ;
+            }
+
+            if($first_day > 31){
+                $first_day =1;
             }
             $value['description'] = $first_day . '-'. $last_day ;
             $value['first_day'] = $first_day  ;

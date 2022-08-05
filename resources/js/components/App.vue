@@ -104,8 +104,8 @@ export default {
 			login: "vincent",
 			password: "admin"
 		},
-          login:true,
-          navbar:false,
+          login:false,
+          navbar:true,
       registerActive: false,
       emailLogin: "",
       passwordLogin: "",
