@@ -1133,9 +1133,8 @@ export default {
         },
 
         modal_clase_muestra(){
-            this.pasarLista = true
-            // this.mostrarTeachers();
-
+            this.showMuestra = true
+            this.mostrarTeachers();
         },
 
          async presentarFalta(){
