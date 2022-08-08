@@ -16,6 +16,7 @@ use App\Models\Week;
 use App\Models\Contador;
 use App\Models\Teacher_pay;
 use App\Models\AsistenciaT;
+use App\Models\AsisEst;
 use App\Models\Log;
 use App\Models\MonthAsi;
 use App\Models\ClasseMuestra;
@@ -861,7 +862,22 @@ class FuncionalController extends Controller
                 DB::rollback();
                 return abort(500, $th);
             }
+        }
 
+        public function verificarListas(){
+            // $AsistenciaT =AsistenciaT::all();
+
+            $AsistenciaT = DB::select('select at.teacher_id,t.nombre ,at.created_at from asistencia_teacher as at
+            inner JOIN teachers as t on at.teacher_id = t.id where at.asistencia = 1' );
+
+            
+            $AsistenciaA = DB::select('select st.alumno_id,p.nombre, st.created_at from studentasis as st
+            inner join persons as p on p.id = st.alumno_id');
+
+            return response()->json([
+                'teacher' => $AsistenciaT,
+                'alumno' => $AsistenciaA,
+            ]);
 
         }
 

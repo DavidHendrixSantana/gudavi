@@ -3,60 +3,16 @@
     <header>
 
     </header>
-<div  class="row" style="padding-left:2%;" >
-    <div  style="width:90%;">
 
-           
-      <div class="row" style=" padding-top:30px; width:80%;">
-         
-            <div class="col-md-3" style="padding-left:60px; width:80%;" >
-              <div class="row" style=" width:80%;">
-                <div class="col-12" style=" width:80%;">
-                <button type="button"  style=" width:100%;  font-size:16px;" class="btn btn-dark btn-lg "  @click="modal_clase_muestra()" data-bs-toggle="button" >Clase Muestra</button>
-                </div>
-              </div>
-            </div> 
-            <div class="col-md-3"  style="padding-left:20px; width:80%;" >
-              <div class="row" style=" width:80%;">
-                <div class="col-12" style=" width:80%;">
-                    <button type="button" style=" width:100%;" class="btn btn-primary btn-lg" data-bs-toggle="button" v-on:click="asignarMes(1)" >Mes de: {{month_description}}</button>
-                </div>
-              </div>
-            </div> 
-            <div class="col-md-3"  style="padding-left:20px; width:80%;" >
-              <div class="row" style=" width:80%;">
-                <div class="col-12" style=" width:80%;">
-                    <button type="button" style=" width:100%;" class="btn btn-primary btn-lg" data-bs-toggle="button" v-on:click="asignarMes(2)" >Mes de: {{month_description2}}</button>
-                </div>
-              </div>
-            </div> 
-            <div class="col-md-3"  style="padding-left:20px; width:80%;" >
-              <div class="row" style=" width:80%;">
-                <div class="col-12" style=" width:80%;">
-                   <h1 style="font-weight:bold; font-size:22px;  " > Semana seleccionada: del {{firtsValue}} al {{lastValue}} </h1>
-                </div>
-              </div>
-            </div> 
+<div class="container btn-group">
 
-        </div>
+  <button  @click="modal_clase_muestra()" style="border: solid; border-color:black" class="btn btn-primary btn-lg">Clase Muestra</button>
+     <button type="button" style=" width:100%; border: solid; border-color:black " class="btn btn-primary btn-lg active" data-bs-toggle="button" v-on:click="asignarMes(1)" >Mes de: {{month_description}}</button>
+    <button type="button" style=" width:100%; border: solid; border-color:black " class="btn btn-primary btn-lg" data-bs-toggle="button" v-on:click="asignarMes(2)" >Mes de: {{month_description2}}</button>
+</div>
 
-        <div class="row" style=" padding-top:10px; width:80%;">
-       
-            <div class="col-md-6"  style="padding-left:60px; width:80%;" >
-                    <button type="button" style=" width:100%;" class="btn btn-primary btn-lg" data-bs-toggle="button" v-on:click=" cargar_horario('M')" >Matutino</button>
-            </div>      
-            <div class="col-md-6"  style="padding-left:60px; width:80%;" >
-                    <button type="button" style=" width:100%;" class="btn btn-primary btn-lg" data-bs-toggle="button" v-on:click=" cargar_horario('V')" >Vespertino</button>
-            </div>      
-
-        </div>
-    </div>    
-    <br>
-    <div  style="padding-left:70px; padding-top:30px; width:80%;">
-        <div class="row" style="padding:0px; margin:0px;">
-                <div class="col-lg-2 col-md-3 col-sm-12" v-for="(teacher, index) in Teachers" :key="teacher.id" style="padding:0px; margin:0px;">
-                            <div class="row" style="padding-top:10px; padding-bottom:10px;">
-                                    <button
+<div class="container btn-group">
+                                    <button  v-for="(teacher, index) in Teachers" :key="teacher.id"
                                     style=" width:80%;" 
                                     type="button"
                                     :value="teacher.id"
@@ -68,30 +24,28 @@
                                     autocomplete="off">
                                     {{ teacher.nombre }}
                                 </button>
+ 
+</div>
+<div class="container btn-group">
+                <button type="button" style=" width:100%; border: solid; border-color:black " class="btn btn-primary btn-lg" data-bs-toggle="button" v-on:click=" cargar_horario('M')" >Matutino</button>
+                <button type="button" style=" width:100%; border: solid; border-color:black " class="btn btn-primary btn-lg" data-bs-toggle="button" v-on:click=" cargar_horario('V')" >Vespertino</button>
 
-                            </div>
-                        
-                </div>
-        </div>
-    </div><br>
+</div>
+<div class="container btn-group">
+    <div v-for="week in weeks" :key="week.id"  >
+    <button type="button" 
+                    v-on:click="cargar_clases(week.id, week.description, week.first_day, week.last_day, turno)"
+                    class="btn btn-success " style=" width:200px; height:60px; border: solid; border-color:black "  > Semana de : {{week.description}}</button>
+    </div>
 
-        <!-- <div class="btn-group" role="group" aria-label="Basic radio toggle button group" v-for="teacher in Teachers" :key="teacher.id">
-        <input type="radio" class="btn-check" name="btnradio"   v-on:click="cargar_clases($event)" v-model="teacher_id" :id="teacher.id" autocomplete="off">
-        <label class="btn btn-outline-primary" for="teacher.id">{{teacher.nombre}}</label> -->
+</div>
 
-      <div class="row" style=" width:100%;" >
-                
-              <div class="col-md-2" v-for="week in weeks" :key="week.id"  style="padding-left:5%; width:100%;"> 
-                  <div class="row" style=" width:100%;">
-                <button type="button"
-                  v-on:click="cargar_clases(week.id, week.description, week.first_day, week.last_day, turno)"
-                class="btn btn-success " style=" width:200px; height:60px;"  > Semana de : {{week.description}}</button>
 
-                </div>
-              
 
-              </div>
-        </div>
+
+<div  class="row" style="padding-left:2%;" >
+ 
+ 
    
         <br>
 
@@ -110,7 +64,7 @@
                             <td v-for="day in Days" :key="day.id" >
                               <div v-for="clase in day.Clases"  :key="clase.id">
                                 <div v-if="clase.status == 1"  >
-                                  <button style="display: block; width:200px;  height: 70px;"
+                                  <button style="display: block; width:150px;  height: 50px;"
                                       type="button"
                                       class="custom-btn btn-1"
                                       @click="show_modal(clase.nombre, clase.id_person, clase.clase_id)">
@@ -119,7 +73,7 @@
                                   </button>
                                 </div>
                                  <div v-else-if="clase.status == 3"  >
-                                  <button style="display: block; width:200px;  height: 70px;"
+                                  <button style="display: block; width:150px;  height: 50px;"
                                       type="button"
                                       class="custom-btn btn-3"
                                       @click="show_modal(clase.nombre, clase.id_person, clase.clase_id)">
@@ -128,7 +82,7 @@
                                   </button>
                                 </div>
                                  <div v-else-if="clase.status == 4"  >
-                                  <button style="display: block; width:200px;  height: 70px;"
+                                  <button style="display: block; width:150px;  height: 50px;"
                                       type="button"
                                       class="custom-btn btn-4"
                                       @click="show_modal(clase.nombre, clase.id_person, clase.clase_id)"
@@ -138,7 +92,7 @@
                                   </button>
                                 </div>
                                 <div v-else-if="clase.status == 5"  >
-                                  <button style="display: block; width:200px;  height: 70px;"
+                                  <button style="display: block; width:150px;  height: 50px;"
                                       type="button"
                                       class="custom-btn btn-5"
                                       
@@ -149,7 +103,7 @@
                                 </div>
 
                             <div v-else-if="clase.status == 7"  >
-                                  <button style="display: block; width:200px;  height:70px;"
+                                  <button style="display: block; width:150px;  height:50px;"
                                       type="button"
                                       class="custom-btn btn-7">
                                       {{ clase.Clase }}
@@ -157,7 +111,7 @@
                                   </button>
                             </div>
                             <div v-else-if="clase.status == 8"  >
-                                  <button style="display: block; width:200px;  height: 70px;"
+                                  <button style="display: block; width:150px;  height: 50px;"
                                       type="button"
                                       class="custom-btn btn-8"
                                       show_modal_grupal
@@ -170,7 +124,7 @@
                             </div>
                                
                                 <div v-else >
-                                  <button style="display: block; width:200px; height: 70px;"
+                                  <button style="display: block; width:150px; height: 50px;"
                                       type="button"
                                       class="custom-btn btn-9"
                                  
@@ -907,9 +861,9 @@ export default {
           if(this.month_id === 2){
             this.week_id = 6
           }
-        //   else if(this.month_id === 1){
-        //     this.week_id = 1
-        //   }
+          else if(this.month_id === 1){
+            this.week_id = 1
+          }
        
 
         this.cargar_clases(this.week_id,this.month_id, this.first_day, this.last_day,this.turno);

@@ -17,7 +17,7 @@
                         <li class="nav-item">
                             <router-link exact-active-class="active" to="/" class="nav-link" aria-current="page">Inicio</router-link>
                         </li>
-                        <li  v-if="showTeachersP" class="nav-item">
+                        <li   class="nav-item">
                             <router-link exact-active-class="active" to="/listado" class="nav-link">Seguimiento</router-link>
                         </li>   
                         <li class="nav-item">
@@ -104,8 +104,8 @@ export default {
 			login: "vincent",
 			password: "admin"
 		},
-          login:true,
-          navbar:false,
+          login:false,
+          navbar:true,
       registerActive: false,
       emailLogin: "",
       passwordLogin: "",

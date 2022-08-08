@@ -1,5 +1,53 @@
 <template>
     <div class="container">
+        <br><br>
+        <div class="row">
+            <div class="col-6">
+                <h3>Pase de Lista profesores</h3>
+                <table class="table">
+                    <thead>
+                        <th>Pase de lista</th>
+                        <th>Hora de llegada</th>
+                    
+                    </thead>
+                    <tbody>
+                        <tr v-for="value in teacher" :key="value.index">
+                            <td>
+                            {{value.nombre}}
+                            </td>
+                            <td>
+                                {{ value.created_at.substr(11)}}
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-6">
+                <h3>Pase de Lista Alumnos</h3>
+
+                <table class="table">
+                    <thead>
+                        <th>Pase de lista</th>
+                        <th>Hora de llegada</th>
+                    
+                    </thead>
+                    <tbody>
+                  <tr v-for="value in alumno" :key="value.index">
+                            <td>
+                            {{value.nombre}}
+                            </td>
+                            <td>
+                                {{ value.created_at.substr(11)}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+
         <br>
         <h2 align="center">Reportes de clases asignadas e impartidas</h2>
         <br><br>
@@ -50,12 +98,15 @@ export default {
   data(){
       return{
         result1:[],
+        teacher:[],
+        alumno:[],
 
 
       }
   },
     mounted(){
         this.mostrarDatos()
+        this.verifyLista()
 
     },
 
@@ -66,7 +117,19 @@ export default {
                 .then(response => {
                     const { Clases } = response.data;
                     this.result1=Clases
-                    console.log(this.result1)
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        },
+        async verifyLista() {
+            await this.axios
+                .get(`/api/verificarListas`)
+                .then(response => {
+                    const { teacher,alumno } = response.data;
+                    this.teacher=teacher
+                    this.alumno=alumno
+
                 })
                 .catch(error => {
                     console.log(error);
