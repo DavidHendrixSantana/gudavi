@@ -64,3 +64,6 @@ Route::resource('schedule', App\Http\Controllers\SchedulesController::class)->on
 Route::resource('person', App\Http\Controllers\PersonController::class)->only(['index','create','store','show','update','destroy']);;
 
 Route::resource('teacher', App\Http\Controllers\TeacherController::class)->only(['index','create','store','show','update','destroy']);;
+
+
+Route::get('paseListaT/{matricula}', [FuncionalController::class, 'paseListaTeacher'])->name('paseListaTeacher');

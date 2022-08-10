@@ -470,10 +470,12 @@ class FuncionalController extends Controller
 
 
     }
+    
 
 
     public function paseListaTeacher($teacher_mat){
-
+ 
+        
         $teacher = Teacher::where('matricula', $teacher_mat)->first();
         $person = Person::where('matricula', $teacher_mat)->first();
 
@@ -590,13 +592,147 @@ class FuncionalController extends Controller
     
            } catch (\Throwable $th) {
                 DB::rollback();
-                return abort(500, $th);
+                return response()->json([
+                    'Asistencia'=>'Sin coindicencias',
+                    'error' => $th
+                ]);
           }
 
 
        return $asistencia;
 
     }
+
+    // public function paseListaTeacher(Request $request){
+    //     return response()->json([
+
+    //         'Respuesta' => 'Example'
+    //     ]
+    //     );
+        
+    //     $teacher = Teacher::where('matricula', $teacher_mat)->first();
+    //     $person = Person::where('matricula', $teacher_mat)->first();
+
+
+    //     try {
+    //     DB::beginTransaction();
+    //     $actualizacion= '';    
+    //     date_default_timezone_set('America/Mexico_City');
+
+    //         #ASISTENCIA DE Profesor
+    //         if($teacher){
+    //             $asistencia = AsistenciaT::where('teacher_id', $teacher->id)->update([
+    //                 'asistencia' => 1
+    //             ]);
+    //             $verify =  MonthAsi::all();
+    //             $arrayMonth = [];
+    //             $day = [];
+    //             if(count($verify) == 0){
+    //                 $hoy = date("d"); 
+    //                 $hora = date("H:i:s"); 
+    //                 $day['dia'] = $hoy;
+    //                 $day['hora'] = $hora;
+    //                 MonthAsi::create([
+    //                     'day' => $hoy ,
+    //                     'hour' => $hora,
+    //                     'teacher_id' => $teacher->id,
+    //                 ]);
+    //             }else{
+    //                 $hoy = date("d"); 
+    //                 $hora = date("H:i:s"); 
+    //                 $day['dia'] = $hoy;
+    //                 $day['hora'] = $hora;
+    //                 MonthAsi::create([
+    //                     'day' => $hoy ,
+    //                     'hour' => $hora,
+    //                     'teacher_id' => $teacher->id,
+    //                 ]);
+    //             }
+    //             DB::commit();   
+    //             return response()->json([
+    //                 'Asistencia' => 'Teacher'
+    //             ]); 
+
+    //             #ASISTENCIA DE PERSONA
+    //         }else if($person){
+
+    //             date_default_timezone_set('America/Mexico_City');
+    //             $dia_actual = date("j");
+    //             $day = date("N");
+        
+        
+    //             //Calcular los días pasados del ultimo mes con el actual
+    //             $dia = Contador::find(1);
+    //             $last_month_day= $dia->last_month_day;
+    //             $fecha_actual = strtotime(date("d-m-Y"));
+    //             $siguiente_mes = date("d-m-Y", strtotime("-1 month", $fecha_actual));
+    //             $total_days = date('t', strtotime($siguiente_mes));
+    //             $dias_pasados = $total_days-($last_month_day-1);
+    //             $dia_actual += $dias_pasados;
+             
+    //            $persona= Person::where('matricula', $teacher_mat)->first();
+           
+    //             $actual_week = intdiv($dia_actual, 7);
+    //             $actual_week += 1;
+        
+    //            $week = Week::where('description', $actual_week)->where('month_id', 1)->first();
+        
+    //            $day_teacher = DB::select('select dt.teacher_id from days_classes as dc
+    //            inner JOIN days_teachers as dt on dc.day_teacher_id = dt.id  
+    //            inner JOIN days as d on dt.day_id = d.id 
+    //            WHERE dc.week_id=? 
+    //            and dc.person_id =?
+    //            and d.id= ?
+    //            GROUP BY dt.teacher_id ' , [$actual_week, $persona->id, $day]);
+              
+
+    //            $day_teacher = $day_teacher[0]->teacher_id;
+               
+    //            $day = Days_teachers::where('teacher_id',$day_teacher)->where('day_id',$day)->first();
+        
+    //             $day_clase = Day_clase::where('day_teacher_id', $day->id)->where('person_id', $persona->id)->where('week_id', $actual_week)->first();
+    //            $validador= $day_clase->asistencia;
+    //            $day_claseUpdate = Day_clase::where('day_teacher_id', $day->id)->where('person_id', $persona->id)->where('week_id', $actual_week)->update([
+    //                'asistencia' => 1,
+    //            ]);
+
+    //            $asistencia = AsistenciaT::where('teacher_id', $day_teacher)->first();
+    //             if ($asistencia->asistencia == 1) {
+
+    //                 if($validador == 0){
+    //                     $pay_teacher = Teacher_pay::where('teacher_id', $day_teacher)->first();
+    //                     $number = $pay_teacher->total_classes  + 1;
+    //                      $update_pay=  Teacher_pay::where('teacher_id', $day_teacher)->update([
+    //                             'total_classes' => $number,
+    //                     ]);
+    //                  DB::commit();
+    //                  return response()->json([
+    //                     'Asistencia' =>"Alumno"
+    //                 ]);   
+          
+    //                 }else{
+    //                     return  response()->json([
+    //                         'Asistencia' => 'Ya registrada'
+
+    //                     ]  );
+    //                 }
+    //             }                      
+
+    //         }
+           
+    //         return response()->json([
+    //             'Asistencia'=>'Sin coindicencias'
+    //         ]);
+    
+    //        } catch (\Throwable $th) {
+    //             DB::rollback();
+    //             return abort(500, $th);
+    //       }
+
+
+    //    return $asistencia;
+
+    // }
 
     public function getFirstHour(){
         try {
@@ -718,7 +854,7 @@ class FuncionalController extends Controller
         $mes =$contador->mes;
      
 
-        if( $day >= 15 || $day >= 1 && $mes == $mesActual){
+        if( $day >= 15 || $day >= 1 && $mes != $mesActual){
             Teacher_pay::where('id', '!=', 0)->update([
                 'total_classes' => 0,
                 'porcentuales' => 0
