@@ -75,6 +75,10 @@ class FuncionalController extends Controller
                 $residuo = $last_day - $total_days;
                 $last_day = $residuo ;
             }
+            if($first_day > 31 ){
+                $first_day = 01;
+            }
+
             $value['description'] = $first_day . '-'. $last_day ;
             $value['first_day'] = $first_day  ;
             $value['last_day'] = $last_day ;
