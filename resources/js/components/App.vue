@@ -17,7 +17,7 @@
                         <li class="nav-item">
                             <router-link exact-active-class="active" to="/" class="nav-link" aria-current="page">Inicio</router-link>
                         </li>
-                        <li  v-if="showTeachersP" class="nav-item">
+                        <li   class="nav-item">
                             <router-link exact-active-class="active" to="/listado" class="nav-link">Seguimiento</router-link>
                         </li>   
                         <li class="nav-item">
@@ -104,8 +104,8 @@ export default {
 			login: "vincent",
 			password: "admin"
 		},
-          login:true,
-          navbar:false,
+          login:false,
+          navbar:true,
       registerActive: false,
       emailLogin: "",
       passwordLogin: "",
@@ -217,7 +217,9 @@ export default {
 
                var valorHora = `${hour}:${minutes}`
             await this.axios.get(`ListaClases/${valorHora}`).then(
-                   console.log('exitoso')
+                   response =>{
+                    console.log(response);
+                   }
             ).catch( error =>{
                 console.log(error)
             })
@@ -306,9 +308,10 @@ export default {
                         this.navbar=true
                         this.verificarRol()
                     }else if(respuesta == 0){
-                        alert('Contraseña incorrecta')
+                       $.notify("CONTRASEÑA INCORRECTA", "error");
                     }else if(respuesta == 3){
-                        alert('Usuario incorrecto')
+                     $.notify(" USUARIO INCORRECTO", "error");
+
                     }
                 })
                 .catch(error => {
@@ -332,7 +335,6 @@ export default {
                         this.timestamp = time;
                     },
             verificarRol(){
-                console.log('verificando')
                 if(this.user.rol === 1){
                     this.showPays=true
                 this.showTeachersP=true

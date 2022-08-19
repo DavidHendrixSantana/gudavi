@@ -5,12 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Teacher_pay extends Model
+class AsisEst extends Model
 {
-
     use HasFactory;
-    protected $table = 'teachers_pay';
+
+    protected $table = 'studentasis';
     protected $guarded = [];
-    protected $fillable = ['total_classes', 'porcentuales'];
 
 }

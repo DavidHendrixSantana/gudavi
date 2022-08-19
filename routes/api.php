@@ -36,6 +36,9 @@ Route::get('pago/{id}', [PersonController::class, 'consult_pay'])->name('consult
 Route::get('realizarPago/{id}/{forma}/{tarjeta}/{cantidad}', [PersonController::class, 'save_pay'])->name('realizarPago');
 Route::get('reembolso/{id}', [PersonController::class, 'reembolso'])->name('reembolso');
 
+Route::get('verificarListas', [FuncionalController::class, 'verificarListas'])->name('verificarListas');
+
+
 
 Route::get('pay', [PayController::class, 'listar_pago'])->name('listar_pago');
 Route::get('clasesMonth', [ReportesController::class, 'consult_month'])->name('clasesMonth');
@@ -61,3 +64,6 @@ Route::resource('schedule', App\Http\Controllers\SchedulesController::class)->on
 Route::resource('person', App\Http\Controllers\PersonController::class)->only(['index','create','store','show','update','destroy']);;
 
 Route::resource('teacher', App\Http\Controllers\TeacherController::class)->only(['index','create','store','show','update','destroy']);;
+
+
+Route::get('paseListaT/{matricula}', [FuncionalController::class, 'paseListaTeacher'])->name('paseListaTeacher');

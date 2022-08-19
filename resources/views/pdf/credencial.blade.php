@@ -24,6 +24,13 @@
         $fpdf->SetX(1);
         $fpdf->Cell(0,1,'-Tarjeta de acceso-',0,1,'L');
 
+        $fpdf->AddFont('Helvetica');
+        $fpdf->SetFont('Helvetica', '',6);
+        $fpdf->SetY(4.5);
+        $fpdf->SetX(0.8);
+        $fpdf->Multicell(0,0.3, $person->nombre ,0,'L');
+
+
 
         $fpdf->AddFont('Times');
         $fpdf->SetFont('Times', 'B', 12);
@@ -58,8 +65,8 @@
             
         
    
-                // $fpdf->Output();
-            $fpdf->Output('D','Credencial.pdf');
+                $fpdf->Output();
+            // $fpdf->Output('D','Credencial.pdf');
 
                 
         
