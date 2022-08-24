@@ -109,8 +109,38 @@ export default {
         this.verifyLista()
 
     },
+    created(){
+        setInterval(this.takeMinutes, 20000);
+
+    },
 
   methods :{
+
+      takeMinutes: function(){
+             this.axios
+                .get(`/api/clasesMonth`)
+                .then(response => {
+                    const { Clases } = response.data;
+                    this.result1=Clases
+                    console.log('entrando')
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+
+                this.axios
+                .get(`/api/verificarListas`)
+                .then(response => {
+                    const { teacher,alumno } = response.data;
+                    this.teacher=teacher
+                    this.alumno=alumno
+
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+       },
+
         async mostrarDatos() {
             await this.axios
                 .get(`/api/clasesMonth`)

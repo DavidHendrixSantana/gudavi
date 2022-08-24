@@ -6,7 +6,8 @@
 
 <div class="container btn-group">
 
-  <button  @click="modal_clase_muestra()" style="border: solid; border-color:black" class="btn btn-primary btn-lg">Clase Muestra</button>
+  <!-- <button  @click="modal_clase_muestra()" style="border: solid; border-color:black" class="btn btn-primary btn-lg">Clase Muestra</button> -->
+  <button  @click="showPaseModal()" style="border: solid; border-color:black" class="btn btn-primary btn-lg">Clase Muestra</button>
      <button type="button" style=" width:100%; border: solid; border-color:black " class="btn btn-primary btn-lg active" data-bs-toggle="button" v-on:click="asignarMes(1)" >Mes de: {{month_description}}</button>
     <button type="button" style=" width:100%; border: solid; border-color:black " class="btn btn-primary btn-lg" data-bs-toggle="button" v-on:click="asignarMes(2)" >Mes de: {{month_description2}}</button>
 </div>
@@ -714,7 +715,7 @@ export default {
         this.mostrarSemanas(1);
         var dat = new Date()
         dat = dat.getDate()
-        this.week_id = parseInt(dat/7)
+        this.week_id = parseInt(dat/7) + 1
       
         this.mostrarDatos(2,this.week_id,'V');
         this.lastTeacher()
@@ -1376,7 +1377,7 @@ button {
 }
 
 .btn-8{
-  background: rgba(0, 32, 96);
+  background: rgb(84, 118, 185);
   color: rgb(255, 255, 255);
 
 
