@@ -862,9 +862,7 @@ export default {
           if(this.month_id === 2){
             this.week_id = 6
           }
-          else if(this.month_id === 1){
-            this.week_id = 1
-          }
+         
        
 
         this.cargar_clases(this.week_id,this.month_id, this.first_day, this.last_day,this.turno);
