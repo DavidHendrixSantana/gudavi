@@ -850,6 +850,9 @@ class FuncionalController extends Controller
             AsistenciaT::where('asistencia', 1)->update([
                 'asistencia' => 0,
             ]);
+            AsisEst::where('status', '1')->update([
+                'status' => 0
+            ]);
         }
         $mes =$contador->mes;
      
@@ -861,8 +864,13 @@ class FuncionalController extends Controller
                 'total_classes' => 0,
                 'porcentuales' => 0
             ]);
+       
 
-        }elseif($contador->mes != $mesActual && $contador->quincena == 1)  {
+        } elseif ($contador->mes != $mesActual) {
+            MonthAsi::where('id' != '')->delete();
+        }
+        
+        elseif($contador->mes != $mesActual && $contador->quincena == 1)  {
             Contador::where('id', 1)->update([
                 'quincena' => 0
             ]);
@@ -1031,7 +1039,7 @@ class FuncionalController extends Controller
 
             
             $AsistenciaA = DB::select('select st.alumno_id,p.nombre, st.created_at from studentasis as st
-            inner join persons as p on p.id = st.alumno_id');
+            inner join persons as p on p.id = st.alumno_id where st.status = 1');
 
             return response()->json([
                 'teacher' => $AsistenciaT,

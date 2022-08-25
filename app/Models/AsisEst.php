@@ -11,6 +11,6 @@ class AsisEst extends Model
 
     protected $table = 'studentasis';
     protected $guarded = [];
-    protected $fillable = ['alumno_id'];
+    protected $fillable = ['alumno_id','status'];
 
 }
