@@ -874,27 +874,27 @@ class FuncionalController extends Controller
 
             //Cambio del primer mes para respaldar
             $segundoMes = Day_clase::where('week_id', 1)
-            ->where('status', 1)
+            ->where('status', 7)
             ->update([
                 'week_id' => 11
             ]);
             $segundoMes = Day_clase::where('week_id', 2)
-            ->where('status', 1)
+            ->where('status', 7)
             ->update([
                 'week_id' => 12
             ]);
             $segundoMes = Day_clase::where('week_id', 3)
-            ->where('status', 1)
+            ->where('status', 7)
             ->update([
                 'week_id' => 13
             ]);
             $segundoMes = Day_clase::where('week_id', 4)
-            ->where('status', 1)
+            ->where('status', 7)
             ->update([
                 'week_id' => 14
             ]);
             $segundoMes = Day_clase::where('week_id', 5)
-            ->where('status', 1)
+            ->where('status', 7)
             ->update([
                 'week_id' => 15
             ]);
