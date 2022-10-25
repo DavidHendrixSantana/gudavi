@@ -11,5 +11,6 @@ class AsistenciaT extends Model
 
     protected $table = 'asistencia_teacher';
     protected $guarded = [];
+    protected $fillable = ['asistencia'];
 
 }

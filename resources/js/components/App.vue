@@ -134,24 +134,24 @@ export default {
             var currentLocation = window.location.host;
             var barcode = '';
             var interval;
-            if(this.barCodeReader){
-            document.addEventListener('keydown', function(evt) {
-                if (interval)
-                    clearInterval(interval);
-                if (evt.code == 'Enter') {
-                    this.barCodeReader == false
+            // if(this.barCodeReader){
+            // document.addEventListener('keydown', function(evt) {
+            //     if (interval)
+            //         clearInterval(interval);
+            //     if (evt.code == 'Enter') {
+            //         this.barCodeReader == false
 
-                    if (barcode)
-                    paseLista(barcode)
-                    barcode = '';
+            //         if (barcode)
+            //         paseLista(barcode)
+            //         barcode = '';
                     
-                    return;
-                }
-                if (evt.key != 'Shift')
-                    barcode += evt.key;
-                interval = setInterval(() => barcode = '', 20);
-            });
-            }
+            //         return;
+            //     }
+            //     if (evt.key != 'Shift')
+            //         barcode += evt.key;
+            //     interval = setInterval(() => barcode = '', 20);
+            // });
+            // }
 
 
           async  function  paseLista(matricula) {
