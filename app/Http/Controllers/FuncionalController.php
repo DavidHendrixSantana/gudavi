@@ -570,6 +570,7 @@ class FuncionalController extends Controller
                         ]);
                         AsisEst::create([
                             'alumno_id' => $persona->id,
+                            'status' => 1
                         ]);
                      DB::commit();
                      return response()->json([

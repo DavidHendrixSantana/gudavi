@@ -6,8 +6,8 @@
 
 <div class="container btn-group">
 
-  <!-- <button  @click="modal_clase_muestra()" style="border: solid; border-color:black" class="btn btn-primary btn-lg">Clase Muestra</button> -->
-  <button  @click="showPaseModal()" style="border: solid; border-color:black" class="btn btn-primary btn-lg">Clase Muestra</button>
+  <button  @click="modal_clase_muestra()" style="border: solid; border-color:black" class="btn btn-primary btn-lg">Clase Muestra</button>
+  <!-- <button  @click="showPaseModal()" style="border: solid; border-color:black" class="btn btn-primary btn-lg">Clase Muestra</button> -->
      <button type="button" style=" width:100%; border: solid; border-color:black " class="btn btn-primary btn-lg active" data-bs-toggle="button" v-on:click="asignarMes(1)" >Mes de: {{month_description}}</button>
     <button type="button" style=" width:100%; border: solid; border-color:black " class="btn btn-primary btn-lg" data-bs-toggle="button" v-on:click="asignarMes(2)" >Mes de: {{month_description2}}</button>
 </div>
@@ -852,8 +852,8 @@ export default {
 
         document.getElementById("teacher-"+teacher).classList.toggle('button-teacher-t')
         this.lastId = teacher
-        var weekVal =  this.week_id + 1
-        this.cargar_clases(weekVal, this.month_id, this.first_day, this.last_day, this.turno);
+    
+        this.cargar_clases(this.week_id, this.month_id, this.first_day, this.last_day, this.turno);
 
 
         },
