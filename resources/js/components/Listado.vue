@@ -12,8 +12,9 @@
     <button type="button" style=" width:100%; border: solid; border-color:black " class="btn btn-primary btn-lg" data-bs-toggle="button" v-on:click="asignarMes(2)" >Mes de: {{month_description2}}</button>
 </div>
 
-<div class="container btn-group">
-                                    <button  v-for="(teacher, index) in Teachers" :key="teacher.id"
+
+
+                                    <!-- <button  v-for="(teacher, index) in Teachers" :key="teacher.id"
                                     style=" width:80%;" 
                                     type="button"
                                     :value="teacher.id"
@@ -25,29 +26,41 @@
                                     autocomplete="off">
                                     {{ teacher.nombre }}
                                 </button>
- 
-</div>
+  -->
 <div class="container btn-group">
                 <button type="button" style=" width:100%; border: solid; border-color:black " class="btn btn-primary btn-lg" data-bs-toggle="button" v-on:click=" cargar_horario('M')" >Matutino</button>
                 <button type="button" style=" width:100%; border: solid; border-color:black " class="btn btn-primary btn-lg" data-bs-toggle="button" v-on:click=" cargar_horario('V')" >Vespertino</button>
 
 </div>
-<div class="container btn-group">
+<!-- <div class="container btn-group">
     <div v-for="week in weeks" :key="week.id"  >
     <button type="button" 
                     v-on:click="cargar_clases(week.id, week.description, week.first_day, week.last_day, turno)"
                     class="btn btn-success " style=" width:200px; height:60px; border: solid; border-color:black "  > Semana de : {{week.description}}</button>
     </div>
 
+</div> -->
+
+<div class="row ml-3 mb-3">
+    <div class="col-3">
+          <label for="" class="" >Profesores</label>
+    <select name="" @change="asignarTeacher($event)" style="width:100%;" class="form-control">
+        <option :value="teacher.id"  v-for="(teacher, index) in Teachers" :key="teacher.id"  > {{teacher.nombre}}</option>
+    </select>
+    </div>
+    <div class="col-3">
+            <label for="" class="" >Semanas</label>
+    <select name="" @change="cargar_clasesWeek($event)"   class="form-control">
+        <option :value="week.id"  style="width:150px;" v-for="week in weeks" :key="week.id"  > {{week.description}}</option>
+    </select>
+    </div>
 </div>
 
 
 
 
 <div  class="row" style="padding-left:2%;" >
- 
- 
-   
+
         <br>
 
         <div class="row">
@@ -831,17 +844,12 @@ export default {
        
         },
 
-        asignarTeacher(teacher){
+        asignarTeacher(event){
+            const teacher  =event.target.value
+            console.log(teacher)
+
         var id ='teacher-'+this.lastId
-        if(this.lastId != ''){
-            document.getElementById(`${id}`).classList.remove('button-teacher-t')
-            document.getElementById(`${id}`).classList.add('button-teacher')
-        }else{
-             var id ='teacher-'+this.teacher_id
-            document.getElementById(`${id}`).classList.remove('button-teacher-t')
-            document.getElementById(`${id}`).classList.add('button-teacher')
-            
-        }
+
 
         this.teacher_id = teacher
         //    if(this.month_id === 2){
@@ -850,7 +858,7 @@ export default {
         //     this.week_id = 1
         //   }
 
-        document.getElementById("teacher-"+teacher).classList.toggle('button-teacher-t')
+   
         this.lastId = teacher
     
         this.cargar_clases(this.week_id, this.month_id, this.first_day, this.last_day, this.turno);
@@ -928,6 +936,33 @@ export default {
             }
             await this.axios
                 .get(`/api/listado_teacher/${teacher}/${week}/${month}/${first}/${last}/${turno}`)
+                .then(response => {
+                    const { Days } = response.data;
+                    this.Days = Days;
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        },
+        async cargar_clasesWeek(event) {
+            const week = event.target.value
+            console.log(week)
+            var teacher = this.teacher_id
+
+
+         
+            for (let index = 0; index < this.weeks.length; index++) {
+                var verify = this.weeks[index].id
+                if(week === verify){
+                    console.log(week)
+
+                    this.firtsValue =this.weeks[index].first_day 
+                    this.lastValue =this.weeks[index].last_day 
+                }
+                
+            }
+            await this.axios
+                .get(`/api/listado_teacher/${teacher}/${week}/${this.month_id}/${this.firtsValue}/${this.lastValue}/${this.turno}`)
                 .then(response => {
                     const { Days } = response.data;
                     this.Days = Days;

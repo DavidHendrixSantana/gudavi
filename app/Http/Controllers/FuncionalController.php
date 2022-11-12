@@ -975,6 +975,83 @@ class FuncionalController extends Controller
 
 
 
+            //Cambio del primer mes para respaldar
+            $segundoMes = Day_clase::where('week_id', 1)
+            ->where('status', 7)
+            ->update([
+                'week_id' => 11
+            ]);
+            $segundoMes = Day_clase::where('week_id', 2)
+            ->where('status', 7)
+            ->update([
+                'week_id' => 12
+            ]);
+            $segundoMes = Day_clase::where('week_id', 3)
+            ->where('status', 7)
+            ->update([
+                'week_id' => 13
+            ]);
+            $segundoMes = Day_clase::where('week_id', 4)
+            ->where('status', 7)
+            ->update([
+                'week_id' => 14
+            ]);
+            $segundoMes = Day_clase::where('week_id', 5)
+            ->where('status', 7)
+            ->update([
+                'week_id' => 15
+            ]);
+
+            //Cambio del segundo mes al primer mes
+            $segundoMes = Day_clase::where('week_id', 6)
+            ->update([
+                'week_id' => 1
+            ]);
+            $segundoMes = Day_clase::where('week_id', 7)
+            ->update([
+                'week_id' => 2
+            ]);
+            $segundoMes = Day_clase::where('week_id', 8)
+            ->update([
+                'week_id' => 3
+            ]);
+            $segundoMes = Day_clase::where('week_id', 9)
+            ->update([
+                'week_id' => 4
+            ]);
+            $segundoMes = Day_clase::where('week_id', 10)
+            ->update([
+                'week_id' => 5
+            ]);
+
+
+            //Acomodo del segundo mes
+
+            $segundoMes = Day_clase::where('week_id', 11)
+            ->update([
+                'week_id' => 6
+            ]);
+            $segundoMes = Day_clase::where('week_id', 12)
+            ->update([
+                'week_id' => 7
+            ]);
+            $segundoMes = Day_clase::where('week_id', 13)
+            ->update([
+                'week_id' => 8
+            ]);
+            $segundoMes = Day_clase::where('week_id', 14)
+            ->update([
+                'week_id' => 9
+            ]);
+            $segundoMes = Day_clase::where('week_id', 15)
+            ->update([
+                'week_id' => 10
+            ]);
+            Contador::where('id',1)->update([
+                'mes' => $mesActual
+            ]);
+
+        }
     }
 
         public function CambioMes(){
