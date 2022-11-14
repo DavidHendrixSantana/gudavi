@@ -8,7 +8,7 @@ $generador = new BarcodeGeneratorPNG();
 $matricula = $person->matricula;
 $tipo = $generador::TYPE_CODE_128;
 $imagen = $generador->getBarcode($matricula, $tipo);
-$nombreArchivo = "codigo".$person->matricula.".png"; 
+$nombreArchivo = "Matriculas\codigo".$person->matricula.".png"; 
 $bytesEscritos = file_put_contents($nombreArchivo, $imagen);
 
 

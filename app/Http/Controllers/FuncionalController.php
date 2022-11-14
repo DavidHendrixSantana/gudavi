@@ -958,21 +958,9 @@ class FuncionalController extends Controller
                     'mes' => $mesActual
                 ]);
             
-        }
+        
 
  
-  
-            // $mes = pay::first();
-            // $mes = substr($mes, 5,2);
-            // $actual_mes = date('m');
-
-            // if($day >= 1 ){
-            //     Pay::where('fecha_vencimiento', '>='  ,$fechaActual)->update([
-            //         'status'=>0
-            //     ]);
-            
-
-
 
             //Cambio del primer mes para respaldar
             $segundoMes = Day_clase::where('week_id', 1)

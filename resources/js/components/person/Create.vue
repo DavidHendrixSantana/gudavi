@@ -641,7 +641,7 @@ export default {
                 clases_semanales: "1",
                 telefono_emergencia: "",
                 mesesPagados: '1',
-                fecha_inicio: "2022-05-01",
+                fecha_inicio: "",
                 enfermedad: "",
                 nivel: "",
                 clases_precio: "",
@@ -832,8 +832,20 @@ export default {
         },
 
         async crear() {
-           
 
+            if(this.person.nombre === ''){
+                    $.notify("El campo Nombre es Obligatorio", "error");
+
+            }else if(this.person.fecha_inicio === ''){
+                    $.notify("El campo Fecha de inicio es obligatorio", "error");
+
+            }else if(this.person.nivel === ''){
+                    $.notify("El campo Nivel es obligatorio", "error");
+
+            }else if(this.person.clases_semanales === ''){
+                    $.notify("El campo Clases semanales es obligatorio", "error");
+
+            }else{
             await this.axios.post("/api/person", this.person)
                  .then(response => {
                       this.$router.push({ name: "indexPerson" })
@@ -842,6 +854,10 @@ export default {
                     $.notify("ERROR AL GUARDAR VERIFIQUE LOS CAMPOS OBLIGATORIOS", "error");
                 });
           
+            }
+           
+
+
         },
 
         nivel_precio(event) {

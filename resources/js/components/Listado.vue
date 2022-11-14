@@ -4,14 +4,32 @@
 
     </header>
 
-<div class="container btn-group">
 
-  <!-- <button  @click="modal_clase_muestra()" style="border: solid; border-color:black" class="btn btn-primary btn-lg">Clase Muestra</button> -->
-  <button  @click="showPaseModal()" style="border: solid; border-color:black" class="btn btn-primary btn-lg">Clase Muestra</button>
-     <button type="button" style=" width:100%; border: solid; border-color:black " class="btn btn-primary btn-lg active" data-bs-toggle="button" v-on:click="asignarMes(1)" >Mes de: {{month_description}}</button>
-    <button type="button" style=" width:100%; border: solid; border-color:black " class="btn btn-primary btn-lg" data-bs-toggle="button" v-on:click="asignarMes(2)" >Mes de: {{month_description2}}</button>
+<div class="row ml-3 " >
+    <div class="col-2" style="background-color:#FFFFFF">
+        <button  @click="modal_clase_muestra()"  class="btn btn-primary btn-lg form-control m-2">Clase Muestra</button>
+    </div>
+    <div class="col-2" style="background-color:#FFFFFF">
+
+             <button type="button"  class="btn btn-primary btn-lg active form-control m-2" data-bs-toggle="button" v-on:click="asignarMes(1)" >Mes de: {{month_description}}</button>
+
+    </div>
+    <div class="col-2" style="background-color:#FFFFFF">
+            <button type="button"  class="btn btn-primary btn-lg form-control m-2" data-bs-toggle="button" v-on:click="asignarMes(2)" >Mes de: {{month_description2}}</button>
+    </div>
 </div>
 
+<div class="row ml-3 " >
+    <div class="col-3" style="background-color:#FFFFFF">
+        <button type="button"  class="btn btn-primary btn-lg form-control m-2" data-bs-toggle="button" v-on:click=" cargar_horario('M')" >Matutino</button>
+
+    </div>
+    <div class="col-3" style="background-color:#FFFFFF">
+
+        <button type="button"  class="btn btn-primary btn-lg form-control m-2" data-bs-toggle="button" v-on:click=" cargar_horario('V')" >Vespertino</button>
+    </div>
+
+</div>
 
 
                                     <!-- <button  v-for="(teacher, index) in Teachers" :key="teacher.id"
@@ -28,9 +46,6 @@
                                 </button>
   -->
 <div class="container btn-group">
-                <button type="button" style=" width:100%; border: solid; border-color:black " class="btn btn-primary btn-lg" data-bs-toggle="button" v-on:click=" cargar_horario('M')" >Matutino</button>
-                <button type="button" style=" width:100%; border: solid; border-color:black " class="btn btn-primary btn-lg" data-bs-toggle="button" v-on:click=" cargar_horario('V')" >Vespertino</button>
-
 </div>
 <!-- <div class="container btn-group">
     <div v-for="week in weeks" :key="week.id"  >
@@ -41,15 +56,17 @@
 
 </div> -->
 
-<div class="row ml-3 mb-3">
-    <div class="col-3">
-          <label for="" class="" >Profesores</label>
+
+
+<div class="row ml-3 " >
+    <div class="col-3 p-2" style="background-color:#FFFFFF">
+          <label for="" class="font-weight-bold" >Profesores</label>
     <select name="" @change="asignarTeacher($event)" style="width:100%;" class="form-control">
         <option :value="teacher.id"  v-for="(teacher, index) in Teachers" :key="teacher.id"  > {{teacher.nombre}}</option>
     </select>
     </div>
-    <div class="col-3">
-            <label for="" class="" >Semanas</label>
+    <div class="col-3 p-2" style="background-color:#FFFFFF">
+            <label for="" class="font-weight-bold" >Semanas</label>
     <select name="" @change="cargar_clasesWeek($event)"   class="form-control">
         <option :value="week.id"  style="width:150px;" v-for="week in weeks" :key="week.id"  > {{week.description}}</option>
     </select>
@@ -59,7 +76,7 @@
 
 
 
-<div  class="row" style="padding-left:2%;" >
+<div  class="row" style="padding-left:1%;" >
 
         <br>
 
@@ -870,8 +887,9 @@ export default {
           if(this.month_id === 2){
             this.week_id = 6
           }
-         
-       
+          if(this.month_id === 1){
+            this.week_id = 1
+          }
 
         this.cargar_clases(this.week_id,this.month_id, this.first_day, this.last_day,this.turno);
         this.mostrarSemanas(month_id)
