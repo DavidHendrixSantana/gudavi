@@ -877,8 +877,8 @@ export default {
 
    
         this.lastId = teacher
-        var weekVal =  this.week_id + 1
-        this.cargar_clases(weekVal, this.month_id, this.first_day, this.last_day, this.turno);
+    
+        this.cargar_clases(this.week_id, this.month_id, this.first_day, this.last_day, this.turno);
 
 
         },

@@ -134,6 +134,7 @@ export default {
                     const { teacher,alumno } = response.data;
                     this.teacher=teacher
                     this.alumno=alumno
+                    console.log(response)
 
                 })
                 .catch(error => {
