@@ -16,7 +16,7 @@
                             {{value.nombre}}
                             </td>
                             <td>
-                                {{ value.created_at.substr(11)}}
+                                {{ value.updated_at.substr(11)}}
                             </td>
                         </tr>
 
@@ -38,7 +38,7 @@
                             {{value.nombre}}
                             </td>
                             <td>
-                                {{ value.created_at.substr(11)}}
+                                {{ value.updated_at.substr(11)}}
                             </td>
                         </tr>
                     </tbody>

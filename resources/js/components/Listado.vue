@@ -69,7 +69,7 @@
     <div class="col-3 p-2" style="background-color:#FFFFFF">
             <label for="" class="font-weight-bold" >Semanas</label>
     <select name="" @change="cargar_clasesWeek($event)"   class="form-control">
-        <option :value="week.id"  style="width:150px;" v-for="week in weeks" :key="week.id"  > {{week.description}}</option>
+        <option :value="week.id"  style="width:150px;" v-for="week in weeks" :key="week.id"  :selected="week.id === week_id" > {{week.description}}</option>
     </select>
     </div>
     <div class="col-3" style="background-color:#FFFFFF">
@@ -749,7 +749,7 @@ export default {
         var dat = new Date()
         dat = dat.getDate()
         this.week_id = parseInt(dat/7) + 1
-      
+        console.log('Week'+ this.week_id)
         this.mostrarDatos(2,this.week_id,'V');
         this.lastTeacher()
         this.mostrarmes()
