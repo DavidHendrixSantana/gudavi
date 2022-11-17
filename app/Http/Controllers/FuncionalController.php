@@ -479,7 +479,6 @@ class FuncionalController extends Controller
         try {
         DB::beginTransaction();
         $actualizacion= '';    
-        date_default_timezone_set('America/Mexico_City');
 
             #ASISTENCIA DE Profesor
             if($teacher){
@@ -490,6 +489,7 @@ class FuncionalController extends Controller
                 $arrayMonth = [];
                 $day = [];
                 if(count($verify) == 0){
+                    date_default_timezone_set('America/Mexico_City');
                     $hoy = date("d"); 
                     $hora = date("H:i:s"); 
                     $day['dia'] = $hoy;
@@ -500,6 +500,8 @@ class FuncionalController extends Controller
                         'teacher_id' => $teacher->id,
                     ]);
                 }else{
+                    date_default_timezone_set('America/Mexico_City');
+
                     $hoy = date("d"); 
                     $hora = date("H:i:s"); 
                     $day['dia'] = $hoy;
@@ -512,7 +514,8 @@ class FuncionalController extends Controller
                 }
                 DB::commit();   
                 return response()->json([
-                    'Asistencia' => 'Teacher'
+                    'Asistencia' => 'Teacher',
+                    'time'=> date("H:i:s")
                 ]); 
 
                 #ASISTENCIA DE PERSONA
@@ -1100,11 +1103,11 @@ class FuncionalController extends Controller
         public function verificarListas(){
             // $AsistenciaT =AsistenciaT::all();
 
-            $AsistenciaT = DB::select('select at.teacher_id,t.nombre ,at.created_at from asistencia_teacher as at
+            $AsistenciaT = DB::select('select at.teacher_id,t.nombre ,at.updated_at from asistencia_teacher as at
             inner JOIN teachers as t on at.teacher_id = t.id where at.asistencia = 1' );
 
             
-            $AsistenciaA = DB::select('select st.alumno_id,p.nombre, st.created_at from studentasis as st
+            $AsistenciaA = DB::select('select st.alumno_id,p.nombre, st.updated_at from studentasis as st
             inner join persons as p on p.id = st.alumno_id where st.status = 1');
 
             return response()->json([

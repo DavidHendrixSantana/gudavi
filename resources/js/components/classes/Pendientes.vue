@@ -3,9 +3,7 @@
 
     <div class="row">
         <div class="col-lg-12 mb-4">
-            <router-link :to="{ name: 'createSchedule' }" class="btn btn-sucess"
-                ><i class="fas fa-plus-circle"></i> Nuevo</router-link
-            >
+            <h1>Clases Pendientes</h1>
         </div>
 
         <div class="col-12">
