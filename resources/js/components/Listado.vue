@@ -6,15 +6,15 @@
 
 
 <div class="row ml-3 " >
-    <div class="col-2" style="background-color:#FFFFFF">
+    <div class="col-3" style="background-color:#FFFFFF">
         <button  @click="modal_clase_muestra()"  class="btn btn-primary btn-lg form-control m-2">Clase Muestra</button>
     </div>
-    <div class="col-2" style="background-color:#FFFFFF">
+    <div class="col-3" style="background-color:#FFFFFF">
 
              <button type="button"  class="btn btn-primary btn-lg active form-control m-2" data-bs-toggle="button" v-on:click="asignarMes(1)" >Mes de: {{month_description}}</button>
 
     </div>
-    <div class="col-2" style="background-color:#FFFFFF">
+    <div class="col-3" style="background-color:#FFFFFF">
             <button type="button"  class="btn btn-primary btn-lg form-control m-2" data-bs-toggle="button" v-on:click="asignarMes(2)" >Mes de: {{month_description2}}</button>
     </div>
 </div>
@@ -28,7 +28,8 @@
 
         <button type="button"  class="btn btn-primary btn-lg form-control m-2" data-bs-toggle="button" v-on:click=" cargar_horario('V')" >Vespertino</button>
     </div>
-
+    <div class="col-3" style="background-color:#FFFFFF">
+</div>
 </div>
 
 
@@ -71,6 +72,8 @@
         <option :value="week.id"  style="width:150px;" v-for="week in weeks" :key="week.id"  > {{week.description}}</option>
     </select>
     </div>
+    <div class="col-3" style="background-color:#FFFFFF">
+</div>
 </div>
 
 
