@@ -48,6 +48,13 @@
                                     >
                                         Imprimir credencial
                                     </button>
+                                    <button
+                                        @click="imprimirCredencialesAlumnos(teacher.id)"
+                                        type="button"
+                                        class="btn btn-primary"
+                                    >  <i class="fas fa-user-alt"></i                                    >
+                                        Credenciales de Alumnos
+                                    </button>
                                 </td>
                             </tr>
                         </tbody>
@@ -100,6 +107,10 @@ export default {
         imprimirCredencial(id) {
             //  window.location.href = `http://localhost/credencial/${id}`;
             window.open(`credencialT/${id}`);
+        },
+        imprimirCredencialesAlumnos(id) {
+            //  window.location.href = `http://localhost/credencial/${id}`;
+            window.open(`credencialTeachersAlumnos/${id}`);
         }
     }
 };

@@ -470,8 +470,7 @@ class FuncionalController extends Controller
 
 
     public function paseListaTeacher($teacher_mat){
- 
-        
+
         $teacher = Teacher::where('matricula', $teacher_mat)->first();
         $person = Person::where('matricula', $teacher_mat)->first();
 
@@ -524,6 +523,7 @@ class FuncionalController extends Controller
                 date_default_timezone_set('America/Mexico_City');
                 $dia_actual = date("j");
                 $day = date("N");
+                $actual_day = date("j");
         
         
                 //Calcular los días pasados del ultimo mes con el actual
@@ -537,7 +537,7 @@ class FuncionalController extends Controller
              
                $persona= Person::where('matricula', $teacher_mat)->first();
            
-                $actual_week = intdiv($dia_actual, 7);
+                $actual_week = intdiv($actual_day, 7);
                 $actual_week += 1;
         
                $week = Week::where('description', $actual_week)->where('month_id', 1)->first();
@@ -577,7 +577,9 @@ class FuncionalController extends Controller
                         ]);
                      DB::commit();
                      return response()->json([
-                        'Asistencia' =>"Alumno"
+                        'Asistencia' =>"Alumno",
+                        'week' => $actual_week,
+                        'class' =>$day_clase
                     ]);   
           
                     }else{

@@ -3,12 +3,12 @@ use Codedge\Fpdf\Fpdf\Fpdf;
 use Picqer\Barcode\BarcodeGeneratorPNG;
 
 $fpdf = new Fpdf('P','cm', array(5.4, 8.6));
-foreach ($persons as $person) {
+for ($i=0; $i < count($persons); $i++) {
 $generador = new BarcodeGeneratorPNG();
-$matricula = $person->matricula;
+$matricula = $persons[$i]->matricula;
 $tipo = $generador::TYPE_CODE_128;
 $imagen = $generador->getBarcode($matricula, $tipo);
-$nombreArchivo = "Matriculas\codigo".$person->matricula.".png"; 
+$nombreArchivo = "Matriculas\codigo".$persons[$i]->matricula.".png"; 
 $bytesEscritos = file_put_contents($nombreArchivo, $imagen);
 
 
@@ -30,7 +30,7 @@ $fpdf->AddFont('Helvetica');
 $fpdf->SetFont('Helvetica', '',6);
 $fpdf->SetY(4.5);
 $fpdf->SetX(0.8);
-$fpdf->Multicell(0,0.3, $person->nombre ,0,'L');
+$fpdf->Multicell(0,0.3, $persons[$i]->nombre ,0,'L');
 
 $fpdf->AddFont('Helvetica');
 $fpdf->SetFont('Helvetica', 'B', 12);
@@ -38,7 +38,7 @@ $fpdf->SetY(5);
 $fpdf->SetX(1.2);
 $fpdf->Cell(0,1,'| ' . $matricula .' |',0,1,'L');
 $fpdf->Image('images/logo.jpg',1,1.1,3,2);
-$fpdf->Image('Matriculas\codigo'.$person->matricula.'.png',0.7,5.7,4,2);
+$fpdf->Image('Matriculas\codigo'.$persons[$i]->matricula.'.png',0.7,5.7,4,2);
 
 $fpdf->AddPage();
 

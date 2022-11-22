@@ -258,9 +258,9 @@ try {
             $classes = Day_clase::where('person_id', $request['id'])->get();
     
             foreach ($classes as $clase ) {
+                Class_pend::destroy($clase->id);
                 Day_clase::destroy($clase->id);
     
-                Class_pend::where('id', $clase->id)->delete();
             }
     
             $numero_clases =$request['clases_semanales'];

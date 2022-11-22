@@ -7,6 +7,7 @@
 
 <div class="row ml-3 " >
     <div class="col-2" style="background-color:#FFFFFF">
+        <!-- <button  @click="showPaseModal()"  class="btn btn-primary btn-lg form-control m-2">Clase Muestra</button> -->
         <button  @click="showPaseModal()"  class="btn btn-primary btn-lg form-control m-2">Clase Muestra</button>
     </div>
     <div class="col-2" style="background-color:#FFFFFF">
