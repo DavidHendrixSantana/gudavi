@@ -835,76 +835,171 @@ class FuncionalController extends Controller
 
     public function verifyDay($day){
         
-        
-        date_default_timezone_set('America/Mexico_City');
-        $dias = date('t');
-        $fechaActual = date('Y-m-d');
-        $mesActual = date('m');
-        $contador = Contador::first();
+        try {
+            DB::beginTransaction();
+                
 
-        $valor = $contador->actual_day;
-        if ( $day != $valor) {
-            Contador::where('id', 1)->update([
-                'actual_day' => $day
-        ]);
-            AsistenciaT::where('asistencia', 1)->update([
-                'asistencia' => 0,
+            date_default_timezone_set('America/Mexico_City');
+            $dias = date('t');
+            $fechaActual = date('Y-m-d');
+            $mesActual = date('m');
+            $contador = Contador::first();
+    
+            $valor = $contador->actual_day;
+            if ( $day != $valor) {
+                Contador::where('id', 1)->update([
+                    'actual_day' => $day
             ]);
-            AsisEst::where('status', '1')->update([
-                'status' => 0
-            ]);
-        }
-        $mes =$contador->mes;
+                AsistenciaT::where('asistencia', 1)->update([
+                    'asistencia' => 0,
+                ]);
+                AsisEst::where('status', 1)->update([
+                    'status' => 0
+                ]);
+            }
+            $mes =$contador->mes;
+         
+            if ($day>15 && $contador->quincena ==0 ){
+                Contador::where('id', 1)->update([
+                    'quincena' => 1
+                ]);
+                Teacher_pay::where('id', '!=', 0)->update([
+                    'total_classes' => 0,
+                    'porcentuales' => 0
+                ]);
+           
+    
+            } elseif ($contador->mes != $mesActual) {
+                MonthAsi::where('id' != '')->delete();
+            }
+            
+            elseif($contador->mes != $mesActual && $contador->quincena == 1)  {
+                Contador::where('id', 1)->update([
+                    'quincena' => 0
+                ]);
+                Teacher_pay::where('id', '!=', 0)->update([
+                    'total_classes' => 0,
+                    'porcentuales' => 0
+                ]);
+    
+    
+    
+    
+                    //Cambio del primer mes para respaldar
+                    $segundoMes = Day_clase::where('week_id', 1)
+                    ->where('status', 1)
+                    ->update([
+                        'week_id' => 11
+                    ]);
+                    $segundoMes = Day_clase::where('week_id', 2)
+                    ->where('status', 1)
+                    ->update([
+                        'week_id' => 12
+                    ]);
+                    $segundoMes = Day_clase::where('week_id', 3)
+                    ->where('status', 1)
+                    ->update([
+                        'week_id' => 13
+                    ]);
+                    $segundoMes = Day_clase::where('week_id', 4)
+                    ->where('status', 1)
+                    ->update([
+                        'week_id' => 14
+                    ]);
+                    $segundoMes = Day_clase::where('week_id', 5)
+                    ->where('status', 1)
+                    ->update([
+                        'week_id' => 15
+                    ]);
+        
+                    //Cambio del segundo mes al primer mes
+                    $segundoMes = Day_clase::where('week_id', 6)
+                    ->update([
+                        'week_id' => 1
+                    ]);
+                    $segundoMes = Day_clase::where('week_id', 7)
+                    ->update([
+                        'week_id' => 2
+                    ]);
+                    $segundoMes = Day_clase::where('week_id', 8)
+                    ->update([
+                        'week_id' => 3
+                    ]);
+                    $segundoMes = Day_clase::where('week_id', 9)
+                    ->update([
+                        'week_id' => 4
+                    ]);
+                    $segundoMes = Day_clase::where('week_id', 10)
+                    ->update([
+                        'week_id' => 5
+                    ]);
+        
+        
+                    //Acomodo del segundo mes
+        
+                    $segundoMes = Day_clase::where('week_id', 11)
+                    ->update([
+                        'week_id' => 6
+                    ]);
+                    $segundoMes = Day_clase::where('week_id', 12)
+                    ->update([
+                        'week_id' => 7
+                    ]);
+                    $segundoMes = Day_clase::where('week_id', 13)
+                    ->update([
+                        'week_id' => 8
+                    ]);
+                    $segundoMes = Day_clase::where('week_id', 14)
+                    ->update([
+                        'week_id' => 9
+                    ]);
+                    $segundoMes = Day_clase::where('week_id', 15)
+                    ->update([
+                        'week_id' => 10
+                    ]);
+                    Contador::where('id',1)->update([
+                        'mes' => $mesActual
+                    ]);
+                
+            }
+    
      
-        if ($day>15 && $contador->quincena ==0 ){
-            Contador::where('id', 1)->update([
-                'quincena' => 1
-            ]);
-            Teacher_pay::where('id', '!=', 0)->update([
-                'total_classes' => 0,
-                'porcentuales' => 0
-            ]);
-       
-
-        } elseif ($contador->mes != $mesActual) {
-            MonthAsi::where('id' != '')->delete();
-        }
-        
-        elseif($contador->mes != $mesActual && $contador->quincena == 1)  {
-            Contador::where('id', 1)->update([
-                'quincena' => 0
-            ]);
-            Teacher_pay::where('id', '!=', 0)->update([
-                'total_classes' => 0,
-                'porcentuales' => 0
-            ]);
-
-
-
-
+      
+                // $mes = pay::first();
+                // $mes = substr($mes, 5,2);
+                // $actual_mes = date('m');
+    
+                // if($day >= 1 ){
+                //     Pay::where('fecha_vencimiento', '>='  ,$fechaActual)->update([
+                //         'status'=>0
+                //     ]);
+                
+    
+    
+    
                 //Cambio del primer mes para respaldar
                 $segundoMes = Day_clase::where('week_id', 1)
-                ->where('status', 1)
+                ->where('status', 7)
                 ->update([
                     'week_id' => 11
                 ]);
                 $segundoMes = Day_clase::where('week_id', 2)
-                ->where('status', 1)
+                ->where('status', 7)
                 ->update([
                     'week_id' => 12
                 ]);
                 $segundoMes = Day_clase::where('week_id', 3)
-                ->where('status', 1)
+                ->where('status', 7)
                 ->update([
                     'week_id' => 13
                 ]);
                 $segundoMes = Day_clase::where('week_id', 4)
-                ->where('status', 1)
+                ->where('status', 7)
                 ->update([
                     'week_id' => 14
                 ]);
                 $segundoMes = Day_clase::where('week_id', 5)
-                ->where('status', 1)
+                ->where('status', 7)
                 ->update([
                     'week_id' => 15
                 ]);
@@ -957,101 +1052,18 @@ class FuncionalController extends Controller
                 Contador::where('id',1)->update([
                     'mes' => $mesActual
                 ]);
-            
-        }
-
- 
-  
-            // $mes = pay::first();
-            // $mes = substr($mes, 5,2);
-            // $actual_mes = date('m');
-
-            // if($day >= 1 ){
-            //     Pay::where('fecha_vencimiento', '>='  ,$fechaActual)->update([
-            //         'status'=>0
-            //     ]);
-            
+            DB::commit();   
 
 
-
-            //Cambio del primer mes para respaldar
-            $segundoMes = Day_clase::where('week_id', 1)
-            ->where('status', 7)
-            ->update([
-                'week_id' => 11
-            ]);
-            $segundoMes = Day_clase::where('week_id', 2)
-            ->where('status', 7)
-            ->update([
-                'week_id' => 12
-            ]);
-            $segundoMes = Day_clase::where('week_id', 3)
-            ->where('status', 7)
-            ->update([
-                'week_id' => 13
-            ]);
-            $segundoMes = Day_clase::where('week_id', 4)
-            ->where('status', 7)
-            ->update([
-                'week_id' => 14
-            ]);
-            $segundoMes = Day_clase::where('week_id', 5)
-            ->where('status', 7)
-            ->update([
-                'week_id' => 15
-            ]);
-
-            //Cambio del segundo mes al primer mes
-            $segundoMes = Day_clase::where('week_id', 6)
-            ->update([
-                'week_id' => 1
-            ]);
-            $segundoMes = Day_clase::where('week_id', 7)
-            ->update([
-                'week_id' => 2
-            ]);
-            $segundoMes = Day_clase::where('week_id', 8)
-            ->update([
-                'week_id' => 3
-            ]);
-            $segundoMes = Day_clase::where('week_id', 9)
-            ->update([
-                'week_id' => 4
-            ]);
-            $segundoMes = Day_clase::where('week_id', 10)
-            ->update([
-                'week_id' => 5
-            ]);
-
-
-            //Acomodo del segundo mes
-
-            $segundoMes = Day_clase::where('week_id', 11)
-            ->update([
-                'week_id' => 6
-            ]);
-            $segundoMes = Day_clase::where('week_id', 12)
-            ->update([
-                'week_id' => 7
-            ]);
-            $segundoMes = Day_clase::where('week_id', 13)
-            ->update([
-                'week_id' => 8
-            ]);
-            $segundoMes = Day_clase::where('week_id', 14)
-            ->update([
-                'week_id' => 9
-            ]);
-            $segundoMes = Day_clase::where('week_id', 15)
-            ->update([
-                'week_id' => 10
-            ]);
-            Contador::where('id',1)->update([
-                'mes' => $mesActual
-            ]);
+        } catch (\Throwable $th) {
+            return $th;
+        DB::rollback();
 
         }
-    }
+      
+
+        }
+    
 
         public function CambioMes(){
             $firstMonth = Day_clase::where('week_id',1)->orwhere('week_id',2)

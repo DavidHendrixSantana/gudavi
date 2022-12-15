@@ -2,7 +2,7 @@
         use Codedge\Fpdf\Fpdf\Fpdf;
         use Picqer\Barcode\BarcodeGeneratorPNG;
         $generador = new BarcodeGeneratorPNG();
-        $matricula = $person->matricula;
+        $matricula = '|'.$person->matricula;
         $tipo = $generador::TYPE_CODE_128;
         $imagen = $generador->getBarcode($matricula, $tipo);
         $nombreArchivo = "codigo.png"; 

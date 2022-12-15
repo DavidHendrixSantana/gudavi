@@ -51,7 +51,7 @@
     <div class="col-3">
             <label for="" class="" >Semanas</label>
     <select name="" @change="cargar_clasesWeek($event)"   class="form-control">
-        <option :value="week.id"  style="width:150px;" v-for="week in weeks" :key="week.id"  > {{week.description}}</option>
+        <option :value="week.id"  style="width:200px;" v-for="week in weeks" :key="week.id"  > {{week.description}}</option>
     </select>
     </div>
 </div>
@@ -78,7 +78,7 @@
                             <td v-for="day in Days" :key="day.id" >
                               <div v-for="clase in day.Clases"  :key="clase.id">
                                 <div v-if="clase.status == 1"  >
-                                  <button style="display: block; width:150px;  height: 50px;"
+                                  <button style="display: block; width:200px;  height: 50px;"
                                       type="button"
                                       class="custom-btn btn-1"
                                       @click="show_modal(clase.nombre, clase.id_person, clase.clase_id)">
@@ -87,7 +87,7 @@
                                   </button>
                                 </div>
                                  <div v-else-if="clase.status == 3"  >
-                                  <button style="display: block; width:150px;  height: 50px;"
+                                  <button style="display: block; width:200px;  height: 50px;"
                                       type="button"
                                       class="custom-btn btn-3"
                                       @click="show_modal(clase.nombre, clase.id_person, clase.clase_id)">
@@ -96,7 +96,7 @@
                                   </button>
                                 </div>
                                  <div v-else-if="clase.status == 4"  >
-                                  <button style="display: block; width:150px;  height: 50px;"
+                                  <button style="display: block; width:200px;  height: 50px;"
                                       type="button"
                                       class="custom-btn btn-4"
                                       @click="show_modal(clase.nombre, clase.id_person, clase.clase_id)"
@@ -106,7 +106,7 @@
                                   </button>
                                 </div>
                                 <div v-else-if="clase.status == 5"  >
-                                  <button style="display: block; width:150px;  height: 50px;"
+                                  <button style="display: block; width:200px;  height: 50px;"
                                       type="button"
                                       class="custom-btn btn-5"
                                       
@@ -117,7 +117,7 @@
                                 </div>
 
                             <div v-else-if="clase.status == 7"  >
-                                  <button style="display: block; width:150px;  height:50px;"
+                                  <button style="display: block; width:200px;  height:50px;"
                                       type="button"
                                       class="custom-btn btn-7">
                                       {{ clase.Clase }}
@@ -125,7 +125,7 @@
                                   </button>
                             </div>
                             <div v-else-if="clase.status == 8"  >
-                                  <button style="display: block; width:150px;  height: 50px;"
+                                  <button style="display: block; width:200px;  height: 50px;"
                                       type="button"
                                       class="custom-btn btn-8"
                                       show_modal_grupal
@@ -138,7 +138,7 @@
                             </div>
                                
                                 <div v-else >
-                                  <button style="display: block; width:150px; height: 50px;"
+                                  <button style="display: block; width:200px; height: 50px;"
                                       type="button"
                                       class="custom-btn btn-9"
                                  
