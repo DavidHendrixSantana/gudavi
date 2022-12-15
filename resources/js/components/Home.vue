@@ -16,7 +16,7 @@
                             {{value.nombre}}
                             </td>
                             <td>
-                                {{ value.created_at.substr(11)}}
+                                {{ value.updated_at.substr(11)}}
                             </td>
                         </tr>
 
@@ -38,7 +38,7 @@
                             {{value.nombre}}
                             </td>
                             <td>
-                                {{ value.created_at.substr(11)}}
+                                {{ value.updated_at.substr(11)}}
                             </td>
                         </tr>
                     </tbody>
@@ -72,7 +72,7 @@
                 <tr v-for="valor in result1" :key="valor.index">
                 
                 <td>{{valor[0].name}}</td>
-                <td>{{valor[0].number/10}} </td>
+                <td>{{ Math.round(valor[0].number/10) }} </td>
                 <td>{{0}} </td>
                 <td>{{valor[1].total_classes}} </td>
                
@@ -134,6 +134,7 @@ export default {
                     const { teacher,alumno } = response.data;
                     this.teacher=teacher
                     this.alumno=alumno
+                    console.log(response)
 
                 })
                 .catch(error => {

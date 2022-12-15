@@ -42,6 +42,7 @@ Route::get('AsistenciasT', [PdfController::class, 'AsistenciasT'])->name('Asiste
 //Barcode
 Route::get('credencial/{id}', [BarcodeController::class, 'index'])->name('credencial');
 Route::get('credencialT/{id}', [BarcodeController::class, 'credencialT'])->name('credencialT');
+Route::get('credencialTeachersAlumnos/{id}', [BarcodeController::class, 'credencialTeachersAlumnos'])->name('credencialTeachersAlumnos');
 Route::get('printAll', [BarcodeController::class, 'printAll'])->name('printAll');
 
 

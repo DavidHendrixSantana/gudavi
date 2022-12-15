@@ -8,7 +8,7 @@ $generador = new BarcodeGeneratorPNG();
 $matricula = '|'.$person->matricula;
 $tipo = $generador::TYPE_CODE_128;
 $imagen = $generador->getBarcode($matricula, $tipo);
-$nombreArchivo = "codigo".$person->matricula.".png"; 
+$nombreArchivo = "Matriculas\codigo".$person->matricula.".png"; 
 $bytesEscritos = file_put_contents($nombreArchivo, $imagen);
 
 
@@ -38,7 +38,7 @@ $fpdf->SetY(5);
 $fpdf->SetX(1.2);
 $fpdf->Cell(0,1,'| ' . $matricula .' |',0,1,'L');
 $fpdf->Image('images/logo.jpg',1,1.1,3,2);
-$fpdf->Image('codigo'.$person->matricula.'.png',0.7,5.7,4,2);
+$fpdf->Image('Matriculas\codigo'.$person->matricula.'.png',0.7,5.7,4,2);
 
 $fpdf->AddPage();
 
