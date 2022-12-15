@@ -1,52 +1,6 @@
 <template>
     <div class="container">
-        <br><br>
-        <div class="row">
-            <div class="col-6">
-                <h3>Pase de Lista profesores</h3>
-                <table class="table">
-                    <thead>
-                        <th>Pase de lista</th>
-                        <th>Hora de llegada</th>
-                    
-                    </thead>
-                    <tbody>
-                        <tr v-for="value in teacher" :key="value.index">
-                            <td>
-                            {{value.nombre}}
-                            </td>
-                            <td>
-                                {{ value.updated_at.substr(11)}}
-                            </td>
-                        </tr>
-
-                    </tbody>
-                </table>
-            </div>
-            <div class="col-6">
-                <h3>Pase de Lista Alumnos</h3>
-
-                <table class="table">
-                    <thead>
-                        <th>Pase de lista</th>
-                        <th>Hora de llegada</th>
-                    
-                    </thead>
-                    <tbody>
-                  <tr v-for="value in alumno" :key="value.index">
-                            <td>
-                            {{value.nombre}}
-                            </td>
-                            <td>
-                                {{ value.updated_at.substr(11)}}
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-
+        
 
         <br>
         <h2 align="center">Reportes de clases asignadas e impartidas</h2>
@@ -106,7 +60,6 @@ export default {
   },
     mounted(){
         this.mostrarDatos()
-        this.verifyLista()
 
     },
     created(){
@@ -134,7 +87,7 @@ export default {
                     const { teacher,alumno } = response.data;
                     this.teacher=teacher
                     this.alumno=alumno
-                    console.log(response)
+                    console.log(teacher)
 
                 })
                 .catch(error => {
@@ -153,19 +106,7 @@ export default {
                     console.log(error);
                 });
         },
-        async verifyLista() {
-            await this.axios
-                .get(`/api/verificarListas`)
-                .then(response => {
-                    const { teacher,alumno } = response.data;
-                    this.teacher=teacher
-                    this.alumno=alumno
 
-                })
-                .catch(error => {
-                    console.log(error);
-                });
-        },
   }
 }
 </script>

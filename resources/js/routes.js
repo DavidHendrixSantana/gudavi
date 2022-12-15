@@ -19,6 +19,7 @@ const Index_person = () => import("./components/person/Index.vue");
 const Create_person = () => import("./components/person/Create.vue");
 const Edit_person = () => import("./components/person/Edit.vue");
 const Index_bajas = () => import("./components/person/Bajas.vue");
+const Asistencias = () => import("./components/Asist.vue");
 
 //componentes pagos
 
@@ -116,5 +117,10 @@ export const routes = [
         name: "indexLogs",
         path: "/logs",
         component: Logs
+    },
+    {
+        name: "asistencias",
+        path: "/asistencias",
+        component: Asistencias
     }
 ];

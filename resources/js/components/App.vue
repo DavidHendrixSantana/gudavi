@@ -21,11 +21,14 @@
                             <router-link exact-active-class="active" to="/listado" class="nav-link">Seguimiento</router-link>
                         </li>   
                         <li class="nav-item">
-                            <router-link exact-active-class="active" to="/persons" class="nav-link">Estudiantes</router-link>
+                            <router-link exact-active-class="active" to="/asistencias" class="nav-link">Asistencias</router-link>
                         </li>   
                         <li class="nav-item">
-                            <router-link exact-active-class="active" to="/schedules" class="nav-link">Horarios</router-link>
+                            <router-link exact-active-class="active" to="/persons" class="nav-link">Estudiantes</router-link>
                         </li>   
+                        <!-- <li class="nav-item">
+                            <router-link exact-active-class="active" to="/schedules" class="nav-link">Horarios</router-link>
+                        </li>    -->
                         <li class="nav-item">
                             <router-link exact-active-class="active" to="/teachers" class="nav-link">Profesores</router-link>
                         </li>  
@@ -248,7 +251,7 @@ export default {
 
                 if(hoy === 15 || hoy === 30){
                     
-               const win = window.open(`${currentLocation}:80/QuincenalPersons`, '_blank');
+            //    const win = window.open(`${currentLocation}:80/QuincenalPersons`, '_blank');
                 }
               await this.axios.get(`verifyDay/${hoy}`)
            .then(response => {

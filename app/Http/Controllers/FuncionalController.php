@@ -1123,7 +1123,7 @@ class FuncionalController extends Controller
         public function verificarListas(){
             // $AsistenciaT =AsistenciaT::all();
 
-            $AsistenciaT = DB::select('select at.teacher_id,t.nombre ,at.created_at from asistencia_teacher as at
+            $AsistenciaT = DB::select('select at.teacher_id,t.nombre ,at.updated_at from asistencia_teacher as at
             inner JOIN teachers as t on at.teacher_id = t.id where at.asistencia = 1' );
 
             
