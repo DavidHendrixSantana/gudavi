@@ -186,7 +186,7 @@ export default {
         },
     computed: {
 		isShake: function(){
-			console.log(this.shake);
+			// console.log(this.shake);
 			if(this.shake == true){
 				return 'shake'
 			}
@@ -218,7 +218,7 @@ export default {
                var valorHora = `${hour}:${minutes}`
             await this.axios.get(`ListaClases/${valorHora}`).then(
                    response =>{
-                    console.log(response);
+                    // console.log(response);
                    }
             ).catch( error =>{
                 console.log(error)
@@ -234,7 +234,7 @@ export default {
            .then(response => {
                const {firstHour} = response.data;
                this.firtsHour = firstHour
-               console.log(firstHour)
+            //    console.log(firstHour)
 
            }).catch(error => {
                     console.log(error);
@@ -244,6 +244,8 @@ export default {
         async verifyDay(){
         const today = new Date();
            var hoy = today.getDate();
+      
+
                 if(hoy === 15 || hoy === 30){
                     
                const win = window.open(`${currentLocation}:80/QuincenalPersons`, '_blank');
