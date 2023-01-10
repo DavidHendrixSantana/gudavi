@@ -7,7 +7,8 @@
     
     <div class="row ml-3 " >
         <div class="col-3" style="background-color:#FFFFFF">
-            <button  @click="modal_clase_muestra()"  class="btn btn-primary btn-lg form-control m-2">Clase Muestra</button>
+            <!-- <button  @click="modal_clase_muestra()"  class="btn btn-primary btn-lg form-control m-2">Clase Muestra</button> -->
+            <button  @click="showPaseModal()"  class="btn btn-primary btn-lg form-control m-2">Clase Muestra</button>
         </div>
         <div class="col-3" style="background-color:#FFFFFF">
     
@@ -753,7 +754,6 @@
             var dat = new Date()
             dat = dat.getDate()
             this.week_id = parseInt(dat/7) + 1
-            console.log('Week'+ this.week_id)
             this.mostrarDatos(2,this.week_id,'V');
             this.lastTeacher()
             this.mostrarmes()

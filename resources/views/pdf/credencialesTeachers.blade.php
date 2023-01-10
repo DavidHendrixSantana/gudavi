@@ -5,7 +5,7 @@ use Picqer\Barcode\BarcodeGeneratorPNG;
 $fpdf = new Fpdf('P','cm', array(5.4, 8.6));
 for ($i=0; $i < count($persons); $i++) {
 $generador = new BarcodeGeneratorPNG();
-$matricula = $persons[$i]->matricula;
+$matricula = '|'.$persons[$i]->matricula;
 $tipo = $generador::TYPE_CODE_128;
 $imagen = $generador->getBarcode($matricula, $tipo);
 $nombreArchivo = "Matriculas\codigo".$persons[$i]->matricula.".png"; 

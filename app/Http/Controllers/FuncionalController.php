@@ -771,10 +771,7 @@ class FuncionalController extends Controller
 
 
     public function ListaClases($hora){
-        $hora = $hora;
-        // if($hora == '9:00'){
-        //     $hora = '9:30';
-        // }
+      
         try {
         date_default_timezone_set('America/Mexico_City');
         $class = Clase::where('Clase', $hora)->first();
@@ -1079,8 +1076,8 @@ class FuncionalController extends Controller
 
 
         } catch (\Throwable $th) {
+            DB::rollback();
             return $th;
-        DB::rollback();
 
         }
       

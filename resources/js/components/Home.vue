@@ -106,7 +106,6 @@ export default {
   },
     mounted(){
         this.mostrarDatos()
-        this.verifyLista()
 
     },
     created(){
@@ -162,11 +161,6 @@ export default {
                     this.alumno=alumno
                  
 
-                })
-                .catch(error => {
-                    console.log(error);
-                });
-        },
   }
 }
 </script>
