@@ -70,16 +70,24 @@
                               
                             </td>
 
-                            <td>
+                            <td style="display: flex;">
                                
                                 
-                                   <button style="display: block; height:50px;"
+                                   <button style=" height:50px;"
                                     class="btn btn-danger"
                                     type="button"
                                     @click="rembolso(pay.id)"
                                     :value="pay.id"
                                     >
                                    Reembolsar
+                                </button>
+                                   <button style="color:white; height:50px;"
+                                    class="btn btn-info"
+                                    type="button"
+                                    @click="editar(pay.id)"
+                                    :value="pay.id"
+                                    >
+                                    Editar
                                 </button>
                            
                             </td>
@@ -149,6 +157,58 @@
                 </div>
             </transition>
         </div>
+
+        <div v-if="showEditar">
+            <transition name="modal">
+                <div class="modal-mask">
+                    <div class="modal-wrapper">
+                        <div class="modal-dialog"  role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">
+                                        Editar Pago
+                                    </h5>
+                                    <button
+                                        type="button"
+                                        class="close"
+                                        data-dismiss="modal"
+                                        aria-label="Close"
+                                    >
+                                        <span
+                                            aria-hidden="true"
+                                            @click="showEditar = false"
+                                            >&times;</span
+                                        >
+                                    </button>
+                                </div>
+                                <div class="container" > 
+                             <div class="form-group">
+
+                                    <label for="">Cantidad:</label>
+                                    <br>
+                                   <input style="width:100%;" type="number" name="cantidad" id="cantidad" v-model="cantidad" >
+                                        
+                                </div>
+                                
+                                    
+                                         <button
+                                        type="button"
+                                        class="btn btn-success"
+                                        @click="editarPago()">
+                                       Editar Pago
+                                    </button>
+
+                                </div>
+
+                                <div class="modal-footer">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </transition>
+        </div>
     </div>
 
 </template>
@@ -191,7 +251,9 @@ export default {
             fecha_inicio: '',
             fecha_final: '',
             showReembolso: false,
-            motivo: ''
+            showEditar: false,
+            motivo: '',
+            cantidad: 0
         };
     },
     mounted() {
@@ -205,14 +267,7 @@ export default {
                 .then(response => {
                     this.pays = response.data;
                           $(document).ready( function () {
-                    $('#pay_table').DataTable( {
-                                "language": {
-                                "paginate": {
-                                "next": "Siguiente",
-                                "previous": "Anterior"
-                                }
-                            }
-                            }
+                    $('#pay_table').DataTable( 
                     );
                 } );
               
@@ -242,6 +297,28 @@ export default {
         rembolso(id){
             this.showReembolso = true
             this.pago = id
+        },
+
+        editar(id){
+            this.showEditar = true
+            this.pago = id
+        
+          
+        },
+
+        editarPago(){
+            axios.get(`/api/editarPago/${this.pago}/${this.cantidad}`).then(response=>{
+                 alert('Pago editado exitosamente')
+                 this.mostrarPays()
+                 this.showEditar = false
+                 this.axios
+                .get("/api/pay")
+                .then(response => {
+                    this.pays = response.data;})
+               
+                }) .catch(error => {
+                    console.log(error)
+        })
         },
 
 

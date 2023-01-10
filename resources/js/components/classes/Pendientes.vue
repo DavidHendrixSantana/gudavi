@@ -37,10 +37,14 @@
 
                             <td>
                                 <!-- llamamos al componente para Editar     -->
-                               <button class="btn btn-primary"  @click="CambioClase( classe.id,classe.class_id)">
-                                   Reasignar
-
-                               </button>
+                                <button class="btn btn-primary"  @click="CambioClase( classe.id,classe.class_id)">
+                                    Reasignar
+    
+                                </button>
+                                <button class="btn btn-danger"  @click="EliminarClase(classe.class_id)">
+                                    Eliminar
+    
+                                </button>
                             </td>
                         </tr>
                     </tbody>
@@ -337,6 +341,17 @@ export default {
             this.showModal=true,
             this.cambioClase=true,
             this.mostrarTeachers();
+
+        },
+        async EliminarClase(id){
+            if(confirm("¿Desea eliminar esta clase ?")){
+                this.axios.post(`/api/eliminarClaseMuestra/${id}`).then(response=>{
+                    this.mostrarPendientes()
+                }).catch(error=>{
+                    console.log(error)
+                })
+            }
+            
 
         },
         async mostrarTeachers() {

@@ -38,7 +38,7 @@
                             {{value.nombre}}
                             </td>
                             <td>
-                                {{ value.updated_at.substr(11)}}
+                                {{  value.updated_at.substr(11 )}}
                             </td>
                         </tr>
                     </tbody>
@@ -134,7 +134,7 @@ export default {
                     const { teacher,alumno } = response.data;
                     this.teacher=teacher
                     this.alumno=alumno
-                    console.log(response)
+                   
 
                 })
                 .catch(error => {
@@ -160,6 +160,7 @@ export default {
                     const { teacher,alumno } = response.data;
                     this.teacher=teacher
                     this.alumno=alumno
+                 
 
                 })
                 .catch(error => {

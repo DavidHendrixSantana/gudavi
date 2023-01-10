@@ -455,6 +455,21 @@ try {
 
     }
 
+    public function editarPago($id,$cantidad){
+        $sesion = Sesion::find(1);
+
+    try {
+        $history= History::where('id', $id)->update([
+            'cantidad' => $cantidad,
+        ]);
+        return $history;
+
+        
+    } catch (\Throwable $th) {
+            return $th;
+    }
+    }
+
     
     
 }

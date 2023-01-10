@@ -10,5 +10,6 @@ class History extends Model
     use HasFactory;
     protected $table = 'pays_history';
     protected $guarded = [];
+    protected $fillable= ['cantidad'];
 
 }

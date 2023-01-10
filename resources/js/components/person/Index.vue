@@ -244,6 +244,8 @@ export default {
    
 
             window.open(`credencial/${id}`)
+            window.open(`credencial/${id}`)
+            window.open(`credencial/${id}`)
 
 
 

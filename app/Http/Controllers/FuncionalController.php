@@ -22,11 +22,24 @@ use App\Models\MonthAsi;
 use App\Models\ClasseMuestra;
 use Illuminate\Support\Facades\DB;
 use \stdClass;
+use App\Models\Sesion;
 
 
 
 class FuncionalController extends Controller
 {
+
+    public function EliminarClaseMuestra($id){
+        $sesion = Sesion::find(1);
+        $pendiente = Class_pend::where('class_id',$id)->first();
+         $pendiente->forceDelete();
+        Log::create([
+            'Log' => 'Clase pendiente eliminada', 
+            'usuario' => $sesion->usuario,
+        ]);
+        return response('Eliminado correctamente');
+        
+    }
     
     public function listado_month(){
         $months= Month::all();
@@ -323,43 +336,48 @@ class FuncionalController extends Controller
     }
 
     public function cambioClasePend(Request $request){
-        $pend_id= $request['pend_id'];
-        $first_id= $request['first_id'];
-        $teacher_id= $request['teacher_id'];
-        $day_id= $request['day_id'];
-        $clase_id= $request['clase_id'];
-        $person_id= $request['person_id'];
-        $week_id= $request['semana_id'];
-        $motivo= $request['motivo'];
-
-
-        $pendiente = Class_pend::find($pend_id);
-        $pendiente->delete();
-
-        $classe_original=  Day_clase::find($first_id);
-        
-       
-
-        $clase = Day_clase::create([
-                'day_teacher_id' => $day_id,
-                'class_id' =>  $clase_id,
-                'person_id' => $classe_original->person_id,
-                'status' => 7,
-                'week_id' => $week_id,
-                'motivo' => $motivo,
-                
-
-        
-            ]);
-        
-
-     return response()->json([
-          
-            'clase' => $pendiente ,
-        
-          
-        ]) ;
-        
+        try {
+            $pend_id= $request['pend_id'];
+            $first_id= $request['first_id'];
+            $teacher_id= $request['teacher_id'];
+            $day_id= $request['day_id'];
+            $clase_id= $request['clase_id'];
+            $person_id= $request['person_id'];
+            $week_id= $request['semana_id'];
+            $motivo= $request['motivo'];
+    
+    
+            $pendiente = Class_pend::find($pend_id);
+            $pendiente->delete();
+    
+            $classe_original=  Day_clase::find($first_id);
+            
+           
+    
+            $clase = Day_clase::create([
+                    'day_teacher_id' => $day_id,
+                    'class_id' =>  $clase_id,
+                    'person_id' => $classe_original->person_id,
+                    'status' => 7,
+                    'week_id' => $week_id,
+                    'motivo' => $motivo,
+                    
+    
+            
+                ]);
+            
+    
+         return response()->json([
+              
+                'clase' => $pendiente ,
+            
+              
+            ]) ;
+            
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+    
 
     }
 
@@ -486,10 +504,20 @@ class FuncionalController extends Controller
                 $asistencia = AsistenciaT::where('teacher_id', $teacher->id)->update([
                     'asistencia' => 1
                 ]);
-                $verify =  MonthAsi::all();
-                $arrayMonth = [];
+                $hoy = date("d"); 
+
+                $asistToday = true;
+                $teacherAsist =  MonthAsi::where('teacher_id', $teacher->id)->get();
+
+                foreach ($teacherAsist as $value) {
+                    if($value->day == $hoy){
+                        $asistToday = false;
+                    }
+                }
+                
+
                 $day = [];
-                if(count($verify) == 0){
+                if($asistToday){
                     $hoy = date("d"); 
                     $hora = date("H:i:s"); 
                     $day['dia'] = $hoy;
@@ -500,15 +528,8 @@ class FuncionalController extends Controller
                         'teacher_id' => $teacher->id,
                     ]);
                 }else{
-                    $hoy = date("d"); 
-                    $hora = date("H:i:s"); 
-                    $day['dia'] = $hoy;
-                    $day['hora'] = $hora;
-                    MonthAsi::create([
-                        'day' => $hoy ,
-                        'hour' => $hora,
-                        'teacher_id' => $teacher->id,
-                    ]);
+                    return response('Ya registrada');
+                 
                 }
                 DB::commit();   
                 return response()->json([
@@ -786,6 +807,8 @@ class FuncionalController extends Controller
                             )->update([
                                     'total_classes' => $number,
                             ]);
+
+                            // Aqui va el cambio a las clases procentuales
                         }elseif ($asistencia == 1 && $valorAsistencia == 0) {
                             $pay_teacher = Teacher_pay::where('teacher_id', $t_id)->first();
                             $number = $pay_teacher->porcentuales  + 1;
@@ -1123,17 +1146,23 @@ class FuncionalController extends Controller
         public function verificarListas(){
             // $AsistenciaT =AsistenciaT::all();
 
-            $AsistenciaT = DB::select('select at.teacher_id,t.nombre ,at.created_at from asistencia_teacher as at
+            try {
+                
+            $AsistenciaT = DB::select('select at.teacher_id,t.nombre ,at.updated_at from asistencia_teacher as at
             inner JOIN teachers as t on at.teacher_id = t.id where at.asistencia = 1' );
 
             
-            $AsistenciaA = DB::select('select st.alumno_id,p.nombre, st.created_at from studentasis as st
+            $AsistenciaA = DB::select('select st.alumno_id,p.nombre, st.updated_at from studentasis as st
             inner join persons as p on p.id = st.alumno_id where st.status = 1');
 
             return response()->json([
                 'teacher' => $AsistenciaT,
                 'alumno' => $AsistenciaA,
             ]);
+            } catch (\Throwable $th) {
+                     return $th;
+            }
+
 
         }
 

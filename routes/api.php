@@ -32,9 +32,15 @@ Route::get('listado/{teacher}/{week}/{turno}', [FuncionalController::class, 'lis
 Route::get('meses', [FuncionalController::class, 'listado_month'])->name('meses');
 Route::get('semanas/{month_id}', [FuncionalController::class, 'listado_week'])->name('semanas');
 Route::get('listado_teacher/{teacher}/{week}/{month}/{first}/{last}/{turno}', [FuncionalController::class, 'listado_teacher'])->name('listado_teacher');
+
 Route::get('pago/{id}', [PersonController::class, 'consult_pay'])->name('consult_pay');
+
+Route::get('editarPago/{id}/{cantidad}', [PersonController::class, 'editarPago'])->name('editarPago');
+
+
 Route::get('realizarPago/{id}/{forma}/{tarjeta}/{cantidad}', [PersonController::class, 'save_pay'])->name('realizarPago');
 Route::get('reembolso/{id}', [PersonController::class, 'reembolso'])->name('reembolso');
+Route::post('eliminarClaseMuestra/{id}', [FuncionalController::class, 'EliminarClaseMuestra'])->name('EliminarClaseMuestra');
 
 Route::get('verificarListas', [FuncionalController::class, 'verificarListas'])->name('verificarListas');
 

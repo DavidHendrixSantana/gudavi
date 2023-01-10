@@ -27,7 +27,8 @@
                         <router-link exact-active-class="active" to="/teachers" class="nav-link">Profesores</router-link>
                     </li>  
                         <li class="nav-item">
-                        <router-link exact-active-class="active" to="/pays" class="nav-link">Pagos</router-link>
+                        <router-link exact-active-class="active" to
+                        ="/pays" class="nav-link">Pagos</router-link>
                     </li>    
                       
                         <li class="nav-item">
