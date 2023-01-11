@@ -37,7 +37,7 @@
                             {{value.nombre}}
                             </td>
                             <td>
-                                {{ value.created_at.substr(11)}}
+                                {{ value.updated_at.substr(11)}}
                             </td>
                         </tr>
                     </tbody>
@@ -88,9 +88,7 @@ export default {
                     const { teacher,alumno } = response.data;
                     this.teacher=teacher
                     this.alumno=alumno
-                    teacher.forEach(element => {
-                        console.log(element)
-                    });
+                  
                     
 
                 })

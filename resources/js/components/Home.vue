@@ -1,50 +1,7 @@
 <template>
     <div class="container">
         <br><br>
-        <div class="row">
-            <div class="col-6">
-                <h3>Pase de Lista profesores</h3>
-                <table class="table">
-                    <thead>
-                        <th>Pase de lista</th>
-                        <th>Hora de llegada</th>
-                    
-                    </thead>
-                    <tbody>
-                        <tr v-for="value in teacher" :key="value.index">
-                            <td>
-                            {{value.nombre}}
-                            </td>
-                            <td>
-                                {{ value.updated_at.substr(11)}}
-                            </td>
-                        </tr>
-
-                    </tbody>
-                </table>
-            </div>
-            <div class="col-6">
-                <h3>Pase de Lista Alumnos</h3>
-
-                <table class="table">
-                    <thead>
-                        <th>Pase de lista</th>
-                        <th>Hora de llegada</th>
-                    
-                    </thead>
-                    <tbody>
-                  <tr v-for="value in alumno" :key="value.index">
-                            <td>
-                            {{value.nombre}}
-                            </td>
-                            <td>
-                                {{  value.updated_at.substr(11 )}}
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+        
 
 
 
@@ -127,18 +84,7 @@ export default {
                     console.log(error);
                 });
 
-                this.axios
-                .get(`/api/verificarListas`)
-                .then(response => {
-                    const { teacher,alumno } = response.data;
-                    this.teacher=teacher
-                    this.alumno=alumno
-                   
-
-                })
-                .catch(error => {
-                    console.log(error);
-                });
+            
        },
 
         async mostrarDatos() {
@@ -152,14 +98,7 @@ export default {
                     console.log(error);
                 });
         },
-        async verifyLista() {
-            await this.axios
-                .get(`/api/verificarListas`)
-                .then(response => {
-                    const { teacher,alumno } = response.data;
-                    this.teacher=teacher
-                    this.alumno=alumno
-                 
+     
 
   }
 }

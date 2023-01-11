@@ -53,9 +53,8 @@ class PersonController extends Controller
     public function store(Request $request)
     {
         
-        DB::beginTransaction();
-try {
-    DB::commit();
+        try {
+    DB::beginTransaction();
     $numero_clases=$request['clases_semanales'];
         $teacher_id=$request['teacher_id'];
 
@@ -175,10 +174,8 @@ try {
             'usuario' => $sesion->usuario,
         ]);
         
-
-                return response()->json([
-                    'Person' => $Person,
-                ]);
+        DB::commit();
+            return response('Guardado exitoso');
         } catch (\Throwable $th) {
             DB::rollback();
             return abort(500, $th);

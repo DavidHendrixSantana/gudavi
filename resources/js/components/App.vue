@@ -255,9 +255,10 @@ export default {
                 }
               await this.axios.get(`verifyDay/${hoy}`)
            .then(response => {
+           
                  
            }).catch(error => {
-                    console.log(error);
+                    
                 });              
 
      
