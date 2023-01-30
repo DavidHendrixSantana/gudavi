@@ -571,43 +571,56 @@ class FuncionalController extends Controller
                and dc.person_id =?
                and d.id= ?
                GROUP BY dt.teacher_id ' , [$actual_week, $persona->id, $day]);
-              
 
-               $day_teacher = $day_teacher[0]->teacher_id;
-               
-               $day = Days_teachers::where('teacher_id',$day_teacher)->where('day_id',$day)->first();
-        
+
+
+              
+            foreach ($day_teacher as $teacherValue) {
+                
+                $day_teacher = $teacherValue->teacher_id;
+
+                $day = Days_teachers::where('teacher_id',$day_teacher)->where('day_id',$day)->first();
                 $day_clase = Day_clase::where('day_teacher_id', $day->id)->where('person_id', $persona->id)->where('week_id', $actual_week)->first();
                $validador= $day_clase->asistencia;
                $day_claseUpdate = Day_clase::where('day_teacher_id', $day->id)->where('person_id', $persona->id)->where('week_id', $actual_week)->update([
                    'asistencia' => 1,
                    'status' => 8,
                ]);
-
+               
                $asistencia = AsistenciaT::where('teacher_id', $day_teacher)->first();
-                if ($asistencia->asistencia == 1) {
 
-                    if($validador == 0){
-                        $pay_teacher = Teacher_pay::where('teacher_id', $day_teacher)->first();
-                        $number = $pay_teacher->total_classes  + 1;
-                        $update_pay=  Teacher_pay::where('teacher_id', $day_teacher)->update([
-                                'total_classes' => $number,
-                        ]);
-                        AsisEst::create([
-                            'alumno_id' => $persona->id,
-                        ]);
-                     DB::commit();
-                     return response()->json([
-                        'Asistencia' =>"Alumno"
-                    ]);   
-          
-                    }else{
-                        return  response()->json([
-                            'Asistencia' => 'Ya registrada'
+               
+               if ($asistencia->asistencia == 1) {
 
-                        ]  );
-                    }
-                }                      
+                if($validador == 0){
+                    $pay_teacher = Teacher_pay::where('teacher_id', $day_teacher)->first();
+                    $number = $pay_teacher->total_classes  + $day_claseUpdate;
+                    $update_pay=  Teacher_pay::where('teacher_id', $day_teacher)->update([
+                            'total_classes' => $number,
+                    ]);
+                    AsisEst::create([
+                        'alumno_id' => $persona->id,
+                    ]);
+                 DB::commit();
+
+      
+                }else{
+                    return  response()->json([
+                        'Asistencia' => 'Ya registrada'
+
+                    ]  );
+                }
+            }                      
+
+            }
+            return response()->json([
+                'Asistencia' =>"Alumno"
+            ]);   
+               
+ 
+
+                
+
 
             }
            
@@ -624,7 +637,7 @@ class FuncionalController extends Controller
           }
 
 
-       return $asistencia;
+    //   return $asistencia;
 
     }
 

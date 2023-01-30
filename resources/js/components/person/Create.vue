@@ -237,7 +237,7 @@
                                     <div class="form-group">
                                         <label>Monto a pagar.</label>
                                         <input
-                                            type="text"
+                                            type="number"
                                             class="form-control"
                                             v-model="person.clases_precio"
                                             
@@ -641,10 +641,10 @@ export default {
                 clases_semanales: "1",
                 telefono_emergencia: "",
                 mesesPagados: '1',
-                fecha_inicio: "2022-11-01",
+                fecha_inicio: "2023-01-03",
                 enfermedad: "",
                 nivel: "Mayor2",
-                clases_precio: "",
+                clases_precio: 0.0,
                 teacher_id_1: "",
                 teacher_id_2: "",
                 teacher_id_3: "",
@@ -680,6 +680,9 @@ export default {
     },
     mounted() {
         this.mostrarTeachers();
+        const d = new Date()
+        this.fecha_inicio =  '0' +  d.getDay() + '-' + '0'+(d.getMonth()+1) + '-'  +d.getFullYear()  
+        console.log(this.fecha_inicio)
     },
     methods: {
         async mostrarTeachers() {
@@ -867,6 +870,7 @@ export default {
         },
 
         clase_precio() {
+            
             var dias = this.person.clases_semanales;
             var meses =this.person.mesesPagados
 

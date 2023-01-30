@@ -59,7 +59,7 @@ class PersonController extends Controller
         $teacher_id=$request['teacher_id'];
 
 
-        $pers = Person::orderBy('id', 'desc')->first();
+        $pers = Person::orderBy('id', 'desc')->withTrashed()->first();
         if($pers){
             $last_person = $pers->id + 1;
 
