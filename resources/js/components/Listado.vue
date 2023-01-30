@@ -7,27 +7,41 @@
     
     <div class="row ml-3 " >
         <div class="col-3" style="background-color:#FFFFFF">
-            <!-- <button  @click="modal_clase_muestra()"  class="btn btn-primary btn-lg form-control m-2">Clase Muestra</button> -->
-            <button  @click="showPaseModal()"  class="btn btn-primary btn-lg form-control m-2">Clase Muestra</button>
+            <button  @click="modal_clase_muestra()"  class="btn btn-primary btn-lg form-control m-2">Clase Muestra</button>
+            <!-- <button  @click="showPaseModal()"  class="btn btn-primary btn-lg form-control m-2">Clase Muestra</button> -->
         </div>
         <div class="col-3" style="background-color:#FFFFFF">
     
-                 <button type="button"  class="btn btn-primary btn-lg active form-control m-2" data-bs-toggle="button" v-on:click="asignarMes(1)" >Mes de: {{month_description}}</button>
+                 <!-- <button type="button"  class="btn btn-primary btn-lg active form-control m-2" data-bs-toggle="button" v-on:click="asignarMes(1)" >Mes de: {{month_description}}</button> -->
     
         </div>
         <div class="col-3" style="background-color:#FFFFFF">
-                <button type="button"  class="btn btn-primary btn-lg form-control m-2" data-bs-toggle="button" v-on:click="asignarMes(2)" >Mes de: {{month_description2}}</button>
+                <!-- <button type="button"  class="btn btn-primary btn-lg form-control m-2" data-bs-toggle="button" v-on:click="asignarMes(2)" >Mes de: {{month_description2}}</button> -->
         </div>
     </div>
     
     <div class="row ml-3 " >
         <div class="col-3" style="background-color:#FFFFFF">
-            <button type="button"  class="btn btn-primary btn-lg form-control m-2" data-bs-toggle="button" v-on:click=" cargar_horario('M')" >Matutino</button>
+
+          <label for="" class="font-weight-bold" >Mes de:</label>
+
+        <select name="" @change="asignarMes($event)" style="width:100%;" class="form-control">
+                <option value="1"> {{month_description}}</option>
+                <option value="2"> {{month_description2}}</option>
+            </select>
+
+            <!-- <button type="button"  class="btn btn-primary btn-lg form-control m-2" data-bs-toggle="button" v-on:click=" cargar_horario('M')" >Matutino</button> -->
     
         </div>
         <div class="col-3" style="background-color:#FFFFFF">
+                      <label for="" class="font-weight-bold" >Turno:</label>
+
+        <select name="" @change="cargar_horario($event)" style="width:100%;" class="form-control">
+                <option value="V"> Vespertino</option>
+                <option value="M">Matutino </option>
+            </select>
     
-            <button type="button"  class="btn btn-primary btn-lg form-control m-2" data-bs-toggle="button" v-on:click=" cargar_horario('V')" >Vespertino</button>
+            <!-- <button type="button"  class="btn btn-primary btn-lg form-control m-2" data-bs-toggle="button" v-on:click=" cargar_horario('V')" >Vespertino</button> -->
         </div>
         <div class="col-3" style="background-color:#FFFFFF">
     </div>
@@ -889,17 +903,18 @@
     
     
             },
-            asignarMes(month_id){
-            this.month_id = month_id
-              if(this.month_id === 2){
+            asignarMes(event){
+            this.month_id = event.target.value
+              if(this.month_id == 2){
                 this.week_id = 6
               }
-              if(this.month_id === 1){
+              if(this.month_id == 1){
                 this.week_id = 1
               }
+        
     
             this.cargar_clases(this.week_id,this.month_id, this.first_day, this.last_day,this.turno);
-            this.mostrarSemanas(month_id)
+            this.mostrarSemanas(event.target.value)
             },
     
             async mostrarMeses() {
@@ -1007,8 +1022,9 @@
                         console.log(error);
                     });
             },
-            cargar_horario(horario){
-                this.turno = horario
+            cargar_horario(event){
+                
+                this.turno = event.target.value
              this.cargar_clases(this.week_id, this.month_id, this.first_day, this.last_day, this.turno);
     
     

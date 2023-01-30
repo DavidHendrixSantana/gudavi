@@ -209,6 +209,7 @@ class FuncionalController extends Controller
 
 
     public function listado_teacher($id, $week, $month_id, $first, $last, $turno){
+        // return ($week);
 
       
         $last_teacher=  $id;
@@ -250,6 +251,7 @@ class FuncionalController extends Controller
                }else if($turno  == "V"){
                  $Classes_general = DB::select('select Clase, valor from classes  where valor > 12.5');
                }
+
 
             $Classes_grupales = DB::select('select days_classes.id as clase_id, classes.id, persons.id as id_person ,persons.nombre ,classes.Clase, days_classes.status from classes  inner join days_classes on classes.id = days_classes.class_id INNER JOIN persons ON days_classes.person_id =persons.id inner join week on week.id = days_classes.week_id   WHERE days_classes.day_teacher_id =?  and days_classes.week_id =? and  week.month_id =? and days_classes.grupal = 1', [$id_day, $week, $month_id]);
 

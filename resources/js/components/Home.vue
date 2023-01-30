@@ -10,7 +10,7 @@
         <br><br>
 
         <div>
-            <span style="font-size:23px ">Quincenal -</span>     <router-link to="/QuincenalPersons" target="_blank" type="button" class="btn btn-success">Generar Reporte</router-link>
+            <span style="font-size:23px ">Quincenal -</span>     <button @click="generarReporte" type="button" class="btn btn-success">Generar Reporte</button>
             <span style="font-size:23px ">Asistencias Mensual -</span>     <router-link to="/AsistenciasT" target="_blank" type="button" class="btn btn-success">Ver asistencias</router-link>
             <span style="font-size:23px ">Imprimir Credenciales -</span>     <router-link to="/printAll" target="_blank" type="button" class="btn btn-success">Imprimir Credenciales</router-link>
 
@@ -71,6 +71,17 @@ export default {
     },
 
   methods :{
+
+    generarReporte(){
+        var currentLocation = window.location.host;
+        if(confirm('Está seguro de generar el reporte quincenal? Esto generara el corte de los pagos.')){
+        const win = window.open(`QuincenalPersons`, '_blank');
+        const win2 = window.open(`QuincenalPersons`, '_blank');
+            // window.open(`credencial/${id}`)
+
+
+        }
+    },
 
       takeMinutes: function(){
              this.axios
