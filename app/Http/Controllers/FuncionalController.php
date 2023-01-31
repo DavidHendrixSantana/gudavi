@@ -547,7 +547,7 @@ class FuncionalController extends Controller
 
                 date_default_timezone_set('America/Mexico_City');
                 $dia_actual = date("j");
-                $day = date("N");
+                $actual_day = date("N");
         
         
                 //Calcular los días pasados del ultimo mes con el actual
@@ -572,17 +572,18 @@ class FuncionalController extends Controller
                WHERE dc.week_id=? 
                and dc.person_id =?
                and d.id= ?
-               GROUP BY dt.teacher_id ' , [$actual_week, $persona->id, $day]);
+               GROUP BY dt.teacher_id ' , [$actual_week, $persona->id, $actual_day]);
 
 
-
-              
+            $valor =0;
             foreach ($day_teacher as $teacherValue) {
                 
                 $day_teacher = $teacherValue->teacher_id;
 
-                $day = Days_teachers::where('teacher_id',$day_teacher)->where('day_id',$day)->first();
+                $day = Days_teachers::where('teacher_id',$day_teacher)->where('day_id',$actual_day)->first();
+
                 $day_clase = Day_clase::where('day_teacher_id', $day->id)->where('person_id', $persona->id)->where('week_id', $actual_week)->first();
+
                $validador= $day_clase->asistencia;
                $day_claseUpdate = Day_clase::where('day_teacher_id', $day->id)->where('person_id', $persona->id)->where('week_id', $actual_week)->update([
                    'asistencia' => 1,
@@ -591,41 +592,37 @@ class FuncionalController extends Controller
                
                $asistencia = AsistenciaT::where('teacher_id', $day_teacher)->first();
 
-               
+               $valor++;
                if ($asistencia->asistencia == 1) {
 
-                if($validador == 0){
-                    $pay_teacher = Teacher_pay::where('teacher_id', $day_teacher)->first();
-                    $number = $pay_teacher->total_classes  + $day_claseUpdate;
-                    $update_pay=  Teacher_pay::where('teacher_id', $day_teacher)->update([
-                            'total_classes' => $number,
-                    ]);
-                    AsisEst::create([
-                        'alumno_id' => $persona->id,
-                    ]);
-                 DB::commit();
+                        if($validador == 0){
+                            $pay_teacher = Teacher_pay::where('teacher_id', $day_teacher)->first();
+                            $number = $pay_teacher->total_classes  + $day_claseUpdate;
+                            $update_pay=  Teacher_pay::where('teacher_id', $day_teacher)->update([
+                                    'total_classes' => $number,
+                            ]);
+                            AsisEst::create([
+                                'alumno_id' => $persona->id,
+                                'status' => 1,
+                            ]);
 
-      
-                }else{
-                    return  response()->json([
-                        'Asistencia' => 'Ya registrada'
+            
+                        }else{
+                            return  response()->json([
+                                'Asistencia' => 'Ya registrada'
 
-                    ]  );
-                }
-            }                      
+                            ]  );
+                        }
+                }                      
 
             }
-            return response()->json([
-                'Asistencia' =>"Alumno"
-            ]);   
-               
- 
-
+                DB::commit();
+                return response()->json([
+                    'Asistencia' =>"Alumno"
+                ]);   
                 
-
-
             }
-           
+      
             return response()->json([
                 'Asistencia'=>'Sin coindicencias'
             ]);
