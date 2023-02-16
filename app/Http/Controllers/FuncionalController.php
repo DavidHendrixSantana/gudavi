@@ -521,7 +521,7 @@ class FuncionalController extends Controller
                     }
                 }
                 
-
+         
                 $day = [];
                 if($asistToday){
                     $hoy = date("d"); 
@@ -533,15 +533,16 @@ class FuncionalController extends Controller
                         'hour' => $hora,
                         'teacher_id' => $teacher->id,
                     ]);
+                    DB::commit();   
+                    return response()->json([
+                        'Asistencia' => 'MAESTRO: ' . $teacher->nombre
+                    ]); 
+    
                 }else{
                     return response('Ya registrada');
                  
                 }
-                DB::commit();   
-                return response()->json([
-                    'Asistencia' => 'Teacher'
-                ]); 
-
+           
                 #ASISTENCIA DE PERSONA
             }else if($person){
 
@@ -592,7 +593,7 @@ class FuncionalController extends Controller
                $asistencia = AsistenciaT::where('teacher_id', $day_teacher)->first();
 
                
-               if ($asistencia->asistencia == 1) {
+            if ($asistencia->asistencia == 1) {
 
                 if($validador == 0){
                     $pay_teacher = Teacher_pay::where('teacher_id', $day_teacher)->first();
@@ -602,39 +603,38 @@ class FuncionalController extends Controller
                     ]);
                     AsisEst::create([
                         'alumno_id' => $persona->id,
+                        'status' => 1
                     ]);
-                 DB::commit();
 
       
                 }else{
                     return  response()->json([
-                        'Asistencia' => 'Ya registrada'
+                        'Asistencia' => 'Ya registrada',
 
                     ]  );
                 }
+            }else{
+                return  response('Falta la asistencia del profesor');
             }                      
 
             }
+            DB::commit();
             return response()->json([
-                'Asistencia' =>"Alumno"
+                'Asistencia' =>"Pase de lista de  Alumno: " . $persona->nombre,
             ]);   
-               
- 
-
-                
 
 
             }
            
             return response()->json([
-                'Asistencia'=>'Sin coindicencias'
+                'Asistencia'=>'Sin coindicencias',
             ]);
     
            } catch (\Throwable $th) {
                 DB::rollback();
                 return response()->json([
                     'Asistencia'=>'Sin coindicencias',
-                    'error' => $th
+                    'error' => $th,
                 ]);
           }
 
