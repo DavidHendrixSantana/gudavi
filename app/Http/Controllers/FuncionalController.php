@@ -593,7 +593,6 @@ class FuncionalController extends Controller
                
                $asistencia = AsistenciaT::where('teacher_id', $day_teacher)->first();
 
-<<<<<<< HEAD
                
             if ($asistencia->asistencia == 1) {
 
@@ -626,37 +625,6 @@ class FuncionalController extends Controller
             ]);   
 
 
-=======
-               $valor++;
-               if ($asistencia->asistencia == 1) {
-
-                        if($validador == 0){
-                            $pay_teacher = Teacher_pay::where('teacher_id', $day_teacher)->first();
-                            $number = $pay_teacher->total_classes  + $day_claseUpdate;
-                            $update_pay=  Teacher_pay::where('teacher_id', $day_teacher)->update([
-                                    'total_classes' => $number,
-                            ]);
-                            AsisEst::create([
-                                'alumno_id' => $persona->id,
-                                'status' => 1,
-                            ]);
-
-            
-                        }else{
-                            return  response()->json([
-                                'Asistencia' => 'Ya registrada'
-
-                            ]  );
-                        }
-                }                      
-
-            }
-                DB::commit();
-                return response()->json([
-                    'Asistencia' =>"Alumno"
-                ]);   
-                
->>>>>>> b58aa6cf57d09018944d4f8319e2c472c31d7ada
             }
       
             return response()->json([
