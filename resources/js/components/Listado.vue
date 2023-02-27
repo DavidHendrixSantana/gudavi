@@ -1157,7 +1157,8 @@
     
               })
                 .catch(error => {
-                    console.log(error);
+                     this.cargar_clases(this.week_id,this.month_id, this.first_day, this.last_day,this.turno);
+                        this.showModal = false
                 });
             },
     

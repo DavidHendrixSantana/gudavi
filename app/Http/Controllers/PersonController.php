@@ -26,7 +26,7 @@ class PersonController extends Controller
      */
     public function index()
     {
-        $Persons = Person::all();
+        $Persons = Person::where('matricula', '!=','')->get();
        
         return response()->json($Persons);
     }
@@ -347,20 +347,13 @@ class PersonController extends Controller
 
 
         foreach ($classes as $clase ) {
+             Class_pend::where('class_id', $clase->id)->delete();
             Day_clase::destroy($clase->id);
-
-            Class_pend::where('id', $clase->id)->delete();
         }
-
-
         $Person->delete();
 
-   
 
-        return response()->json([
-
-            'mensaje' =>'Eliminado'
-        ]);
+        return response('Eliminado');
 
     }
 
