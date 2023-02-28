@@ -767,7 +767,7 @@
             this.mostrarSemanas(1);
             var dat = new Date()
             dat = dat.getDate()
-            this.week_id = parseInt(dat/7) + 1
+            this.week_id = parseInt(dat/7)
             this.mostrarDatos(2,this.week_id,'V');
             this.lastTeacher()
             this.mostrarmes()
@@ -988,8 +988,7 @@
                 const week = event.target.value
                 console.log(week)
                 var teacher = this.teacher_id
-    
-    
+
              
                 for (let index = 0; index < this.weeks.length; index++) {
                     var verify = this.weeks[index].id

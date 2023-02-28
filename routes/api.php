@@ -24,7 +24,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-Route::get('login/{email}/{pass}', [LoginController::class, 'login'])->name('login');
+Route::get('login/{email}/{pass}', [LoginController::class, 'login'])->name('login2');
 
 
 
@@ -43,6 +43,7 @@ Route::get('reembolso/{id}', [PersonController::class, 'reembolso'])->name('reem
 Route::post('eliminarClaseMuestra/{id}', [FuncionalController::class, 'EliminarClaseMuestra'])->name('EliminarClaseMuestra');
 
 Route::get('verificarListas', [FuncionalController::class, 'verificarListas'])->name('verificarListas');
+Route::get('generarCorteMes', [FuncionalController::class, 'generarCorteMes'])->name('generarCorteMes');
 
 
 
@@ -72,4 +73,4 @@ Route::resource('person', App\Http\Controllers\PersonController::class)->only(['
 Route::resource('teacher', App\Http\Controllers\TeacherController::class)->only(['index','create','store','show','update','destroy']);;
 
 
-Route::get('paseListaT/{matricula}', [FuncionalController::class, 'paseListaTeacher'])->name('paseListaTeacher');
+Route::get('paseListaT/{matricula}', [FuncionalController::class, 'paseListaTeacher'])->name('paseListaTeacher2');

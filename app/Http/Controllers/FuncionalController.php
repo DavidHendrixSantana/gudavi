@@ -882,11 +882,23 @@ class FuncionalController extends Controller
     }
 
     public function generarCorteMes(){
-        
+
+        //Generar respaldo de BD
+        $fecha = date("Ymd-His");
+        $db_host = env("DB_HOST");
+        $db_name = env("DB_DATABASE");
+        $db_user = env("DB_USERNAME");
+        $db_password = env("DB_PASSWORD");
+
+        $salida_sql= $db_name .'_' .$fecha . '.sql';
+        $dump = "G:\laragon\bin\mysql\mysql-8.0.30-winx64\bin\mysqldump -h$db_host -u$db_user -p$db_password --opt $db_name >$salida_sql";
+        system($dump, $output);
+        DB::table('asistencias_mensuales')->truncate();
+        DB::table('studentasis')->truncate();
+
         try {
             DB::beginTransaction();
             //limpieza del primer mes
-
             $delete = Day_clase::whereIn('status',[7,4])->where('week_id',1)->delete();
             $delete = Day_clase::whereIn('status',[7,4])->where('week_id',2)->delete();
             $delete = Day_clase::whereIn('status',[7,4])->where('week_id',3)->delete();
@@ -938,8 +950,17 @@ class FuncionalController extends Controller
                     'week_id' => 10
                 ]);
             
+                //borrando asistencias mensuales;
 
-            
+                // MonthAsi::truncate();
+                // AsisEst::truncate();
+                Teacher_pay::where('total_classes', '>','0')->update([
+                    'total_classes' => 0,
+                    'porcentuales' => 0,
+                ]);
+
+
+
     
         DB::commit();   
         return 'exito';

@@ -76,10 +76,17 @@ export default {
         var currentLocation = window.location.host;
         if(confirm('Está seguro de generar el reporte quincenal? Esto generara el corte de los pagos.')){
         const win = window.open(`QuincenalPersons`, '_blank');
-        const win2 = window.open(`QuincenalPersons`, '_blank');
+        const win2 = window.open(`AsistenciasT`, '_blank');
             // window.open(`credencial/${id}`)
 
-
+        this.axios
+            .get('/api/generarCorteMes')
+            .then(response=>{
+                alert('Se han actualizado los datos de los profesores y alumnos')
+                console.log(response)
+            }) .catch(error => {
+                    console.log(error);
+            });
         }
     },
 

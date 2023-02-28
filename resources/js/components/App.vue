@@ -249,10 +249,6 @@ export default {
            var hoy = today.getDate();
       
 
-                if(hoy === 15 || hoy === 30){
-                    
-            //    const win = window.open(`${currentLocation}:80/QuincenalPersons`, '_blank');
-                }
               await this.axios.get(`verifyDay/${hoy}`)
            .then(response => {
            
