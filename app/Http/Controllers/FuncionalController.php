@@ -56,12 +56,80 @@ class FuncionalController extends Controller
             ]);
         }
 
+
+        public function weeks_listado(){
+            
+            $first_day = 26;  //sustituir
+
+            $total_days= date('t');
+            $fecha_actual_formato = strtotime(date("d-m-Y"));
+            $days=0;
+          
+            //Formato para obtener los dias totales del mes anterior
+            $mesAnterior = date("d-m-Y", strtotime("-1 month", $fecha_actual_formato));
+            $dias_totales_mes_anterior = date('t', strtotime($mesAnterior));
+            
+ 
+        $month_id = 2; //sustituir
+
+        //Obtener para primer mes
+        if($month_id == 1){
+            $validacion_mes_anterior = true;
+            $weeks = Week::where('month_id', $month_id)->get();
+            foreach ($weeks as $wek => $value) {
+                $last_day = $first_day + 6 ;
+
+                //Valido el mes anterior para formatear los meses
+                if($last_day > $dias_totales_mes_anterior && $validacion_mes_anterior){
+                    $residuo = $last_day - $dias_totales_mes_anterior;
+                    $last_day = $residuo;
+                    $validacion_mes_anterior = false;
+                }
+
+                //Valido al mes siguiente
+                if($last_day > $total_days && !$validacion_mes_anterior){
+                    $residuo = $last_day - $total_days;
+                    $last_day = $residuo;
+
+                }
+                //Asigno los valores de las semanas
+                $value['description'] = $first_day . '-'. $last_day ;
+                $value['first_day'] = $first_day  ;
+                $value['last_day'] = $last_day ;
+                $first_day = $last_day + 1;
+                $last_day_month = $last_day;
+            
+            }
+
+        }else{
+            $last_day = $first_day + 30 ;
+            
+            //sumo 1 mes
+            $fecha_actual = strtotime(date("d-m-Y"));
+            $siguiente_mes = date("d-m-Y", strtotime("+1 month", $fecha_actual));
+            $total_days = date('t', strtotime($siguiente_mes));
+            $dias_totales_actual = date('t');
+            $last_day_month= date('t');
+
+            //Valido el mes anterior para formatear los meses
+            if($last_day > $dias_totales_actual){
+                $residuo = $last_day - $dias_totales_actual;
+                $last_day = $residuo;
+                
+            }
+            return $last_day;
+
+
+        }
+
+        return $weeks;
+
+        }
+
     public function listado_week($month_id){
         $weeks = Week::where('month_id', $month_id)->get();
         $contador = Contador::where('id', 1)->first();
-
         $contador->last_month_day + 1 > 31 ? $first_day = $contador->last_month_day + 1 : $first_day = $contador->last_month_day;
-    
         $last_day_month= 0;
         $last_month=true;
 

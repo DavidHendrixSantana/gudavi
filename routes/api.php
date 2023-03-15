@@ -31,6 +31,7 @@ Route::get('login/{email}/{pass}', [LoginController::class, 'login'])->name('log
 Route::get('listado/{teacher}/{week}/{turno}', [FuncionalController::class, 'listado_clases'])->name('listado_clases');
 Route::get('meses', [FuncionalController::class, 'listado_month'])->name('meses');
 Route::get('semanas/{month_id}', [FuncionalController::class, 'listado_week'])->name('semanas');
+Route::get('semanas', [FuncionalController::class, 'weeks_listado'])->name('weeks_listadola');
 Route::get('listado_teacher/{teacher}/{week}/{month}/{first}/{last}/{turno}', [FuncionalController::class, 'listado_teacher'])->name('listado_teacher');
 
 Route::get('pago/{id}', [PersonController::class, 'consult_pay'])->name('consult_pay');
